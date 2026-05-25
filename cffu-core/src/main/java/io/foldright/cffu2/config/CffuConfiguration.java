@@ -2,7 +2,6 @@ package io.foldright.cffu2.config;
 
 import io.foldright.cffu2.internal.CffuLogger;
 
-
 /**
  * Configuration for the cffu library, such as exception logging behavior.
  *
@@ -10,6 +9,7 @@ import io.foldright.cffu2.internal.CffuLogger;
  * @since 2.1.0
  */
 public final class CffuConfiguration {
+
     /**
      * Sets the exception logging format for cffu operations.
      * <p>
@@ -24,10 +24,14 @@ public final class CffuConfiguration {
      * @see <a href="https://peps.python.org/pep-0020/">Errors should never pass silently. Unless explicitly silenced.</a>
      */
     public static void setExceptionLoggingFormat(ExceptionLoggingFormat format) {
-        CffuLogger.setExceptionLoggingFormat(format);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    public enum ExceptionLoggingFormat {FULL, SHORT, NONE}
+    public enum ExceptionLoggingFormat {
 
-    private CffuConfiguration() {}
+        FULL, SHORT, NONE
+    }
+
+    private CffuConfiguration() {
+    }
 }

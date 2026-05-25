@@ -1,11 +1,8 @@
 package io.foldright.cffu2;
 
 import org.jetbrains.annotations.Contract;
-
 import java.util.concurrent.Future;
-
 import static java.util.Objects.requireNonNull;
-
 
 /**
  * This class is the same as {@link Future.State}, existed for java version compatibility.
@@ -16,13 +13,18 @@ import static java.util.Objects.requireNonNull;
  * @see Cffu#cffuState()
  */
 public enum CffuState {
+
     /**
      * The task has not completed.
      */
     RUNNING {
+
         @Override
-        public Future.State toFutureState() {return Future.State.RUNNING;}
-    },
+        public Future.State toFutureState() {
+            throw new UnsupportedOperationException("STUB: not implemented");
+        }
+    }
+    ,
     /**
      * The task completed with a result.
      *
@@ -31,9 +33,13 @@ public enum CffuState {
      * @see CompletableFutureUtils#resultNow(Future)
      */
     SUCCESS {
+
         @Override
-        public Future.State toFutureState() {return Future.State.SUCCESS;}
-    },
+        public Future.State toFutureState() {
+            throw new UnsupportedOperationException("STUB: not implemented");
+        }
+    }
+    ,
     /**
      * The task completed with an exception.
      *
@@ -42,9 +48,13 @@ public enum CffuState {
      * @see CompletableFutureUtils#exceptionNow(Future)
      */
     FAILED {
+
         @Override
-        public Future.State toFutureState() {return Future.State.FAILED;}
-    },
+        public Future.State toFutureState() {
+            throw new UnsupportedOperationException("STUB: not implemented");
+        }
+    }
+    ,
     /**
      * The task was cancelled.
      *
@@ -52,10 +62,12 @@ public enum CffuState {
      * @see Future#cancel(boolean)
      */
     CANCELLED {
-        @Override
-        public Future.State toFutureState() {return Future.State.CANCELLED;}
-    },
 
+        @Override
+        public Future.State toFutureState() {
+            throw new UnsupportedOperationException("STUB: not implemented");
+        }
+    }
     ;
 
     /**
@@ -73,16 +85,6 @@ public enum CffuState {
      */
     @Contract(pure = true)
     public static CffuState toCffuState(Future.State state) {
-        switch (requireNonNull(state, "state argument is null")) {
-            case RUNNING:
-                return CffuState.RUNNING;
-            case SUCCESS:
-                return CffuState.SUCCESS;
-            case FAILED:
-                return CffuState.FAILED;
-            case CANCELLED:
-                return CffuState.CANCELLED;
-        }
-        throw new IllegalStateException("unknown Future.State: " + state);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

@@ -3,7 +3,6 @@ package io.foldright.cffu2;
 import edu.umd.cs.findbugs.annotations.CheckReturnValue;
 import edu.umd.cs.findbugs.annotations.Nullable;
 import org.jetbrains.annotations.Contract;
-
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -13,10 +12,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
-
 import static io.foldright.cffu2.CompletableFutureUtils.*;
 import static io.foldright.cffu2.internal.CommonUtils.toArray;
-
 
 /**
  * This utility class provides {@link Iterable}-based variants (including {@link Collection}, {@link List}, etc.) of
@@ -34,70 +31,62 @@ import static io.foldright.cffu2.internal.CommonUtils.toArray;
  * @see CfTupleUtils
  */
 public final class CfIterableUtils {
+
     ////////////////////////////////////////////////////////////////////////////////
     // region# CF Factory Methods
     ////////////////////////////////////////////////////////////////////////////////
-
     ////////////////////////////////////////////////////////////
     // region## Multi-Actions(M*) Methods(create by actions)
     //
     //    - Iterable<Supplier<T>> -> CompletableFuture<List<T>>
     //    - Iterable<Runnable>    -> CompletableFuture<Void>
     ////////////////////////////////////////////////////////////
-
     /**
      * Iterable variant of {@link CompletableFutureUtils#mSupplyFailFastAsync(Supplier[])}.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `mRunAsyncAndForget`")
     public static <T> CompletableFuture<List<T>> mSupplyFailFastAsync(Iterable<? extends Supplier<? extends T>> suppliers) {
-        return CompletableFutureUtils.mSupplyFailFastAsync(toSupplierArray(suppliers));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
      * Iterable variant of {@link CompletableFutureUtils#mSupplyFailFastAsync(Executor, Supplier[])}.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `mRunAsyncAndForget`")
-    public static <T> CompletableFuture<List<T>> mSupplyFailFastAsync(
-            Iterable<? extends Supplier<? extends T>> suppliers, Executor executor) {
-        return CompletableFutureUtils.mSupplyFailFastAsync(executor, toSupplierArray(suppliers));
+    public static <T> CompletableFuture<List<T>> mSupplyFailFastAsync(Iterable<? extends Supplier<? extends T>> suppliers, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
      * Iterable variant of {@link CompletableFutureUtils#mSupplyAllSuccessAsync(Object, Supplier[])}.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `mRunAsyncAndForget`")
-    public static <T> CompletableFuture<List<T>> mSupplyAllSuccessAsync(
-            @Nullable T valueIfFailed, Iterable<? extends Supplier<? extends T>> suppliers) {
-        return CompletableFutureUtils.mSupplyAllSuccessAsync(valueIfFailed, toSupplierArray(suppliers));
+    public static <T> CompletableFuture<List<T>> mSupplyAllSuccessAsync(@Nullable T valueIfFailed, Iterable<? extends Supplier<? extends T>> suppliers) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
      * Iterable variant of {@link CompletableFutureUtils#mSupplyAllSuccessAsync(Executor, Object, Supplier[])}.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `mRunAsyncAndForget`")
-    public static <T> CompletableFuture<List<T>> mSupplyAllSuccessAsync(
-            @Nullable T valueIfFailed, Iterable<? extends Supplier<? extends T>> suppliers, Executor executor) {
-        return CompletableFutureUtils.mSupplyAllSuccessAsync(executor, valueIfFailed, toSupplierArray(suppliers));
+    public static <T> CompletableFuture<List<T>> mSupplyAllSuccessAsync(@Nullable T valueIfFailed, Iterable<? extends Supplier<? extends T>> suppliers, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
      * Iterable variant of {@link CompletableFutureUtils#mSupplyMostSuccessAsync(Object, long, TimeUnit, Supplier[])}.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `mRunAsyncAndForget`")
-    public static <T> CompletableFuture<List<T>> mSupplyMostSuccessAsync(
-            @Nullable T valueIfNotSuccess, long timeout, TimeUnit unit, Iterable<? extends Supplier<? extends T>> suppliers) {
-        return CompletableFutureUtils.mSupplyMostSuccessAsync(valueIfNotSuccess, timeout, unit, toSupplierArray(suppliers));
+    public static <T> CompletableFuture<List<T>> mSupplyMostSuccessAsync(@Nullable T valueIfNotSuccess, long timeout, TimeUnit unit, Iterable<? extends Supplier<? extends T>> suppliers) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
      * Iterable variant of {@link CompletableFutureUtils#mSupplyMostSuccessAsync(Executor, Object, long, TimeUnit, Supplier[])}.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `mRunAsyncAndForget`")
-    public static <T> CompletableFuture<List<T>> mSupplyMostSuccessAsync(
-            @Nullable T valueIfNotSuccess, long timeout, TimeUnit unit,
-            Iterable<? extends Supplier<? extends T>> suppliers, Executor executor) {
-        return CompletableFutureUtils.mSupplyMostSuccessAsync(
-                executor, valueIfNotSuccess, timeout, unit, toSupplierArray(suppliers));
+    public static <T> CompletableFuture<List<T>> mSupplyMostSuccessAsync(@Nullable T valueIfNotSuccess, long timeout, TimeUnit unit, Iterable<? extends Supplier<? extends T>> suppliers, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -105,16 +94,15 @@ public final class CfIterableUtils {
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `mRunAsyncAndForget`")
     public static <T> CompletableFuture<List<T>> mSupplyAsync(Iterable<? extends Supplier<? extends T>> suppliers) {
-        return CompletableFutureUtils.mSupplyAsync(toSupplierArray(suppliers));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
      * Iterable variant of {@link CompletableFutureUtils#mSupplyAsync(Executor, Supplier[])}.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `mRunAsyncAndForget`")
-    public static <T> CompletableFuture<List<T>> mSupplyAsync(
-            Iterable<? extends Supplier<? extends T>> suppliers, Executor executor) {
-        return CompletableFutureUtils.mSupplyAsync(executor, toSupplierArray(suppliers));
+    public static <T> CompletableFuture<List<T>> mSupplyAsync(Iterable<? extends Supplier<? extends T>> suppliers, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -122,7 +110,7 @@ public final class CfIterableUtils {
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `mRunAsyncAndForget`")
     public static <T> CompletableFuture<T> mSupplyAnySuccessAsync(Iterable<? extends Supplier<? extends T>> suppliers) {
-        return CompletableFutureUtils.mSupplyAnySuccessAsync(toSupplierArray(suppliers));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -130,7 +118,7 @@ public final class CfIterableUtils {
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `mRunAsyncAndForget`")
     public static <T> CompletableFuture<T> mSupplyAnySuccessAsync(Iterable<? extends Supplier<? extends T>> suppliers, Executor executor) {
-        return CompletableFutureUtils.mSupplyAnySuccessAsync(executor, toSupplierArray(suppliers));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -138,16 +126,15 @@ public final class CfIterableUtils {
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `mRunAsyncAndForget`")
     public static <T> CompletableFuture<T> mSupplyAnyAsync(Iterable<? extends Supplier<? extends T>> suppliers) {
-        return CompletableFutureUtils.mSupplyAnyAsync(toSupplierArray(suppliers));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
      * Iterable variant of {@link CompletableFutureUtils#mSupplyAnyAsync(Executor, Supplier[])}.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `mRunAsyncAndForget`")
-    public static <T> CompletableFuture<T> mSupplyAnyAsync(
-            Iterable<? extends Supplier<? extends T>> suppliers, Executor executor) {
-        return CompletableFutureUtils.mSupplyAnyAsync(executor, toSupplierArray(suppliers));
+    public static <T> CompletableFuture<T> mSupplyAnyAsync(Iterable<? extends Supplier<? extends T>> suppliers, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @SuppressWarnings("unchecked")
@@ -163,7 +150,7 @@ public final class CfIterableUtils {
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `mRunAsyncAndForget`")
     public static CompletableFuture<Void> mRunFailFastAsync(Iterable<? extends Runnable> actions) {
-        return CompletableFutureUtils.mRunFailFastAsync(toRunnableArray(actions));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -171,7 +158,7 @@ public final class CfIterableUtils {
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `mRunAsyncAndForget`")
     public static CompletableFuture<Void> mRunFailFastAsync(Iterable<? extends Runnable> actions, Executor executor) {
-        return CompletableFutureUtils.mRunFailFastAsync(executor, toRunnableArray(actions));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -179,7 +166,7 @@ public final class CfIterableUtils {
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `mRunAsyncAndForget`")
     public static CompletableFuture<Void> mRunAsync(Iterable<? extends Runnable> actions) {
-        return CompletableFutureUtils.mRunAsync(toRunnableArray(actions));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -187,7 +174,7 @@ public final class CfIterableUtils {
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `mRunAsyncAndForget`")
     public static CompletableFuture<Void> mRunAsync(Iterable<? extends Runnable> actions, Executor executor) {
-        return CompletableFutureUtils.mRunAsync(executor, toRunnableArray(actions));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -195,7 +182,7 @@ public final class CfIterableUtils {
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `mRunAsyncAndForget`")
     public static CompletableFuture<Void> mRunAnySuccessAsync(Iterable<? extends Runnable> actions) {
-        return CompletableFutureUtils.mRunAnySuccessAsync(toRunnableArray(actions));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -203,7 +190,7 @@ public final class CfIterableUtils {
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `mRunAsyncAndForget`")
     public static CompletableFuture<Void> mRunAnySuccessAsync(Iterable<? extends Runnable> actions, Executor executor) {
-        return CompletableFutureUtils.mRunAnySuccessAsync(executor, toRunnableArray(actions));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -211,7 +198,7 @@ public final class CfIterableUtils {
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `mRunAsyncAndForget`")
     public static CompletableFuture<Void> mRunAnyAsync(Iterable<? extends Runnable> actions) {
-        return CompletableFutureUtils.mRunAnyAsync(toRunnableArray(actions));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -219,7 +206,7 @@ public final class CfIterableUtils {
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `mRunAsyncAndForget`")
     public static CompletableFuture<Void> mRunAnyAsync(Iterable<? extends Runnable> actions, Executor executor) {
-        return CompletableFutureUtils.mRunAnyAsync(executor, toRunnableArray(actions));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -228,7 +215,7 @@ public final class CfIterableUtils {
      * @since 2.1.0
      */
     public static void mRunAsyncAndForget(Iterable<? extends Runnable> actions) {
-        CompletableFutureUtils.mRunAsyncAndForget(toRunnableArray(actions));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -236,7 +223,7 @@ public final class CfIterableUtils {
      * Iterable variant of {@link CompletableFutureUtils#mRunAsync(Executor, Runnable...)}.
      */
     public static void mRunAsyncAndForget(Iterable<? extends Runnable> actions, Executor executor) {
-        CompletableFutureUtils.mRunAsyncAndForget(executor, toRunnableArray(actions));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private static Runnable[] toRunnableArray(Iterable<? extends Runnable> actions) {
@@ -251,42 +238,36 @@ public final class CfIterableUtils {
     //
     //    Iterable<CompletionStage<T>> -> CompletableFuture<List<T>>
     ////////////////////////////////////////////////////////////
-
     /**
      * Iterable variant of {@link CompletableFutureUtils#allResultsFailFastOf(CompletionStage[])}.
      */
     @Contract(pure = true)
     public static <T> CompletableFuture<List<T>> allResultsFailFastOf(Iterable<? extends CompletionStage<? extends T>> cfs) {
-        return CompletableFutureUtils.allResultsFailFastOf(toStageArray(cfs));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
      * Iterable variant of {@link CompletableFutureUtils#allSuccessResultsOf(Object, CompletionStage[])}.
      */
     @Contract(pure = true)
-    public static <T> CompletableFuture<List<T>> allSuccessResultsOf(
-            @Nullable T valueIfFailed, Iterable<? extends CompletionStage<? extends T>> cfs) {
-        return CompletableFutureUtils.allSuccessResultsOf(valueIfFailed, toStageArray(cfs));
+    public static <T> CompletableFuture<List<T>> allSuccessResultsOf(@Nullable T valueIfFailed, Iterable<? extends CompletionStage<? extends T>> cfs) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
      * Iterable variant of {@link CompletableFutureUtils#mostSuccessResultsOf(Object, long, TimeUnit, CompletionStage[])}.
      */
     @Contract(pure = true)
-    public static <T> CompletableFuture<List<T>> mostSuccessResultsOf(
-            @Nullable T valueIfNotSuccess, long timeout, TimeUnit unit, Iterable<? extends CompletionStage<? extends T>> cfs) {
-        return CompletableFutureUtils.mostSuccessResultsOf(valueIfNotSuccess, timeout, unit, toStageArray(cfs));
+    public static <T> CompletableFuture<List<T>> mostSuccessResultsOf(@Nullable T valueIfNotSuccess, long timeout, TimeUnit unit, Iterable<? extends CompletionStage<? extends T>> cfs) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
      * Iterable variant of {@link CompletableFutureUtils#mostSuccessResultsOf(Executor, Object, long, TimeUnit, CompletionStage[])}.
      */
     @Contract(pure = true)
-    public static <T> CompletableFuture<List<T>> mostSuccessResultsOf(
-            @Nullable T valueIfNotSuccess, long timeout, TimeUnit unit,
-            Iterable<? extends CompletionStage<? extends T>> cfs, Executor executorWhenTimeout) {
-        return CompletableFutureUtils.mostSuccessResultsOf(
-                executorWhenTimeout, valueIfNotSuccess, timeout, unit, toStageArray(cfs));
+    public static <T> CompletableFuture<List<T>> mostSuccessResultsOf(@Nullable T valueIfNotSuccess, long timeout, TimeUnit unit, Iterable<? extends CompletionStage<? extends T>> cfs, Executor executorWhenTimeout) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -294,7 +275,7 @@ public final class CfIterableUtils {
      */
     @Contract(pure = true)
     public static <T> CompletableFuture<List<T>> allResultsOf(Iterable<? extends CompletionStage<? extends T>> cfs) {
-        return CompletableFutureUtils.allResultsOf(toStageArray(cfs));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -302,7 +283,7 @@ public final class CfIterableUtils {
      */
     @Contract(pure = true)
     public static CompletableFuture<Void> allFailFastOf(Iterable<? extends CompletionStage<?>> cfs) {
-        return CompletableFutureUtils.allFailFastOf(toStageArray(cfs));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -310,7 +291,7 @@ public final class CfIterableUtils {
      */
     @Contract(pure = true)
     public static CompletableFuture<Void> allOf(Iterable<? extends CompletionStage<?>> cfs) {
-        return CompletableFutureUtils.allOf(toStageArray(cfs));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @SuppressWarnings("unchecked")
@@ -327,13 +308,12 @@ public final class CfIterableUtils {
     //
     //    Iterable<CompletionStage<T>> -> CompletableFuture<T>
     ////////////////////////////////////////////////////////////
-
     /**
      * Iterable variant of {@link CompletableFutureUtils#anySuccessOf(CompletionStage[])}.
      */
     @Contract(pure = true)
     public static <T> CompletableFuture<T> anySuccessOf(Iterable<? extends CompletionStage<? extends T>> cfs) {
-        return CompletableFutureUtils.anySuccessOf(toStageArray(cfs));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -341,7 +321,7 @@ public final class CfIterableUtils {
      */
     @Contract(pure = true)
     public static <T> CompletableFuture<T> anyOf(Iterable<? extends CompletionStage<? extends T>> cfs) {
-        return CompletableFutureUtils.anyOf(toStageArray(cfs));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     // endregion
@@ -353,121 +333,104 @@ public final class CfIterableUtils {
     //    - thenMAccept*(Iterable<Consumer>: T -> Void)    -> CompletableFuture<Void>
     //    - thenMRun*   (Iterable<Runnable>: Void -> Void) -> CompletableFuture<Void>
     ////////////////////////////////////////////////////////////
-
     /**
      * Iterable variant of {@link CompletableFutureUtils#thenMApplyFailFastAsync(CompletableFuture, Function[])}.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMAcceptAsyncAndForget`")
-    public static <T, U> CompletableFuture<List<U>> thenMApplyFailFastAsync(
-            CompletableFuture<? extends T> cfThis, Iterable<? extends Function<? super T, ? extends U>> fns) {
-        return thenMApplyFailFastAsync(cfThis, fns, defaultExecutor(cfThis));
+    public static <T, U> CompletableFuture<List<U>> thenMApplyFailFastAsync(CompletableFuture<? extends T> cfThis, Iterable<? extends Function<? super T, ? extends U>> fns) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
      * Iterable variant of {@link CompletableFutureUtils#thenMApplyFailFastAsync(CompletableFuture, Executor, Function[])}.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMAcceptAsyncAndForget`")
-    public static <T, U> CompletableFuture<List<U>> thenMApplyFailFastAsync(
-            CompletableFuture<? extends T> cfThis, Iterable<? extends Function<? super T, ? extends U>> fns, Executor executor) {
-        return _thenMApplyFailFastAsync(cfThis, executor, toFunctionArray(fns), false);
+    public static <T, U> CompletableFuture<List<U>> thenMApplyFailFastAsync(CompletableFuture<? extends T> cfThis, Iterable<? extends Function<? super T, ? extends U>> fns, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
      * Iterable variant of {@link CompletableFutureUtils#thenMApplyAllSuccessAsync(CompletableFuture, Object, Function[])}.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMAcceptAsyncAndForget`")
-    public static <T, U> CompletableFuture<List<U>> thenMApplyAllSuccessAsync(
-            CompletableFuture<? extends T> cfThis, @Nullable U valueIfFailed, Iterable<? extends Function<? super T, ? extends U>> fns) {
-        return thenMApplyAllSuccessAsync(cfThis, valueIfFailed, fns, defaultExecutor(cfThis));
+    public static <T, U> CompletableFuture<List<U>> thenMApplyAllSuccessAsync(CompletableFuture<? extends T> cfThis, @Nullable U valueIfFailed, Iterable<? extends Function<? super T, ? extends U>> fns) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
      * Iterable variant of {@link CompletableFutureUtils#thenMApplyAllSuccessAsync(CompletableFuture, Executor, Object, Function[])}.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMAcceptAsyncAndForget`")
-    public static <T, U> CompletableFuture<List<U>> thenMApplyAllSuccessAsync(
-            CompletableFuture<? extends T> cfThis, @Nullable U valueIfFailed,
-            Iterable<? extends Function<? super T, ? extends U>> fns, Executor executor) {
-        return _thenMApplyAllSuccessAsync(cfThis, executor, valueIfFailed, toFunctionArray(fns), false);
+    public static <T, U> CompletableFuture<List<U>> thenMApplyAllSuccessAsync(CompletableFuture<? extends T> cfThis, @Nullable U valueIfFailed, Iterable<? extends Function<? super T, ? extends U>> fns, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
      * Iterable variant of {@link CompletableFutureUtils#thenMApplyMostSuccessAsync(CompletableFuture, Object, long, TimeUnit, Function[])}.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMAcceptAsyncAndForget`")
-    public static <T, U> CompletableFuture<List<U>> thenMApplyMostSuccessAsync(
-            CompletableFuture<? extends T> cfThis, @Nullable U valueIfNotSuccess,
-            long timeout, TimeUnit unit, Iterable<? extends Function<? super T, ? extends U>> fns) {
-        return thenMApplyMostSuccessAsync(cfThis, valueIfNotSuccess, timeout, unit, fns, defaultExecutor(cfThis));
+    public static <T, U> CompletableFuture<List<U>> thenMApplyMostSuccessAsync(CompletableFuture<? extends T> cfThis, @Nullable U valueIfNotSuccess, long timeout, TimeUnit unit, Iterable<? extends Function<? super T, ? extends U>> fns) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
      * Iterable variant of {@link CompletableFutureUtils#thenMApplyMostSuccessAsync(CompletableFuture, Executor, Object, long, TimeUnit, Function[])}.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMAcceptAsyncAndForget`")
-    public static <T, U> CompletableFuture<List<U>> thenMApplyMostSuccessAsync(
-            CompletableFuture<? extends T> cfThis, @Nullable U valueIfNotSuccess,
-            long timeout, TimeUnit unit, Iterable<? extends Function<? super T, ? extends U>> fns, Executor executor) {
-        return _thenMApplyMostSuccessAsync(cfThis, executor, valueIfNotSuccess, timeout, unit, toFunctionArray(fns), false);
+    public static <T, U> CompletableFuture<List<U>> thenMApplyMostSuccessAsync(CompletableFuture<? extends T> cfThis, @Nullable U valueIfNotSuccess, long timeout, TimeUnit unit, Iterable<? extends Function<? super T, ? extends U>> fns, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
      * Iterable variant of {@link CompletableFutureUtils#thenMApplyAsync(CompletableFuture, Function[])}.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMAcceptAsyncAndForget`")
-    public static <T, U> CompletableFuture<List<U>> thenMApplyAsync(
-            CompletableFuture<? extends T> cfThis, Iterable<? extends Function<? super T, ? extends U>> fns) {
-        return thenMApplyAsync(cfThis, fns, defaultExecutor(cfThis));
+    public static <T, U> CompletableFuture<List<U>> thenMApplyAsync(CompletableFuture<? extends T> cfThis, Iterable<? extends Function<? super T, ? extends U>> fns) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
      * Iterable variant of {@link CompletableFutureUtils#thenMApplyAsync(CompletableFuture, Executor, Function[])}.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMAcceptAsyncAndForget`")
-    public static <T, U> CompletableFuture<List<U>> thenMApplyAsync(
-            CompletableFuture<? extends T> cfThis, Iterable<? extends Function<? super T, ? extends U>> fns, Executor executor) {
-        return _thenMApplyAsync(cfThis, executor, toFunctionArray(fns), false);
+    public static <T, U> CompletableFuture<List<U>> thenMApplyAsync(CompletableFuture<? extends T> cfThis, Iterable<? extends Function<? super T, ? extends U>> fns, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
      * Iterable variant of {@link CompletableFutureUtils#thenMApplyAnySuccessAsync(CompletableFuture, Function[])}.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMAcceptAsyncAndForget`")
-    public static <T, U> CompletableFuture<U> thenMApplyAnySuccessAsync(
-            CompletableFuture<? extends T> cfThis, Iterable<? extends Function<? super T, ? extends U>> fns) {
-        return thenMApplyAnySuccessAsync(cfThis, fns, defaultExecutor(cfThis));
+    public static <T, U> CompletableFuture<U> thenMApplyAnySuccessAsync(CompletableFuture<? extends T> cfThis, Iterable<? extends Function<? super T, ? extends U>> fns) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
      * Iterable variant of {@link CompletableFutureUtils#thenMApplyAnySuccessAsync(CompletableFuture, Executor, Function[])}.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMAcceptAsyncAndForget`")
-    public static <T, U> CompletableFuture<U> thenMApplyAnySuccessAsync(
-            CompletableFuture<? extends T> cfThis, Iterable<? extends Function<? super T, ? extends U>> fns, Executor executor) {
-        return _thenMApplyAnySuccessAsync(cfThis, executor, toFunctionArray(fns), false);
+    public static <T, U> CompletableFuture<U> thenMApplyAnySuccessAsync(CompletableFuture<? extends T> cfThis, Iterable<? extends Function<? super T, ? extends U>> fns, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
      * Iterable variant of {@link CompletableFutureUtils#thenMApplyAnyAsync(CompletableFuture, Function[])}.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMAcceptAsyncAndForget`")
-    public static <T, U> CompletableFuture<U> thenMApplyAnyAsync(
-            CompletableFuture<? extends T> cfThis, Iterable<? extends Function<? super T, ? extends U>> fns) {
-        return thenMApplyAnyAsync(cfThis, fns, defaultExecutor(cfThis));
+    public static <T, U> CompletableFuture<U> thenMApplyAnyAsync(CompletableFuture<? extends T> cfThis, Iterable<? extends Function<? super T, ? extends U>> fns) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
      * Iterable variant of {@link CompletableFutureUtils#thenMApplyAnyAsync(CompletableFuture, Executor, Function[])}.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMAcceptAsyncAndForget`")
-    public static <T, U> CompletableFuture<U> thenMApplyAnyAsync(
-            CompletableFuture<? extends T> cfThis, Iterable<? extends Function<? super T, ? extends U>> fns, Executor executor) {
-        return _thenMApplyAnyAsync(cfThis, executor, toFunctionArray(fns), false);
+    public static <T, U> CompletableFuture<U> thenMApplyAnyAsync(CompletableFuture<? extends T> cfThis, Iterable<? extends Function<? super T, ? extends U>> fns, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @SuppressWarnings("unchecked")
-    private static <T, U> Function<? super T, ? extends U>[] toFunctionArray(
-            Iterable<? extends Function<? super T, ? extends U>> fns) {
+    private static <T, U> Function<? super T, ? extends U>[] toFunctionArray(Iterable<? extends Function<? super T, ? extends U>> fns) {
         return toArray(fns, EMPTY_FUNCTIONS);
     }
 
@@ -478,72 +441,64 @@ public final class CfIterableUtils {
      * Iterable variant of {@link CompletableFutureUtils#thenMAcceptFailFastAsync(CompletableFuture, Consumer[])}.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMAcceptAsyncAndForget`")
-    public static <T> CompletableFuture<Void> thenMAcceptFailFastAsync(
-            CompletableFuture<? extends T> cfThis, Iterable<? extends Consumer<? super T>> actions) {
-        return thenMAcceptFailFastAsync(cfThis, actions, defaultExecutor(cfThis));
+    public static <T> CompletableFuture<Void> thenMAcceptFailFastAsync(CompletableFuture<? extends T> cfThis, Iterable<? extends Consumer<? super T>> actions) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
      * Iterable variant of {@link CompletableFutureUtils#thenMAcceptFailFastAsync(CompletableFuture, Executor, Consumer[])}.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMAcceptAsyncAndForget`")
-    public static <T> CompletableFuture<Void> thenMAcceptFailFastAsync(
-            CompletableFuture<? extends T> cfThis, Iterable<? extends Consumer<? super T>> actions, Executor executor) {
-        return _thenMAcceptFailFastAsync(cfThis, executor, toConsumerArray(actions), false);
+    public static <T> CompletableFuture<Void> thenMAcceptFailFastAsync(CompletableFuture<? extends T> cfThis, Iterable<? extends Consumer<? super T>> actions, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
      * Iterable variant of {@link CompletableFutureUtils#thenMAcceptAsync(CompletableFuture, Consumer[])}.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMAcceptAsyncAndForget`")
-    public static <T> CompletableFuture<Void> thenMAcceptAsync(
-            CompletableFuture<? extends T> cfThis, Iterable<? extends Consumer<? super T>> actions) {
-        return thenMAcceptAsync(cfThis, actions, defaultExecutor(cfThis));
+    public static <T> CompletableFuture<Void> thenMAcceptAsync(CompletableFuture<? extends T> cfThis, Iterable<? extends Consumer<? super T>> actions) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
      * Iterable variant of {@link CompletableFutureUtils#thenMAcceptAsync(CompletableFuture, Executor, Consumer[])}.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMAcceptAsyncAndForget`")
-    public static <T> CompletableFuture<Void> thenMAcceptAsync(
-            CompletableFuture<? extends T> cfThis, Iterable<? extends Consumer<? super T>> actions, Executor executor) {
-        return _thenMAcceptAsync(cfThis, executor, toConsumerArray(actions), false);
+    public static <T> CompletableFuture<Void> thenMAcceptAsync(CompletableFuture<? extends T> cfThis, Iterable<? extends Consumer<? super T>> actions, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
      * Iterable variant of {@link CompletableFutureUtils#thenMAcceptAnySuccessAsync(CompletableFuture, Consumer[])}.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMAcceptAsyncAndForget`")
-    public static <T> CompletableFuture<Void> thenMAcceptAnySuccessAsync(
-            CompletableFuture<? extends T> cfThis, Iterable<? extends Consumer<? super T>> actions) {
-        return thenMAcceptAnySuccessAsync(cfThis, actions, defaultExecutor(cfThis));
+    public static <T> CompletableFuture<Void> thenMAcceptAnySuccessAsync(CompletableFuture<? extends T> cfThis, Iterable<? extends Consumer<? super T>> actions) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
      * Iterable variant of {@link CompletableFutureUtils#thenMAcceptAnySuccessAsync(CompletableFuture, Executor, Consumer[])}.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMAcceptAsyncAndForget`")
-    public static <T> CompletableFuture<Void> thenMAcceptAnySuccessAsync(
-            CompletableFuture<? extends T> cfThis, Iterable<? extends Consumer<? super T>> actions, Executor executor) {
-        return _thenMAcceptAnySuccessAsync(cfThis, executor, toConsumerArray(actions), false);
+    public static <T> CompletableFuture<Void> thenMAcceptAnySuccessAsync(CompletableFuture<? extends T> cfThis, Iterable<? extends Consumer<? super T>> actions, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
      * Iterable variant of {@link CompletableFutureUtils#thenMAcceptAnyAsync(CompletableFuture, Consumer[])}.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMAcceptAsyncAndForget`")
-    public static <T> CompletableFuture<Void> thenMAcceptAnyAsync(
-            CompletableFuture<? extends T> cfThis, Iterable<? extends Consumer<? super T>> actions) {
-        return thenMAcceptAnyAsync(cfThis, actions, defaultExecutor(cfThis));
+    public static <T> CompletableFuture<Void> thenMAcceptAnyAsync(CompletableFuture<? extends T> cfThis, Iterable<? extends Consumer<? super T>> actions) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
      * Iterable variant of {@link CompletableFutureUtils#thenMAcceptAnyAsync(CompletableFuture, Executor, Consumer[])}.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMAcceptAsyncAndForget`")
-    public static <T> CompletableFuture<Void> thenMAcceptAnyAsync(
-            CompletableFuture<? extends T> cfThis, Iterable<? extends Consumer<? super T>> actions, Executor executor) {
-        return _thenMAcceptAnyAsync(cfThis, executor, toConsumerArray(actions), false);
+    public static <T> CompletableFuture<Void> thenMAcceptAnyAsync(CompletableFuture<? extends T> cfThis, Iterable<? extends Consumer<? super T>> actions, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -552,9 +507,8 @@ public final class CfIterableUtils {
      * @since 2.1.0
      */
     @Contract("_, _ -> param1")
-    public static <T, F extends CompletionStage<? extends T>> F thenMAcceptAsyncAndForget(
-            F cfThis, Iterable<? extends Consumer<? super T>> actions) {
-        return thenMAcceptAsyncAndForget(cfThis, actions, defaultExecutor(cfThis));
+    public static <T, F extends CompletionStage<? extends T>> F thenMAcceptAsyncAndForget(F cfThis, Iterable<? extends Consumer<? super T>> actions) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -563,9 +517,8 @@ public final class CfIterableUtils {
      * @since 2.1.0
      */
     @Contract("_, _, _ -> param1")
-    public static <T, F extends CompletionStage<? extends T>> F thenMAcceptAsyncAndForget(
-            F cfThis, Iterable<? extends Consumer<? super T>> actions, Executor executor) {
-        return _thenMAcceptAsyncAndForget(cfThis, executor, toConsumerArray(actions), false);
+    public static <T, F extends CompletionStage<? extends T>> F thenMAcceptAsyncAndForget(F cfThis, Iterable<? extends Consumer<? super T>> actions, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @SuppressWarnings("unchecked")
@@ -580,18 +533,16 @@ public final class CfIterableUtils {
      * Iterable variant of {@link CompletableFutureUtils#thenMRunFailFastAsync(CompletableFuture, Runnable...)}.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMRunAsyncAndForget`")
-    public static CompletableFuture<Void> thenMRunFailFastAsync(
-            CompletableFuture<?> cfThis, Iterable<? extends Runnable> actions) {
-        return thenMRunFailFastAsync(cfThis, actions, defaultExecutor(cfThis));
+    public static CompletableFuture<Void> thenMRunFailFastAsync(CompletableFuture<?> cfThis, Iterable<? extends Runnable> actions) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
      * Iterable variant of {@link CompletableFutureUtils#thenMRunFailFastAsync(CompletableFuture, Executor, Runnable...)}.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMRunAsyncAndForget`")
-    public static CompletableFuture<Void> thenMRunFailFastAsync(
-            CompletableFuture<?> cfThis, Iterable<? extends Runnable> actions, Executor executor) {
-        return _thenMRunFailFastAsync(cfThis, executor, toRunnableArray(actions), false);
+    public static CompletableFuture<Void> thenMRunFailFastAsync(CompletableFuture<?> cfThis, Iterable<? extends Runnable> actions, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -599,34 +550,31 @@ public final class CfIterableUtils {
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMRunAsyncAndForget`")
     public static CompletableFuture<Void> thenMRunAsync(CompletableFuture<?> cfThis, Iterable<? extends Runnable> actions) {
-        return thenMRunAsync(cfThis, actions, defaultExecutor(cfThis));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
      * Iterable variant of {@link CompletableFutureUtils#thenMRunAsync(CompletableFuture, Executor, Runnable...)}.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMRunAsyncAndForget`")
-    public static CompletableFuture<Void> thenMRunAsync(
-            CompletableFuture<?> cfThis, Iterable<? extends Runnable> actions, Executor executor) {
-        return _thenMRunAsync(cfThis, executor, toRunnableArray(actions), false);
+    public static CompletableFuture<Void> thenMRunAsync(CompletableFuture<?> cfThis, Iterable<? extends Runnable> actions, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
      * Iterable variant of {@link CompletableFutureUtils#thenMRunAnySuccessAsync(CompletableFuture, Runnable...)}.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMRunAsyncAndForget`")
-    public static CompletableFuture<Void> thenMRunAnySuccessAsync(
-            CompletableFuture<?> cfThis, Iterable<? extends Runnable> actions) {
-        return thenMRunAnySuccessAsync(cfThis, actions, defaultExecutor(cfThis));
+    public static CompletableFuture<Void> thenMRunAnySuccessAsync(CompletableFuture<?> cfThis, Iterable<? extends Runnable> actions) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
      * Iterable variant of {@link CompletableFutureUtils#thenMRunAnySuccessAsync(CompletableFuture, Executor, Runnable...)}.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMRunAsyncAndForget`")
-    public static CompletableFuture<Void> thenMRunAnySuccessAsync(
-            CompletableFuture<?> cfThis, Iterable<? extends Runnable> actions, Executor executor) {
-        return _thenMRunAnySuccessAsync(cfThis, executor, toRunnableArray(actions), false);
+    public static CompletableFuture<Void> thenMRunAnySuccessAsync(CompletableFuture<?> cfThis, Iterable<? extends Runnable> actions, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -634,16 +582,15 @@ public final class CfIterableUtils {
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMRunAsyncAndForget`")
     public static CompletableFuture<Void> thenMRunAnyAsync(CompletableFuture<?> cfThis, Iterable<? extends Runnable> actions) {
-        return thenMRunAnyAsync(cfThis, actions, defaultExecutor(cfThis));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
      * Iterable variant of {@link CompletableFutureUtils#thenMRunAnyAsync(CompletableFuture, Executor, Runnable...)}.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMRunAsyncAndForget`")
-    public static CompletableFuture<Void> thenMRunAnyAsync(
-            CompletableFuture<?> cfThis, Iterable<? extends Runnable> actions, Executor executor) {
-        return _thenMRunAnyAsync(cfThis, executor, toRunnableArray(actions), false);
+    public static CompletableFuture<Void> thenMRunAnyAsync(CompletableFuture<?> cfThis, Iterable<? extends Runnable> actions, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -652,7 +599,7 @@ public final class CfIterableUtils {
      * @since 2.1.0
      */
     public static <F extends CompletionStage<?>> F thenMRunAsyncAndForget(F cfThis, Iterable<? extends Runnable> actions) {
-        return thenMRunAsyncAndForget(cfThis, actions, defaultExecutor(cfThis));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -660,10 +607,10 @@ public final class CfIterableUtils {
      *
      * @since 2.1.0
      */
-    public static <F extends CompletionStage<?>> F thenMRunAsyncAndForget(
-            F cfThis, Iterable<? extends Runnable> actions, Executor executor) {
-        return _thenMRunAsyncAndForget(cfThis, executor, toRunnableArray(actions), false);
+    public static <F extends CompletionStage<?>> F thenMRunAsyncAndForget(F cfThis, Iterable<? extends Runnable> actions, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    private CfIterableUtils() {}
+    private CfIterableUtils() {
+    }
 }

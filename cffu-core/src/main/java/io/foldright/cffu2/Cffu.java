@@ -1,11 +1,9 @@
 package io.foldright.cffu2;
 
 import org.jetbrains.annotations.Contract;
-
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import java.util.concurrent.Future;
-
 
 /**
  * This class {@link Cffu} is the equivalent class to {@link CompletableFuture},
@@ -24,10 +22,10 @@ import java.util.concurrent.Future;
  * @see MCffu
  */
 public final class Cffu<T> extends BaseCffu<T, Cffu<T>> implements Future<T>, CompletionStage<T> {
+
     ////////////////////////////////////////////////////////////////////////////////
     // region# Internal constructor/methods
     ////////////////////////////////////////////////////////////////////////////////
-
     /**
      * INTERNAL constructor.
      */
@@ -37,14 +35,13 @@ public final class Cffu<T> extends BaseCffu<T, Cffu<T>> implements Future<T>, Co
 
     @Override
     Cffu<T> create(CffuFactory fac, boolean isMinimalStage, CompletableFuture<T> cf) {
-        return new Cffu<>(fac, isMinimalStage, cf);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     // endregion
     ////////////////////////////////////////////////////////////////////////////////
     // region# Conversion Methods
     ////////////////////////////////////////////////////////////////////////////////
-
     /**
      * Converts to {@link MCffu}, reuse the underlying CompletableFuture instance and rewraps it to {@link MCffu}.
      *
@@ -54,6 +51,6 @@ public final class Cffu<T> extends BaseCffu<T, Cffu<T>> implements Future<T>, Co
      */
     @Contract(pure = true)
     public static <E, U extends Iterable<? extends E>> MCffu<E, U> asMCffu(Cffu<U> cffu) {
-        return new MCffu<>(cffu.fac, cffu.isMinimalStage, cffu.cf);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

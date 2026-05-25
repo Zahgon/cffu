@@ -3,7 +3,6 @@ package io.foldright.cffu2;
 import edu.umd.cs.findbugs.annotations.CheckReturnValue;
 import edu.umd.cs.findbugs.annotations.Nullable;
 import io.foldright.cffu2.internal.CommonUtils;
-
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
@@ -12,14 +11,12 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
-
 import static io.foldright.cffu2.CompletableFutureUtils.*;
 import static io.foldright.cffu2.LLCF.ASYNC_POOL;
 import static io.foldright.cffu2.LLCF.f_cast;
 import static io.foldright.cffu2.eh.SwallowedExceptionHandleUtils.handleAllSwallowedExceptions;
 import static io.foldright.cffu2.eh.SwallowedExceptionHandleUtils.handleSwallowedExceptions;
 import static java.util.Objects.requireNonNull;
-
 
 /**
  * Utility class for async parallel data processing using CompletableFuture.
@@ -45,13 +42,13 @@ import static java.util.Objects.requireNonNull;
  * @see CfTupleUtils
  */
 public final class CfParallelUtils {
+
     ////////////////////////////////////////////////////////////////////////////////
     // region# CF Factory Methods (create by multiply data and one action)
     //
     //    - parApply* (Iterable, Function: T -> U)    -> CompletableFuture<List<U>>
     //    - parAccept*(Iterable, Consumer: T -> Void) -> CompletableFuture<Void>
     ////////////////////////////////////////////////////////////////////////////////
-
     /**
      * Shortcut to method {@link CompletableFutureUtils#allResultsFailFastOf allResultsFailFastOf},
      * processes multiple input elements in parallel by wrapping each element's function computation
@@ -60,9 +57,8 @@ public final class CfParallelUtils {
      * See the {@link CompletableFutureUtils#allResultsFailFastOf allResultsFailFastOf} documentation for the rules of result computation.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `parAcceptAsyncAndForget`")
-    public static <T, U> CompletableFuture<List<U>> parApplyFailFastAsync(
-            Iterable<? extends T> elements, Function<? super T, ? extends U> fn) {
-        return parApplyFailFastAsync(elements, fn, ASYNC_POOL);
+    public static <T, U> CompletableFuture<List<U>> parApplyFailFastAsync(Iterable<? extends T> elements, Function<? super T, ? extends U> fn) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -73,17 +69,11 @@ public final class CfParallelUtils {
      * See the {@link CompletableFutureUtils#allResultsFailFastOf allResultsFailFastOf} documentation for the rules of result computation.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `parAcceptAsyncAndForget`")
-    public static <T, U> CompletableFuture<List<U>> parApplyFailFastAsync(
-            Iterable<? extends T> elements, Function<? super T, ? extends U> fn, Executor executor) {
-        requireNonNull(elements, "elements is null");
-        requireNonNull(fn, "fn is null");
-        requireNonNull(executor, "executor is null");
-
-        return parApplyFailFastAsync0(elements, fn, executor, "parApplyFailFastAsync");
+    public static <T, U> CompletableFuture<List<U>> parApplyFailFastAsync(Iterable<? extends T> elements, Function<? super T, ? extends U> fn, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    private static <T, U> CompletableFuture<List<U>> parApplyFailFastAsync0(
-            Iterable<? extends T> elements, Function<? super T, ? extends U> fn, Executor executor, String where) {
+    private static <T, U> CompletableFuture<List<U>> parApplyFailFastAsync0(Iterable<? extends T> elements, Function<? super T, ? extends U> fn, Executor executor, String where) {
         CompletableFuture<U>[] cfs = wrapEleFunction0(elements, fn, executor);
         CompletableFuture<List<U>> ret = allResultsOf0(true, cfs);
         handleSwallowedExceptions(where, ret, cfs);
@@ -98,9 +88,8 @@ public final class CfParallelUtils {
      * See the {@link CompletableFutureUtils#allSuccessResultsOf allSuccessResultsOf} documentation for the rules of result computation.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `parAcceptAsyncAndForget`")
-    public static <T, U> CompletableFuture<List<U>> parApplyAllSuccessAsync(
-            Iterable<? extends T> elements, @Nullable U valueIfFailed, Function<? super T, ? extends U> fn) {
-        return parApplyAllSuccessAsync(elements, valueIfFailed, fn, ASYNC_POOL);
+    public static <T, U> CompletableFuture<List<U>> parApplyAllSuccessAsync(Iterable<? extends T> elements, @Nullable U valueIfFailed, Function<? super T, ? extends U> fn) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -111,18 +100,11 @@ public final class CfParallelUtils {
      * See the {@link CompletableFutureUtils#allSuccessResultsOf allSuccessResultsOf} documentation for the rules of result computation.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `parAcceptAsyncAndForget`")
-    public static <T, U> CompletableFuture<List<U>> parApplyAllSuccessAsync(
-            Iterable<? extends T> elements, @Nullable U valueIfFailed, Function<? super T, ? extends U> fn, Executor executor) {
-        requireNonNull(elements, "elements is null");
-        requireNonNull(fn, "fn is null");
-        requireNonNull(executor, "executor is null");
-
-        return parApplyAllSuccessAsync0(elements, valueIfFailed, fn, executor, "parApplyAllSuccessAsync");
+    public static <T, U> CompletableFuture<List<U>> parApplyAllSuccessAsync(Iterable<? extends T> elements, @Nullable U valueIfFailed, Function<? super T, ? extends U> fn, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    private static <T, U> CompletableFuture<List<U>> parApplyAllSuccessAsync0(
-            Iterable<? extends T> elements, @Nullable U valueIfFailed,
-            Function<? super T, ? extends U> fn, Executor executor, String where) {
+    private static <T, U> CompletableFuture<List<U>> parApplyAllSuccessAsync0(Iterable<? extends T> elements, @Nullable U valueIfFailed, Function<? super T, ? extends U> fn, Executor executor, String where) {
         CompletableFuture<U>[] cfs = wrapEleFunction0(elements, fn, executor);
         handleAllSwallowedExceptions(where, cfs);
         return allSuccessResultsOf0(valueIfFailed, cfs);
@@ -136,10 +118,8 @@ public final class CfParallelUtils {
      * See the {@link CompletableFutureUtils#mostSuccessResultsOf mostSuccessResultsOf} documentation for the rules of result computation.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `parAcceptAsyncAndForget`")
-    public static <T, U> CompletableFuture<List<U>> parApplyMostSuccessAsync(
-            Iterable<? extends T> elements, @Nullable U valueIfNotSuccess,
-            long timeout, TimeUnit unit, Function<? super T, ? extends U> fn) {
-        return parApplyMostSuccessAsync(elements, valueIfNotSuccess, timeout, unit, fn, ASYNC_POOL);
+    public static <T, U> CompletableFuture<List<U>> parApplyMostSuccessAsync(Iterable<? extends T> elements, @Nullable U valueIfNotSuccess, long timeout, TimeUnit unit, Function<? super T, ? extends U> fn) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -150,20 +130,11 @@ public final class CfParallelUtils {
      * See the {@link CompletableFutureUtils#mostSuccessResultsOf mostSuccessResultsOf} documentation for the rules of result computation.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `parAcceptAsyncAndForget`")
-    public static <T, U> CompletableFuture<List<U>> parApplyMostSuccessAsync(
-            Iterable<? extends T> elements, @Nullable U valueIfNotSuccess,
-            long timeout, TimeUnit unit, Function<? super T, ? extends U> fn, Executor executor) {
-        requireNonNull(elements, "elements is null");
-        requireNonNull(unit, "unit is null");
-        requireNonNull(fn, "fn is null");
-        requireNonNull(executor, "executor is null");
-
-        return parApplyMostSuccessAsync0(elements, valueIfNotSuccess, timeout, unit, fn, executor, "parApplyMostSuccessAsync");
+    public static <T, U> CompletableFuture<List<U>> parApplyMostSuccessAsync(Iterable<? extends T> elements, @Nullable U valueIfNotSuccess, long timeout, TimeUnit unit, Function<? super T, ? extends U> fn, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    private static <T, U> CompletableFuture<List<U>> parApplyMostSuccessAsync0(
-            Iterable<? extends T> elements, @Nullable U valueIfNotSuccess, long timeout, TimeUnit unit,
-            Function<? super T, ? extends U> fn, Executor executor, String where) {
+    private static <T, U> CompletableFuture<List<U>> parApplyMostSuccessAsync0(Iterable<? extends T> elements, @Nullable U valueIfNotSuccess, long timeout, TimeUnit unit, Function<? super T, ? extends U> fn, Executor executor, String where) {
         CompletableFuture<U>[] cfs = wrapEleFunction0(elements, fn, executor);
         handleAllSwallowedExceptions(where, cfs);
         return mostSuccessResultsOf0(executor, valueIfNotSuccess, timeout, unit, cfs);
@@ -177,9 +148,8 @@ public final class CfParallelUtils {
      * See the {@link CompletableFutureUtils#allResultsOf allResultsOf} documentation for the rules of result computation.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `parAcceptAsyncAndForget`")
-    public static <T, U> CompletableFuture<List<U>> parApplyAsync(
-            Iterable<? extends T> elements, Function<? super T, ? extends U> fn) {
-        return parApplyAsync(elements, fn, ASYNC_POOL);
+    public static <T, U> CompletableFuture<List<U>> parApplyAsync(Iterable<? extends T> elements, Function<? super T, ? extends U> fn) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -190,17 +160,11 @@ public final class CfParallelUtils {
      * See the {@link CompletableFutureUtils#allResultsOf allResultsOf} documentation for the rules of result computation.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `parAcceptAsyncAndForget`")
-    public static <T, U> CompletableFuture<List<U>> parApplyAsync(
-            Iterable<? extends T> elements, Function<? super T, ? extends U> fn, Executor executor) {
-        requireNonNull(elements, "elements is null");
-        requireNonNull(fn, "fn is null");
-        requireNonNull(executor, "executor is null");
-
-        return parApplyAsync0(elements, fn, executor, "parApplyAsync");
+    public static <T, U> CompletableFuture<List<U>> parApplyAsync(Iterable<? extends T> elements, Function<? super T, ? extends U> fn, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    private static <T, U> CompletableFuture<List<U>> parApplyAsync0(
-            Iterable<? extends T> elements, Function<? super T, ? extends U> fn, Executor executor, String where) {
+    private static <T, U> CompletableFuture<List<U>> parApplyAsync0(Iterable<? extends T> elements, Function<? super T, ? extends U> fn, Executor executor, String where) {
         CompletableFuture<U>[] cfs = wrapEleFunction0(elements, fn, executor);
         CompletableFuture<List<U>> ret = allResultsOf0(false, cfs);
         handleSwallowedExceptions(where, ret, cfs);
@@ -215,9 +179,8 @@ public final class CfParallelUtils {
      * See the {@link CompletableFutureUtils#anySuccessOf anySuccessOf} documentation for the rules of result computation.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `parAcceptAsyncAndForget`")
-    public static <T, U> CompletableFuture<U> parApplyAnySuccessAsync(
-            Iterable<? extends T> elements, Function<? super T, ? extends U> fn) {
-        return parApplyAnySuccessAsync(elements, fn, ASYNC_POOL);
+    public static <T, U> CompletableFuture<U> parApplyAnySuccessAsync(Iterable<? extends T> elements, Function<? super T, ? extends U> fn) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -228,17 +191,11 @@ public final class CfParallelUtils {
      * See the {@link CompletableFutureUtils#anySuccessOf anySuccessOf} documentation for the rules of result computation.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `parAcceptAsyncAndForget`")
-    public static <T, U> CompletableFuture<U> parApplyAnySuccessAsync(
-            Iterable<? extends T> elements, Function<? super T, ? extends U> fn, Executor executor) {
-        requireNonNull(elements, "elements is null");
-        requireNonNull(fn, "fn is null");
-        requireNonNull(executor, "executor is null");
-
-        return parApplyAnySuccessAsync0(elements, fn, executor, "parApplyAnySuccessAsync");
+    public static <T, U> CompletableFuture<U> parApplyAnySuccessAsync(Iterable<? extends T> elements, Function<? super T, ? extends U> fn, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    private static <T, U> CompletableFuture<U> parApplyAnySuccessAsync0(
-            Iterable<? extends T> elements, Function<? super T, ? extends U> fn, Executor executor, String where) {
+    private static <T, U> CompletableFuture<U> parApplyAnySuccessAsync0(Iterable<? extends T> elements, Function<? super T, ? extends U> fn, Executor executor, String where) {
         CompletableFuture<U>[] cfs = wrapEleFunction0(elements, fn, executor);
         CompletableFuture<U> ret = anySuccessOf0(cfs);
         handleSwallowedExceptions(where, ret, cfs);
@@ -253,9 +210,8 @@ public final class CfParallelUtils {
      * See the {@link CompletableFutureUtils#anyOf anyOf} documentation for the rules of result computation.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `parAcceptAsyncAndForget`")
-    public static <T, U> CompletableFuture<U> parApplyAnyAsync(
-            Iterable<? extends T> elements, Function<? super T, ? extends U> fn) {
-        return parApplyAnyAsync(elements, fn, ASYNC_POOL);
+    public static <T, U> CompletableFuture<U> parApplyAnyAsync(Iterable<? extends T> elements, Function<? super T, ? extends U> fn) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -266,27 +222,19 @@ public final class CfParallelUtils {
      * See the {@link CompletableFutureUtils#anyOf anyOf} documentation for the rules of result computation.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `parAcceptAsyncAndForget`")
-    public static <T, U> CompletableFuture<U> parApplyAnyAsync(
-            Iterable<? extends T> elements, Function<? super T, ? extends U> fn, Executor executor) {
-        requireNonNull(elements, "elements is null");
-        requireNonNull(fn, "fn is null");
-        requireNonNull(executor, "executor is null");
-
-        return parApplyAnyAsync0(elements, fn, executor, "parApplyAnyAsync");
+    public static <T, U> CompletableFuture<U> parApplyAnyAsync(Iterable<? extends T> elements, Function<? super T, ? extends U> fn, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    private static <T, U> CompletableFuture<U> parApplyAnyAsync0(
-            Iterable<? extends T> elements, Function<? super T, ? extends U> fn, Executor executor, String where) {
+    private static <T, U> CompletableFuture<U> parApplyAnyAsync0(Iterable<? extends T> elements, Function<? super T, ? extends U> fn, Executor executor, String where) {
         CompletableFuture<U>[] cfs = wrapEleFunction0(elements, fn, executor);
         CompletableFuture<U> ret = f_cast(CompletableFuture.anyOf(cfs));
         handleSwallowedExceptions(where, ret, cfs);
         return ret;
     }
 
-    private static <T, U> CompletableFuture<U>[] wrapEleFunction0(
-            Iterable<? extends T> elements, Function<? super T, ? extends U> fn, Executor executor) {
-        return CommonUtils.toArray(elements, CommonUtils::newCfArray,
-                e -> CompletableFuture.supplyAsync(() -> fn.apply(e), executor));
+    private static <T, U> CompletableFuture<U>[] wrapEleFunction0(Iterable<? extends T> elements, Function<? super T, ? extends U> fn, Executor executor) {
+        return CommonUtils.toArray(elements, CommonUtils::newCfArray, e -> CompletableFuture.supplyAsync(() -> fn.apply(e), executor));
     }
 
     /**
@@ -297,9 +245,8 @@ public final class CfParallelUtils {
      * See the {@link CompletableFutureUtils#allResultsFailFastOf allResultsFailFastOf} documentation for the rules of result computation.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `parAcceptAsyncAndForget`")
-    public static <T> CompletableFuture<Void> parAcceptFailFastAsync(
-            Iterable<? extends T> elements, Consumer<? super T> action) {
-        return parAcceptFailFastAsync(elements, action, ASYNC_POOL);
+    public static <T> CompletableFuture<Void> parAcceptFailFastAsync(Iterable<? extends T> elements, Consumer<? super T> action) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -310,17 +257,11 @@ public final class CfParallelUtils {
      * See the {@link CompletableFutureUtils#allResultsFailFastOf allResultsFailFastOf} documentation for the rules of result computation.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `parAcceptAsyncAndForget`")
-    public static <T> CompletableFuture<Void> parAcceptFailFastAsync(
-            Iterable<? extends T> elements, Consumer<? super T> action, Executor executor) {
-        requireNonNull(elements, "elements is null");
-        requireNonNull(action, "action is null");
-        requireNonNull(executor, "executor is null");
-
-        return parAcceptFailFastAsync0(elements, action, executor, "parAcceptFailFastAsync");
+    public static <T> CompletableFuture<Void> parAcceptFailFastAsync(Iterable<? extends T> elements, Consumer<? super T> action, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    private static <T> CompletableFuture<Void> parAcceptFailFastAsync0(
-            Iterable<? extends T> elements, Consumer<? super T> action, Executor executor, String where) {
+    private static <T> CompletableFuture<Void> parAcceptFailFastAsync0(Iterable<? extends T> elements, Consumer<? super T> action, Executor executor, String where) {
         CompletableFuture<Void>[] inputs = wrapEleConsumer0(elements, action, executor);
         CompletableFuture<Void> ret = allFailFastOf0(inputs);
         handleSwallowedExceptions(where, ret, inputs);
@@ -335,9 +276,8 @@ public final class CfParallelUtils {
      * See the {@link CompletableFutureUtils#allOf allOf} documentation for the rules of result computation.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `parAcceptAsyncAndForget`")
-    public static <T> CompletableFuture<Void> parAcceptAsync(
-            Iterable<? extends T> elements, Consumer<? super T> action) {
-        return parAcceptAsync(elements, action, ASYNC_POOL);
+    public static <T> CompletableFuture<Void> parAcceptAsync(Iterable<? extends T> elements, Consumer<? super T> action) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -348,17 +288,11 @@ public final class CfParallelUtils {
      * See the {@link CompletableFutureUtils#allOf allOf} documentation for the rules of result computation.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `parAcceptAsyncAndForget`")
-    public static <T> CompletableFuture<Void> parAcceptAsync(
-            Iterable<? extends T> elements, Consumer<? super T> action, Executor executor) {
-        requireNonNull(elements, "elements is null");
-        requireNonNull(action, "action is null");
-        requireNonNull(executor, "executor is null");
-
-        return parAcceptAsync0(elements, action, executor, "parAcceptAsync");
+    public static <T> CompletableFuture<Void> parAcceptAsync(Iterable<? extends T> elements, Consumer<? super T> action, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    private static <T> CompletableFuture<Void> parAcceptAsync0(
-            Iterable<? extends T> elements, Consumer<? super T> action, Executor executor, String where) {
+    private static <T> CompletableFuture<Void> parAcceptAsync0(Iterable<? extends T> elements, Consumer<? super T> action, Executor executor, String where) {
         CompletableFuture<Void>[] inputs = wrapEleConsumer0(elements, action, executor);
         CompletableFuture<Void> ret = CompletableFuture.allOf(inputs);
         handleSwallowedExceptions(where, ret, inputs);
@@ -373,9 +307,8 @@ public final class CfParallelUtils {
      * See the {@link CompletableFutureUtils#anySuccessOf anySuccessOf} documentation for the rules of result computation.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `parAcceptAsyncAndForget`")
-    public static <T> CompletableFuture<Void> parAcceptAnySuccessAsync(
-            Iterable<? extends T> elements, Consumer<? super T> action) {
-        return parAcceptAnySuccessAsync(elements, action, ASYNC_POOL);
+    public static <T> CompletableFuture<Void> parAcceptAnySuccessAsync(Iterable<? extends T> elements, Consumer<? super T> action) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -386,17 +319,11 @@ public final class CfParallelUtils {
      * See the {@link CompletableFutureUtils#anySuccessOf anySuccessOf} documentation for the rules of result computation.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `parAcceptAsyncAndForget`")
-    public static <T> CompletableFuture<Void> parAcceptAnySuccessAsync(
-            Iterable<? extends T> elements, Consumer<? super T> action, Executor executor) {
-        requireNonNull(elements, "elements is null");
-        requireNonNull(action, "action is null");
-        requireNonNull(executor, "executor is null");
-
-        return parAcceptAnySuccessAsync0(elements, action, executor, "parAcceptAnySuccessAsync");
+    public static <T> CompletableFuture<Void> parAcceptAnySuccessAsync(Iterable<? extends T> elements, Consumer<? super T> action, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    private static <T> CompletableFuture<Void> parAcceptAnySuccessAsync0(
-            Iterable<? extends T> elements, Consumer<? super T> action, Executor executor, String where) {
+    private static <T> CompletableFuture<Void> parAcceptAnySuccessAsync0(Iterable<? extends T> elements, Consumer<? super T> action, Executor executor, String where) {
         CompletableFuture<Void>[] inputs = wrapEleConsumer0(elements, action, executor);
         CompletableFuture<Void> ret = anySuccessOf0(inputs);
         handleSwallowedExceptions(where, ret, inputs);
@@ -411,9 +338,8 @@ public final class CfParallelUtils {
      * See the {@link CompletableFutureUtils#anyOf anyOf} documentation for the rules of result computation.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `parAcceptAsyncAndForget`")
-    public static <T> CompletableFuture<Void> parAcceptAnyAsync(
-            Iterable<? extends T> elements, Consumer<? super T> action) {
-        return parAcceptAnyAsync(elements, action, ASYNC_POOL);
+    public static <T> CompletableFuture<Void> parAcceptAnyAsync(Iterable<? extends T> elements, Consumer<? super T> action) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -424,17 +350,11 @@ public final class CfParallelUtils {
      * See the {@link CompletableFutureUtils#anyOf anyOf} documentation for the rules of result computation.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `parAcceptAsyncAndForget`")
-    public static <T> CompletableFuture<Void> parAcceptAnyAsync(
-            Iterable<? extends T> elements, Consumer<? super T> action, Executor executor) {
-        requireNonNull(elements, "elements is null");
-        requireNonNull(action, "action is null");
-        requireNonNull(executor, "executor is null");
-
-        return parAcceptAnyAsync0(elements, action, executor, "parAcceptAnyAsync");
+    public static <T> CompletableFuture<Void> parAcceptAnyAsync(Iterable<? extends T> elements, Consumer<? super T> action, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    private static <T> CompletableFuture<Void> parAcceptAnyAsync0(
-            Iterable<? extends T> elements, Consumer<? super T> action, Executor executor, String where) {
+    private static <T> CompletableFuture<Void> parAcceptAnyAsync0(Iterable<? extends T> elements, Consumer<? super T> action, Executor executor, String where) {
         CompletableFuture<Void>[] inputs = wrapEleConsumer0(elements, action, executor);
         CompletableFuture<Void> ret = f_cast(CompletableFuture.anyOf(inputs));
         handleSwallowedExceptions(where, ret, inputs);
@@ -448,9 +368,8 @@ public final class CfParallelUtils {
      *
      * @since 2.1.0
      */
-    public static <T> void parAcceptAsyncAndForget(
-            Iterable<? extends T> elements, Consumer<? super T> action) {
-        parAcceptAsyncAndForget(elements, action, ASYNC_POOL);
+    public static <T> void parAcceptAsyncAndForget(Iterable<? extends T> elements, Consumer<? super T> action) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -460,25 +379,17 @@ public final class CfParallelUtils {
      *
      * @since 2.1.0
      */
-    public static <T> void parAcceptAsyncAndForget(
-            Iterable<? extends T> elements, Consumer<? super T> action, Executor executor) {
-        requireNonNull(elements, "elements is null");
-        requireNonNull(action, "action is null");
-        requireNonNull(executor, "executor is null");
-
-        parAcceptAsyncAndForget0(elements, action, executor, "parAcceptAsyncAndForget");
+    public static <T> void parAcceptAsyncAndForget(Iterable<? extends T> elements, Consumer<? super T> action, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    private static <T> void parAcceptAsyncAndForget0(
-            Iterable<? extends T> elements, Consumer<? super T> action, Executor executor, String where) {
+    private static <T> void parAcceptAsyncAndForget0(Iterable<? extends T> elements, Consumer<? super T> action, Executor executor, String where) {
         CompletableFuture<Void>[] inputs = wrapEleConsumer0(elements, action, executor);
         handleAllSwallowedExceptions(where, inputs);
     }
 
-    private static <T> CompletableFuture<Void>[] wrapEleConsumer0(
-            Iterable<? extends T> elements, Consumer<? super T> action, Executor executor) {
-        return CommonUtils.toArray(elements, CommonUtils::newCfArray,
-                e -> CompletableFuture.runAsync(() -> action.accept(e), executor));
+    private static <T> CompletableFuture<Void>[] wrapEleConsumer0(Iterable<? extends T> elements, Consumer<? super T> action, Executor executor) {
+        return CommonUtils.toArray(elements, CommonUtils::newCfArray, e -> CompletableFuture.runAsync(() -> action.accept(e), executor));
     }
 
     // endregion
@@ -488,7 +399,6 @@ public final class CfParallelUtils {
     //    - thenParApply* (CF<Iterable>, Function: T -> U)    -> CompletableFuture<List<U>>
     //    - thenParAccept*(CF<Iterable>, Consumer: T -> Void) -> CompletableFuture<Void>
     ////////////////////////////////////////////////////////////////////////////////
-
     /**
      * Shortcut to method {@link CompletableFutureUtils#allResultsFailFastOf allResultsFailFastOf},
      * processes elements from the result of parameter cfThis in parallel by wrapping each element's function computation
@@ -497,9 +407,8 @@ public final class CfParallelUtils {
      * See the {@link CompletableFutureUtils#allResultsFailFastOf allResultsFailFastOf} documentation for the rules of result computation.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenParAcceptAsyncAndForget`")
-    public static <T, U> CompletableFuture<List<U>> thenParApplyFailFastAsync(
-            CompletableFuture<? extends Iterable<? extends T>> cfThis, Function<? super T, ? extends U> fn) {
-        return thenParApplyFailFastAsync(cfThis, fn, defaultExecutor(cfThis));
+    public static <T, U> CompletableFuture<List<U>> thenParApplyFailFastAsync(CompletableFuture<? extends Iterable<? extends T>> cfThis, Function<? super T, ? extends U> fn) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -510,13 +419,8 @@ public final class CfParallelUtils {
      * See the {@link CompletableFutureUtils#allResultsFailFastOf allResultsFailFastOf} documentation for the rules of result computation.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenParAcceptAsyncAndForget`")
-    public static <T, U> CompletableFuture<List<U>> thenParApplyFailFastAsync(
-            CompletableFuture<? extends Iterable<? extends T>> cfThis, Function<? super T, ? extends U> fn, Executor executor) {
-        requireNonNull(cfThis, "cfThis is null");
-        requireNonNull(fn, "fn is null");
-        requireNonNull(executor, "executor is null");
-
-        return cfThis.thenCompose(elements -> parApplyFailFastAsync0(elements, fn, executor, "thenParApplyFailFastAsync"));
+    public static <T, U> CompletableFuture<List<U>> thenParApplyFailFastAsync(CompletableFuture<? extends Iterable<? extends T>> cfThis, Function<? super T, ? extends U> fn, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -527,10 +431,8 @@ public final class CfParallelUtils {
      * See the {@link CompletableFutureUtils#allSuccessResultsOf allSuccessResultsOf} documentation for the rules of result computation.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenParAcceptAsyncAndForget`")
-    public static <T, U> CompletableFuture<List<U>> thenParApplyAllSuccessAsync(
-            CompletableFuture<? extends Iterable<? extends T>> cfThis,
-            @Nullable U valueIfFailed, Function<? super T, ? extends U> fn) {
-        return thenParApplyAllSuccessAsync(cfThis, valueIfFailed, fn, defaultExecutor(cfThis));
+    public static <T, U> CompletableFuture<List<U>> thenParApplyAllSuccessAsync(CompletableFuture<? extends Iterable<? extends T>> cfThis, @Nullable U valueIfFailed, Function<? super T, ? extends U> fn) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -541,15 +443,8 @@ public final class CfParallelUtils {
      * See the {@link CompletableFutureUtils#allSuccessResultsOf allSuccessResultsOf} documentation for the rules of result computation.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenParAcceptAsyncAndForget`")
-    public static <T, U> CompletableFuture<List<U>> thenParApplyAllSuccessAsync(
-            CompletableFuture<? extends Iterable<? extends T>> cfThis,
-            @Nullable U valueIfFailed, Function<? super T, ? extends U> fn, Executor executor) {
-        requireNonNull(cfThis, "cfThis is null");
-        requireNonNull(fn, "fn is null");
-        requireNonNull(executor, "executor is null");
-
-        return cfThis.thenCompose(elements -> parApplyAllSuccessAsync0(
-                elements, valueIfFailed, fn, executor, "thenParApplyAllSuccessAsync"));
+    public static <T, U> CompletableFuture<List<U>> thenParApplyAllSuccessAsync(CompletableFuture<? extends Iterable<? extends T>> cfThis, @Nullable U valueIfFailed, Function<? super T, ? extends U> fn, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -560,10 +455,8 @@ public final class CfParallelUtils {
      * See the {@link CompletableFutureUtils#mostSuccessResultsOf mostSuccessResultsOf} documentation for the rules of result computation.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenParAcceptAsyncAndForget`")
-    public static <T, U> CompletableFuture<List<U>> thenParApplyMostSuccessAsync(
-            CompletableFuture<? extends Iterable<? extends T>> cfThis, @Nullable U valueIfNotSuccess,
-            long timeout, TimeUnit unit, Function<? super T, ? extends U> fn) {
-        return thenParApplyMostSuccessAsync(cfThis, valueIfNotSuccess, timeout, unit, fn, defaultExecutor(cfThis));
+    public static <T, U> CompletableFuture<List<U>> thenParApplyMostSuccessAsync(CompletableFuture<? extends Iterable<? extends T>> cfThis, @Nullable U valueIfNotSuccess, long timeout, TimeUnit unit, Function<? super T, ? extends U> fn) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -574,16 +467,8 @@ public final class CfParallelUtils {
      * See the {@link CompletableFutureUtils#mostSuccessResultsOf mostSuccessResultsOf} documentation for the rules of result computation.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenParAcceptAsyncAndForget`")
-    public static <T, U> CompletableFuture<List<U>> thenParApplyMostSuccessAsync(
-            CompletableFuture<? extends Iterable<? extends T>> cfThis, @Nullable U valueIfNotSuccess,
-            long timeout, TimeUnit unit, Function<? super T, ? extends U> fn, Executor executor) {
-        requireNonNull(cfThis, "cfThis is null");
-        requireNonNull(unit, "unit is null");
-        requireNonNull(fn, "fn is null");
-        requireNonNull(executor, "executor is null");
-
-        return cfThis.thenCompose(elements -> parApplyMostSuccessAsync0(
-                elements, valueIfNotSuccess, timeout, unit, fn, executor, "thenParApplyMostSuccessAsync"));
+    public static <T, U> CompletableFuture<List<U>> thenParApplyMostSuccessAsync(CompletableFuture<? extends Iterable<? extends T>> cfThis, @Nullable U valueIfNotSuccess, long timeout, TimeUnit unit, Function<? super T, ? extends U> fn, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -594,9 +479,8 @@ public final class CfParallelUtils {
      * See the {@link CompletableFutureUtils#allResultsOf allResultsOf} documentation for the rules of result computation.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenParAcceptAsyncAndForget`")
-    public static <T, U> CompletableFuture<List<U>> thenParApplyAsync(
-            CompletableFuture<? extends Iterable<? extends T>> cfThis, Function<? super T, ? extends U> fn) {
-        return thenParApplyAsync(cfThis, fn, defaultExecutor(cfThis));
+    public static <T, U> CompletableFuture<List<U>> thenParApplyAsync(CompletableFuture<? extends Iterable<? extends T>> cfThis, Function<? super T, ? extends U> fn) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -607,13 +491,8 @@ public final class CfParallelUtils {
      * See the {@link CompletableFutureUtils#allResultsOf allResultsOf} documentation for the rules of result computation.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenParAcceptAsyncAndForget`")
-    public static <T, U> CompletableFuture<List<U>> thenParApplyAsync(
-            CompletableFuture<? extends Iterable<? extends T>> cfThis, Function<? super T, ? extends U> fn, Executor executor) {
-        requireNonNull(cfThis, "cfThis is null");
-        requireNonNull(fn, "fn is null");
-        requireNonNull(executor, "executor is null");
-
-        return cfThis.thenCompose(elements -> parApplyAsync0(elements, fn, executor, "thenParApplyAsync"));
+    public static <T, U> CompletableFuture<List<U>> thenParApplyAsync(CompletableFuture<? extends Iterable<? extends T>> cfThis, Function<? super T, ? extends U> fn, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -624,9 +503,8 @@ public final class CfParallelUtils {
      * See the {@link CompletableFutureUtils#anySuccessOf anySuccessOf} documentation for the rules of result computation.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenParAcceptAsyncAndForget`")
-    public static <T, U> CompletableFuture<U> thenParApplyAnySuccessAsync(
-            CompletableFuture<? extends Iterable<? extends T>> cfThis, Function<? super T, ? extends U> fn) {
-        return thenParApplyAnySuccessAsync(cfThis, fn, defaultExecutor(cfThis));
+    public static <T, U> CompletableFuture<U> thenParApplyAnySuccessAsync(CompletableFuture<? extends Iterable<? extends T>> cfThis, Function<? super T, ? extends U> fn) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -637,13 +515,8 @@ public final class CfParallelUtils {
      * See the {@link CompletableFutureUtils#anySuccessOf anySuccessOf} documentation for the rules of result computation.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenParAcceptAsyncAndForget`")
-    public static <T, U> CompletableFuture<U> thenParApplyAnySuccessAsync(
-            CompletableFuture<? extends Iterable<? extends T>> cfThis, Function<? super T, ? extends U> fn, Executor executor) {
-        requireNonNull(cfThis, "cfThis is null");
-        requireNonNull(fn, "fn is null");
-        requireNonNull(executor, "executor is null");
-
-        return cfThis.thenCompose(elements -> parApplyAnySuccessAsync0(elements, fn, executor, "thenParApplyAnySuccessAsync"));
+    public static <T, U> CompletableFuture<U> thenParApplyAnySuccessAsync(CompletableFuture<? extends Iterable<? extends T>> cfThis, Function<? super T, ? extends U> fn, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -654,9 +527,8 @@ public final class CfParallelUtils {
      * See the {@link CompletableFutureUtils#anyOf anyOf} documentation for the rules of result computation.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenParAcceptAsyncAndForget`")
-    public static <T, U> CompletableFuture<U> thenParApplyAnyAsync(
-            CompletableFuture<? extends Iterable<? extends T>> cfThis, Function<? super T, ? extends U> fn) {
-        return thenParApplyAnyAsync(cfThis, fn, defaultExecutor(cfThis));
+    public static <T, U> CompletableFuture<U> thenParApplyAnyAsync(CompletableFuture<? extends Iterable<? extends T>> cfThis, Function<? super T, ? extends U> fn) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -667,13 +539,8 @@ public final class CfParallelUtils {
      * See the {@link CompletableFutureUtils#anyOf anyOf} documentation for the rules of result computation.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenParAcceptAsyncAndForget`")
-    public static <T, U> CompletableFuture<U> thenParApplyAnyAsync(
-            CompletableFuture<? extends Iterable<? extends T>> cfThis, Function<? super T, ? extends U> fn, Executor executor) {
-        requireNonNull(cfThis, "cfThis is null");
-        requireNonNull(fn, "fn is null");
-        requireNonNull(executor, "executor is null");
-
-        return cfThis.thenCompose(elements -> parApplyAnyAsync0(elements, fn, executor, "thenParApplyAnyAsync"));
+    public static <T, U> CompletableFuture<U> thenParApplyAnyAsync(CompletableFuture<? extends Iterable<? extends T>> cfThis, Function<? super T, ? extends U> fn, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -684,9 +551,8 @@ public final class CfParallelUtils {
      * See the {@link CompletableFutureUtils#allResultsFailFastOf allResultsFailFastOf} documentation for the rules of result computation.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenParAcceptAsyncAndForget`")
-    public static <T> CompletableFuture<Void> thenParAcceptFailFastAsync(
-            CompletableFuture<? extends Iterable<? extends T>> cfThis, Consumer<? super T> action) {
-        return thenParAcceptFailFastAsync(cfThis, action, defaultExecutor(cfThis));
+    public static <T> CompletableFuture<Void> thenParAcceptFailFastAsync(CompletableFuture<? extends Iterable<? extends T>> cfThis, Consumer<? super T> action) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -697,14 +563,8 @@ public final class CfParallelUtils {
      * See the {@link CompletableFutureUtils#allResultsFailFastOf allResultsFailFastOf} documentation for the rules of result computation.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenParAcceptAsyncAndForget`")
-    public static <T> CompletableFuture<Void> thenParAcceptFailFastAsync(
-            CompletableFuture<? extends Iterable<? extends T>> cfThis, Consumer<? super T> action, Executor executor) {
-        requireNonNull(cfThis, "cfThis is null");
-        requireNonNull(action, "action is null");
-        requireNonNull(executor, "executor is null");
-
-        return cfThis.thenCompose(elements -> parAcceptFailFastAsync0(
-                elements, action, executor, "thenParAcceptFailFastAsync"));
+    public static <T> CompletableFuture<Void> thenParAcceptFailFastAsync(CompletableFuture<? extends Iterable<? extends T>> cfThis, Consumer<? super T> action, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -715,9 +575,8 @@ public final class CfParallelUtils {
      * See the {@link CompletableFutureUtils#allOf allOf} documentation for the rules of result computation.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenParAcceptAsyncAndForget`")
-    public static <T> CompletableFuture<Void> thenParAcceptAsync(
-            CompletableFuture<? extends Iterable<? extends T>> cfThis, Consumer<? super T> action) {
-        return thenParAcceptAsync(cfThis, action, defaultExecutor(cfThis));
+    public static <T> CompletableFuture<Void> thenParAcceptAsync(CompletableFuture<? extends Iterable<? extends T>> cfThis, Consumer<? super T> action) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -728,13 +587,8 @@ public final class CfParallelUtils {
      * See the {@link CompletableFutureUtils#allOf allOf} documentation for the rules of result computation.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenParAcceptAsyncAndForget`")
-    public static <T> CompletableFuture<Void> thenParAcceptAsync(
-            CompletableFuture<? extends Iterable<? extends T>> cfThis, Consumer<? super T> action, Executor executor) {
-        requireNonNull(cfThis, "cfThis is null");
-        requireNonNull(action, "action is null");
-        requireNonNull(executor, "executor is null");
-
-        return cfThis.thenCompose(elements -> parAcceptAsync0(elements, action, executor, "thenParAcceptAsync"));
+    public static <T> CompletableFuture<Void> thenParAcceptAsync(CompletableFuture<? extends Iterable<? extends T>> cfThis, Consumer<? super T> action, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -745,9 +599,8 @@ public final class CfParallelUtils {
      * See the {@link CompletableFutureUtils#anySuccessOf anySuccessOf} documentation for the rules of result computation.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenParAcceptAsyncAndForget`")
-    public static <T> CompletableFuture<Void> thenParAcceptAnySuccessAsync(
-            CompletableFuture<? extends Iterable<? extends T>> cfThis, Consumer<? super T> action) {
-        return thenParAcceptAnySuccessAsync(cfThis, action, defaultExecutor(cfThis));
+    public static <T> CompletableFuture<Void> thenParAcceptAnySuccessAsync(CompletableFuture<? extends Iterable<? extends T>> cfThis, Consumer<? super T> action) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -758,14 +611,8 @@ public final class CfParallelUtils {
      * See the {@link CompletableFutureUtils#anySuccessOf anySuccessOf} documentation for the rules of result computation.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenParAcceptAsyncAndForget`")
-    public static <T> CompletableFuture<Void> thenParAcceptAnySuccessAsync(
-            CompletableFuture<? extends Iterable<? extends T>> cfThis, Consumer<? super T> action, Executor executor) {
-        requireNonNull(cfThis, "cfThis is null");
-        requireNonNull(action, "action is null");
-        requireNonNull(executor, "executor is null");
-
-        return cfThis.thenCompose(elements -> parAcceptAnySuccessAsync0(
-                elements, action, executor, "thenParAcceptAnySuccessAsync"));
+    public static <T> CompletableFuture<Void> thenParAcceptAnySuccessAsync(CompletableFuture<? extends Iterable<? extends T>> cfThis, Consumer<? super T> action, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -776,9 +623,8 @@ public final class CfParallelUtils {
      * See the {@link CompletableFutureUtils#anyOf anyOf} documentation for the rules of result computation.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenParAcceptAsyncAndForget`")
-    public static <T> CompletableFuture<Void> thenParAcceptAnyAsync(
-            CompletableFuture<? extends Iterable<? extends T>> cfThis, Consumer<? super T> action) {
-        return thenParAcceptAnyAsync(cfThis, action, defaultExecutor(cfThis));
+    public static <T> CompletableFuture<Void> thenParAcceptAnyAsync(CompletableFuture<? extends Iterable<? extends T>> cfThis, Consumer<? super T> action) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -789,13 +635,8 @@ public final class CfParallelUtils {
      * See the {@link CompletableFutureUtils#anyOf anyOf} documentation for the rules of result computation.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenParAcceptAsyncAndForget`")
-    public static <T> CompletableFuture<Void> thenParAcceptAnyAsync(
-            CompletableFuture<? extends Iterable<? extends T>> cfThis, Consumer<? super T> action, Executor executor) {
-        requireNonNull(cfThis, "cfThis is null");
-        requireNonNull(action, "action is null");
-        requireNonNull(executor, "executor is null");
-
-        return cfThis.thenCompose(elements -> parAcceptAnyAsync0(elements, action, executor, "thenParAcceptAnyAsync"));
+    public static <T> CompletableFuture<Void> thenParAcceptAnyAsync(CompletableFuture<? extends Iterable<? extends T>> cfThis, Consumer<? super T> action, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -806,9 +647,8 @@ public final class CfParallelUtils {
      * @return the given CompletableFuture
      * @since 2.1.0
      */
-    public static <T, F extends CompletionStage<? extends Iterable<? extends T>>> F thenParAcceptAsyncAndForget(
-            F cfThis, Consumer<? super T> action) {
-        return CfParallelUtils.thenParAcceptAsyncAndForget(cfThis, action, defaultExecutor(cfThis));
+    public static <T, F extends CompletionStage<? extends Iterable<? extends T>>> F thenParAcceptAsyncAndForget(F cfThis, Consumer<? super T> action) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -819,15 +659,10 @@ public final class CfParallelUtils {
      * @return the given CompletableFuture
      * @since 2.1.0
      */
-    public static <T, F extends CompletionStage<? extends Iterable<? extends T>>> F thenParAcceptAsyncAndForget(
-            F cfThis, Consumer<? super T> action, Executor executor) {
-        requireNonNull(cfThis, "cfThis is null");
-        requireNonNull(action, "action is null");
-        requireNonNull(executor, "executor is null");
-
-        cfThis.thenCompose(elements -> parAcceptAsync0(elements, action, executor, "thenParAcceptAsyncAndForget"));
-        return cfThis;
+    public static <T, F extends CompletionStage<? extends Iterable<? extends T>>> F thenParAcceptAsyncAndForget(F cfThis, Consumer<? super T> action, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    private CfParallelUtils() {}
+    private CfParallelUtils() {
+    }
 }

@@ -3,7 +3,6 @@ package io.foldright.cffu2;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.foldright.cffu2.spi.ExecutorWrapperProvider;
 import org.jetbrains.annotations.Contract;
-
 import javax.annotation.concurrent.ThreadSafe;
 import java.util.List;
 import java.util.ServiceLoader;
@@ -12,9 +11,7 @@ import java.util.concurrent.Executor;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
-
 import static java.util.Objects.requireNonNull;
-
 
 /**
  * {@link CffuFactoryBuilder} is the builder of {@link CffuFactory}, creates by {@link CffuFactory#builder(Executor)}.
@@ -25,10 +22,10 @@ import static java.util.Objects.requireNonNull;
  */
 @ThreadSafe
 public final class CffuFactoryBuilder {
+
     ////////////////////////////////////////////////////////////////////////////////
     // region# Internal constructor and fields
     ////////////////////////////////////////////////////////////////////////////////
-
     /**
      * default executor of Cffu.
      */
@@ -44,7 +41,6 @@ public final class CffuFactoryBuilder {
     ////////////////////////////////////////////////////////////////////////////////
     // region# Builder Methods
     ////////////////////////////////////////////////////////////////////////////////
-
     /**
      * Sets {@code forbidObtrudeMethods} or not.
      * <p>
@@ -54,8 +50,7 @@ public final class CffuFactoryBuilder {
      * @see Cffu#forbidObtrudeMethods()
      */
     public CffuFactoryBuilder forbidObtrudeMethods(boolean forbid) {
-        this.forbidObtrudeMethods = forbid;
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -65,7 +60,7 @@ public final class CffuFactoryBuilder {
      */
     @Contract(pure = true)
     public CffuFactory build() {
-        return new CffuFactory(defaultExecutor, forbidObtrudeMethods);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -84,14 +79,12 @@ public final class CffuFactoryBuilder {
     ////////////////////////////////////////////////////////////////////////////////
     // region# Internal helpers (classes/methods/fields)
     ////////////////////////////////////////////////////////////////////////////////
-
     /**
      * Returns a new CffuFactory from input CffuFactory with the defaultExecutor.
      */
     @Contract(pure = true)
     static CffuFactory withDefaultExecutor(CffuFactory fac, Executor defaultExecutor) {
-        if (fac.defaultExecutor.original == defaultExecutor) return fac;
-        return new CffuFactory(new CffuDefaultExecutor(defaultExecutor), fac.forbidObtrudeMethods);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -103,7 +96,9 @@ public final class CffuFactoryBuilder {
      */
     @SuppressWarnings("JavadocReference")
     final static class CffuDefaultExecutor implements Executor {
+
         final Executor original;
+
         final Executor screened;
 
         private CffuDefaultExecutor(Executor defaultExecutor) {
@@ -121,33 +116,28 @@ public final class CffuFactoryBuilder {
          */
         @Override
         public void execute(Runnable command) {
-            screened.execute(command);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
         public String toString() {
-            return "CffuDefaultExecutor, original: " + original;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
     @SuppressWarnings("ConstantValue")
     static Executor cffuScreened(Executor executor) {
-        if (executor == null) return null;
-        if (executor instanceof CffuDefaultExecutor) return executor;
-        return wrapExecutorWithProviders(LLCF.screenExecutor(executor), executor);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @SuppressWarnings("ConstantValue")
     static Executor cffuUnscreened(Executor executor) {
-        if (executor == null) return null;
-        if (executor instanceof CffuDefaultExecutor) return executor;
-        return wrapExecutorWithProviders(executor, executor);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private static CffuMadeExecutor wrapExecutorWithProviders(Executor executor, Executor original) {
         if (executor instanceof CffuMadeExecutor)
             throw new IllegalArgumentException("input executor should never be a CffuMadeExecutor");
-
         for (ExecutorWrapperProvider provider : EXECUTOR_WRAPPER_PROVIDERS) {
             Supplier<String> msg = () -> provider + "(class: " + provider.getClass().getName() + ") return null";
             executor = requireNonNull(provider.wrap(executor), msg);
@@ -166,7 +156,9 @@ public final class CffuFactoryBuilder {
      * A little class to prevent duplicate wrapping of executors.
      */
     private static final class CffuMadeExecutor implements Executor {
+
         final Executor wrappee;
+
         final Executor original;
 
         CffuMadeExecutor(Executor wrappee, Executor original) {
@@ -176,12 +168,12 @@ public final class CffuFactoryBuilder {
 
         @Override
         public void execute(Runnable command) {
-            wrappee.execute(command);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
         public String toString() {
-            return "CffuMadeExecutor, wrappee: " + wrappee + " original: " + original;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 }

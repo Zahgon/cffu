@@ -3,7 +3,6 @@ package io.foldright.cffu2;
 import edu.umd.cs.findbugs.annotations.Nullable;
 import io.foldright.cffu2.internal.CommonUtils;
 import org.jetbrains.annotations.Contract;
-
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
@@ -13,7 +12,6 @@ import java.util.concurrent.ForkJoinPool;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
-
 import static io.foldright.cffu2.CompletableFutureUtils.newIncompleteFuture;
 import static io.foldright.cffu2.CompletableFutureUtils.unwrapCfException;
 import static io.foldright.cffu2.internal.CffuLogger.Level.ERROR;
@@ -23,7 +21,6 @@ import static io.foldright.cffu2.internal.CommonUtils.mapArray;
 import static java.lang.Thread.currentThread;
 import static java.util.Objects.requireNonNull;
 import static java.util.concurrent.CompletableFuture.completedFuture;
-
 
 /**
  * Low Level CompletableFuture utility methods for manipulating CompletableFuture. This class is for library writers,
@@ -45,10 +42,10 @@ import static java.util.concurrent.CompletableFuture.completedFuture;
  * @see CompletableFutureUtils
  */
 public final class LLCF {
+
     ////////////////////////////////////////////////////////////////////////////////
     // region# Internal Fields (the Java version checks for compatibility)
     ////////////////////////////////////////////////////////////////////////////////
-
     /**
      * a naive black hole to prevent code elimination; For more information, see <a href=
      * "https://github.com/openjdk/jmh/blob/1.37/jmh-core/src/main/java/org/openjdk/jmh/infra/Blackhole.java">JMH black hole</a>
@@ -57,17 +54,20 @@ public final class LLCF {
 
     // `CompletableFuture.completedStage` have been the new method since java 9
     static final boolean IS_JAVA9_PLUS = methodExists(() -> CompletableFuture.completedStage(null));
+
     // `CompletableFuture.exceptionallyCompose` have been the new method since java 12
-    static final boolean IS_JAVA12_PLUS = methodExists(() ->
-            completedFuture(null).exceptionallyCompose(ex -> null));
+    static final boolean IS_JAVA12_PLUS = methodExists(() -> completedFuture(null).exceptionallyCompose(ex -> null));
+
     // `CompletableFuture.resultNow` have been the new method since java 19
     static final boolean IS_JAVA19_PLUS = methodExists(() -> completedFuture(null).resultNow());
+
     // `List.reversed` have been the new method since java 21
     static final boolean IS_JAVA21_PLUS = methodExists(() -> new ArrayList<>().reversed());
 
     private static boolean methodExists(Supplier<?> methodCallCheck) {
         try {
-            int i = BLACK_HOLE; // volatile read
+            // volatile read
+            int i = BLACK_HOLE;
             BLACK_HOLE = Objects.hashCode(methodCallCheck.get()) ^ i;
             return true;
         } catch (NoSuchMethodError e) {
@@ -75,9 +75,8 @@ public final class LLCF {
         }
     }
 
-    private static final @Nullable Class<?> MIN_STAGE_CLASS = IS_JAVA9_PLUS
-            ? CompletableFuture.completedStage(null).getClass()
-            : null;
+    @Nullable
+    private static final Class<?> MIN_STAGE_CLASS = IS_JAVA9_PLUS ? CompletableFuture.completedStage(null).getClass() : null;
 
     // CAUTION: The initialization order of static fields matters. Do not place static fields
     // before their dependencies, as this will result in using uninitialized dependency values.
@@ -85,19 +84,17 @@ public final class LLCF {
     // Dependencies:
     // - IS_JAVA*_PLUS depends on BLACK_HOLE
     // - MIN_STAGE_CLASS depends on IS_JAVA9_PLUS
-
     // endregion
     ////////////////////////////////////////////////////////////////////////////////
     // region# Low Level conversion and test methods for CompletableFuture
     ////////////////////////////////////////////////////////////////////////////////
-
     /**
      * Forcefully casts CompletableFuture with the value type, IGNORE the compile-time type check.
      */
     @Contract(pure = true)
-    @SuppressWarnings({"unchecked", "rawtypes"})
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     public static <T> CompletableFuture<T> f_cast(CompletableFuture<?> cf) {
-        return (CompletableFuture) cf;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -110,9 +107,7 @@ public final class LLCF {
     @Contract(pure = true)
     @SuppressWarnings("unchecked")
     public static <T> CompletableFuture<T> f_toCf0(CompletionStage<? extends T> stage) {
-        if (stage instanceof CompletableFuture) return (CompletableFuture<T>) stage;
-        else if (stage instanceof BaseCffu) return ((BaseCffu<T, ?>) stage).cf;
-        else return (CompletableFuture<T>) stage.toCompletableFuture();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -121,7 +116,7 @@ public final class LLCF {
      */
     @Contract(pure = true)
     public static <T> CompletableFuture<T>[] f_toCfArray0(CompletionStage<? extends T>[] stages) {
-        return mapArray(stages, CommonUtils::newCfArray, LLCF::f_toCf0);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -133,9 +128,7 @@ public final class LLCF {
      */
     @Contract(pure = true)
     public static <T> CompletableFuture<T> f_toCfCopy0(CompletionStage<? extends T> stage) {
-        final CompletableFuture<T> f = f_toCf0(stage);
-        // because minimal-stage is not writable, defensive copy is unneeded, directly return minimal-stage instance.
-        return isMinStageCf0(f) ? f : copy0(f);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -144,7 +137,7 @@ public final class LLCF {
      */
     @Contract(pure = true)
     public static <T> CompletableFuture<T>[] f_toCfCopyArray0(CompletionStage<? extends T>[] stages) {
-        return mapArray(stages, CommonUtils::newCfArray, LLCF::f_toCfCopy0);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -155,8 +148,7 @@ public final class LLCF {
      */
     @Contract(pure = true)
     public static <T> CompletableFuture<T> toNonMinCf0(CompletionStage<? extends T> stage) {
-        final CompletableFuture<T> f = f_toCf0(stage);
-        return isMinStageCf0(f) ? f.toCompletableFuture() : f;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -165,7 +157,7 @@ public final class LLCF {
      */
     @Contract(pure = true)
     public static <T> CompletableFuture<T>[] toNonMinCfArray0(CompletionStage<? extends T>[] stages) {
-        return mapArray(stages, CommonUtils::newCfArray, LLCF::toNonMinCf0);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -177,8 +169,7 @@ public final class LLCF {
      */
     @Contract(pure = true)
     public static <T> CompletableFuture<T> toNonMinCfCopy0(CompletionStage<? extends T> stage) {
-        final CompletableFuture<T> f = f_toCf0(stage);
-        return isMinStageCf0(f) ? f.toCompletableFuture() : copy0(f);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -187,7 +178,7 @@ public final class LLCF {
      */
     @Contract(pure = true)
     public static <T> CompletableFuture<T>[] toNonMinCfCopyArray0(CompletionStage<? extends T>[] stages) {
-        return mapArray(stages, CommonUtils::newCfArray, LLCF::toNonMinCfCopy0);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -201,7 +192,7 @@ public final class LLCF {
      */
     @Contract(pure = true)
     public static boolean isMinStageCf0(CompletableFuture<?> cf) {
-        return cf.getClass().equals(MIN_STAGE_CLASS);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -219,14 +210,13 @@ public final class LLCF {
     @Contract(pure = true)
     @SuppressWarnings("unchecked")
     public static <F extends CompletionStage<?>> F f_selfTypeDownCast(CompletionStage<?> stage) {
-        return (F) stage;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     // endregion
     ////////////////////////////////////////////////////////////////////////////////
     // region# Low level operations of CompletableFuture
     ////////////////////////////////////////////////////////////////////////////////
-
     /**
      * Peeks the result by executing the given action when the given stage completes.
      * This method is guaranteed to return the given stage without modifying it;
@@ -240,10 +230,8 @@ public final class LLCF {
      * @see <a href="https://peps.python.org/pep-0020/">Errors should never pass silently. Unless explicitly silenced.</a>
      */
     @Contract("_, _, _ -> param1")
-    public static <T, F extends CompletionStage<? extends T>>
-    F peek0(F cfThis, BiConsumer<? super T, ? super Throwable> action, String where) {
-        cfThis.whenComplete(safePeekAction(action, where));
-        return cfThis;
+    public static <T, F extends CompletionStage<? extends T>> F peek0(F cfThis, BiConsumer<? super T, ? super Throwable> action, String where) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -259,10 +247,8 @@ public final class LLCF {
      * @see <a href="https://peps.python.org/pep-0020/">Errors should never pass silently. Unless explicitly silenced.</a>
      */
     @Contract("_, _, _, _ -> param1")
-    public static <T, F extends CompletionStage<? extends T>>
-    F peekAsync0(F cfThis, BiConsumer<? super T, ? super Throwable> action, String where, Executor executor) {
-        cfThis.whenCompleteAsync(safePeekAction(action, where), executor);
-        return cfThis;
+    public static <T, F extends CompletionStage<? extends T>> F peekAsync0(F cfThis, BiConsumer<? super T, ? super Throwable> action, String where, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private static <T> BiConsumer<T, Throwable> safePeekAction(BiConsumer<? super T, ? super Throwable> action, String where) {
@@ -282,8 +268,7 @@ public final class LLCF {
      * CompletableFuture#complete(Object)} or {@link CompletableFuture#completeExceptionally(Throwable)} instead.
      */
     public static <T> boolean completeCf0(CompletableFuture<? super T> cf, @Nullable T value, @Nullable Throwable ex) {
-        if (ex == null) return cf.complete(value);
-        else return cf.completeExceptionally(ex);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -297,7 +282,7 @@ public final class LLCF {
      */
     @Contract(pure = true)
     public static <T> CompletableFuture<T> copy0(CompletableFuture<T> cf) {
-        return IS_JAVA9_PLUS ? cf.copy() : cf.thenApply(x -> x);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -312,9 +297,8 @@ public final class LLCF {
      * CompletionStage<T> s2 = covariantExceptionally0(stage, fn); // compile success}</pre>
      */
     @SuppressWarnings("unchecked")
-    public static <T> CompletionStage<T> covariantExceptionally0(
-            CompletionStage<? extends T> stage, Function<Throwable, ? extends T> fn) {
-        return ((CompletionStage<T>) stage).exceptionally(fn);
+    public static <T> CompletionStage<T> covariantExceptionally0(CompletionStage<? extends T> stage, Function<Throwable, ? extends T> fn) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -352,29 +336,8 @@ public final class LLCF {
      * @param executor          the executor used for asynchronous execution
      * @return the return value of function {@code relayComputations}
      */
-    public static <T, F extends CompletionStage<?>> F relayAsync0(
-            CompletionStage<? extends T> cfThis,
-            Function<? super CompletableFuture<T>, F> relayComputations, Executor executor) {
-        final CompletableFuture<T> promise = new CompletableFuture<>();
-        final F ret = relayComputations.apply(promise);
-
-        final Thread callerThread = currentThread();
-        final boolean[] returnedFromPeek0 = {false};
-
-        peek0(cfThis, (v, ex) -> {
-            if (currentThread().equals(callerThread) && !returnedFromPeek0[0]) {
-                // If the action is running in the caller thread(same single thread) and `peek0` invocation does not
-                // return to caller (flag returnedFromPeek0 is false), the action is being executed synchronously.
-                // To prevent blocking the caller's sequential code, use the supplied executor to complete the promise.
-                executor.execute(() -> completeCf0(promise, v, ex));
-            } else {
-                // Otherwise, complete the promise directly, avoiding one thread switching.
-                completeCf0(promise, v, ex);
-            }
-        }, "relayAsync0");
-
-        returnedFromPeek0[0] = true;
-        return ret;
+    public static <T, F extends CompletionStage<?>> F relayAsync0(CompletionStage<? extends T> cfThis, Function<? super CompletableFuture<T>, F> relayComputations, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -386,21 +349,13 @@ public final class LLCF {
      */
     @Contract(pure = true)
     public static <F extends CompletableFuture<?>> F switchExecutorIfTriggersInCfDelayerThread(F cf, Executor executor) {
-        CompletableFuture<Object> ret = newIncompleteFuture(cf);
-
-        peek0(cf, (v, ex) -> {
-            if (!Delayer.atCfDelayerThread()) completeCf0(ret, v, ex);
-            else executor.execute(() -> completeCf0(ret, v, ex));
-        }, "switchExecutorIfAtCfDelayerThread0");
-
-        return f_selfTypeDownCast(ret);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     // endregion
     ////////////////////////////////////////////////////////////////////////////////
     // region# CF exception utility methods
     ////////////////////////////////////////////////////////////////////////////////
-
     /**
      * Adds a suppressed exception to a target exception, first unwrapping the target exception
      * if it is a CompletionException or ExecutionException.
@@ -415,29 +370,20 @@ public final class LLCF {
      * @see CompletableFutureUtils#unwrapCfException(Throwable)
      */
     public static void safeAddSuppressedEx(@Nullable Throwable suppressed, Throwable target) {
-        if (suppressed == null) return;
-        target = unwrapCfException(target);
-        if (suppressed != target && !containsInArray(target.getSuppressed(), suppressed))
-            target.addSuppressed(suppressed);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     // endregion
     ////////////////////////////////////////////////////////////////////////////////
     // region# CF executor
     ////////////////////////////////////////////////////////////////////////////////
-
     /**
      * Null-checks user executor argument and translates uses of commonPool to ASYNC_POOL in case parallelism disabled.
      */
     @Contract(pure = true)
     @SuppressWarnings("resource")
     public static Executor screenExecutor(Executor e) {
-        // Implementation note: CompletableFuture API methods already call this method internally; Only underlying
-        // methods that directly use an executor need to call this method (e.g. CFU#hopExecutorIfAtCfDelayerThread)
-        //
-        // the below code is copied from CompletableFuture#screenExecutor with small adaptions
-        if (!USE_COMMON_POOL && e == ForkJoinPool.commonPool()) return ASYNC_POOL;
-        return requireNonNull(e, "executor is null");
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -452,9 +398,7 @@ public final class LLCF {
      * @see CompletableFutureUtils#defaultExecutor(CompletionStage)
      */
     // field initialization code is copied from CompletableFuture#ASYNC_POOL with small adaptions.
-    public static final Executor ASYNC_POOL = IS_JAVA9_PLUS
-            ? completedFuture(null).defaultExecutor()
-            : USE_COMMON_POOL ? ForkJoinPool.commonPool() : new ThreadPerTaskExecutor();
+    public static final Executor ASYNC_POOL = IS_JAVA9_PLUS ? completedFuture(null).defaultExecutor() : USE_COMMON_POOL ? ForkJoinPool.commonPool() : new ThreadPerTaskExecutor();
 
     /**
      * Fallback if {@link ForkJoinPool#commonPool()} cannot support parallelism.
@@ -462,11 +406,13 @@ public final class LLCF {
      */
     @SuppressWarnings("JavadocReference")
     private static final class ThreadPerTaskExecutor implements Executor {
+
         @Override
         public void execute(Runnable r) {
-            new Thread(requireNonNull(r)).start();
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
-    private LLCF() {}
+    private LLCF() {
+    }
 }

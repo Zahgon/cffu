@@ -6,7 +6,6 @@ import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.VisibleForTesting;
 import org.slf4j.spi.LocationAwareLogger;
 
-
 /**
  * <strong>Internal</strong> exception logging utility for the cffu library.
  *
@@ -17,7 +16,9 @@ import org.slf4j.spi.LocationAwareLogger;
  */
 @ApiStatus.Internal
 public final class CffuLogger {
+
     private static final String FQCN = CffuLogger.class.getName();
+
     private static final String CFFU_PACKAGE_NAME = FQCN.replaceFirst("(\\.[^.]*){2}$", "");
 
     @VisibleForTesting
@@ -26,15 +27,15 @@ public final class CffuLogger {
     private static final LoggerAdapter logger = getLogger();
 
     public static void logException(Level level, String msg, Throwable ex) {
-        log0(level, msg, ex);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public static void logUncaughtException(Level level, String where, Throwable ex) {
-        log0(level, "Uncaught exception occurred at " + where, ex);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public static void log(Level level, String msg) {
-        log0(level, msg, null);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -43,7 +44,8 @@ public final class CffuLogger {
         if (format == ExceptionLoggingFormat.NONE) {
             // pass silently when explicitly silenced.
         } else if (format == ExceptionLoggingFormat.SHORT) {
-            if (ex != null) msg = msg + ", exception: " + ex;
+            if (ex != null)
+                msg = msg + ", exception: " + ex;
             logger.log(level, msg + ", " + ex, null);
         } else {
             logger.log(level, msg, ex);
@@ -51,14 +53,13 @@ public final class CffuLogger {
     }
 
     public static void setExceptionLoggingFormat(ExceptionLoggingFormat format) {
-        exceptionLoggingFormat = format;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private static ExceptionLoggingFormat initExceptionLoggingFormat() {
         final String fullFormat = "full";
         final String shortFormat = "short";
         final String noneFormat = "none";
-
         final String format = System.getProperty("cffu.exception.log.format", fullFormat);
         if (noneFormat.equalsIgnoreCase(format)) {
             return ExceptionLoggingFormat.NONE;
@@ -69,7 +70,10 @@ public final class CffuLogger {
         }
     }
 
-    public enum Level {ERROR, WARN}
+    public enum Level {
+
+        ERROR, WARN
+    }
 
     /**
      * Returns a logger adapter that uses {@code SLF4J} if available, otherwise uses {@link java.util.logging}.
@@ -83,32 +87,30 @@ public final class CffuLogger {
     }
 
     private interface LoggerAdapter {
+
         void log(Level level, String msg, @Nullable Throwable ex);
     }
 
     private static final class Slf4jLoggerAdapter implements LoggerAdapter {
+
         private final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(CFFU_PACKAGE_NAME);
 
         @Override
         public void log(Level level, String msg, @Nullable Throwable ex) {
-            if (logger instanceof LocationAwareLogger) {
-                int lvl = level == Level.ERROR ? LocationAwareLogger.ERROR_INT : LocationAwareLogger.WARN_INT;
-                ((LocationAwareLogger) logger).log(null, FQCN, lvl, msg, null, ex);
-            } else {
-                if (level == Level.ERROR) logger.error(msg, ex);
-                else logger.warn(msg, ex);
-            }
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
     private static final class JulLoggerAdapter implements LoggerAdapter {
+
         private final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CFFU_PACKAGE_NAME);
 
         @Override
         public void log(Level level, String msg, @Nullable Throwable ex) {
-            logger.log(level == Level.ERROR ? java.util.logging.Level.SEVERE : java.util.logging.Level.WARNING, msg, ex);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
-    private CffuLogger() {}
+    private CffuLogger() {
+    }
 }

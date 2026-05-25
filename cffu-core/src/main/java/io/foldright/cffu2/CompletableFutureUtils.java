@@ -7,13 +7,11 @@ import io.foldright.cffu2.internal.CommonUtils;
 import io.foldright.cffu2.tuple.Tuple2;
 import org.jetbrains.annotations.Blocking;
 import org.jetbrains.annotations.Contract;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicReferenceArray;
 import java.util.function.*;
-
 import static io.foldright.cffu2.LLCF.*;
 import static io.foldright.cffu2.eh.SwallowedExceptionHandleUtils.handleAllSwallowedExceptions;
 import static io.foldright.cffu2.eh.SwallowedExceptionHandleUtils.handleSwallowedExceptions;
@@ -21,7 +19,6 @@ import static io.foldright.cffu2.internal.CommonUtils.*;
 import static java.lang.Thread.currentThread;
 import static java.util.Objects.requireNonNull;
 import static java.util.concurrent.CompletableFuture.completedFuture;
-
 
 /**
  * Utility class providing enhanced and backport methods for {@link CompletableFuture}.
@@ -48,18 +45,15 @@ public final class CompletableFutureUtils {
      *
      * because these methods are not safe, caller logic SHOULD pay attention to keep implementation correct.
      */
-
     ////////////////////////////////////////////////////////////////////////////////
     // region# CF Factory Methods (including static methods of CF)
     ////////////////////////////////////////////////////////////////////////////////
-
     ////////////////////////////////////////////////////////////
     // region## Multi-Actions(M*) Methods(create by actions)
     //
     //    - Supplier<T>[] -> CompletableFuture<List<T>>
     //    - Runnable[]    -> CompletableFuture<Void>
     ////////////////////////////////////////////////////////////
-
     /**
      * Shortcut to method {@link #allResultsFailFastOf allResultsFailFastOf}, wraps input suppliers to
      * CompletableFuture by {@link CompletableFuture#supplyAsync(Supplier)}.
@@ -69,7 +63,7 @@ public final class CompletableFutureUtils {
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `mRunAsyncAndForget`")
     @SafeVarargs
     public static <T> CompletableFuture<List<T>> mSupplyFailFastAsync(Supplier<? extends T>... suppliers) {
-        return mSupplyFailFastAsync(ASYNC_POOL, suppliers);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -80,15 +74,8 @@ public final class CompletableFutureUtils {
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `mRunAsyncAndForget`")
     @SafeVarargs
-    public static <T> CompletableFuture<List<T>> mSupplyFailFastAsync(
-            Executor executor, Supplier<? extends T>... suppliers) {
-        requireNonNull(executor, "executor is null");
-        requireArrayAndEleNonNull("supplier", suppliers);
-
-        CompletableFuture<? extends T>[] inputs = wrapSuppliers0(executor, suppliers);
-        CompletableFuture<List<T>> ret = allResultsOf0(true, inputs);
-        handleSwallowedExceptions("mSupplyFailFastAsync", ret, inputs);
-        return ret;
+    public static <T> CompletableFuture<List<T>> mSupplyFailFastAsync(Executor executor, Supplier<? extends T>... suppliers) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -99,9 +86,8 @@ public final class CompletableFutureUtils {
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `mRunAsyncAndForget`")
     @SafeVarargs
-    public static <T> CompletableFuture<List<T>> mSupplyAllSuccessAsync(
-            @Nullable T valueIfFailed, Supplier<? extends T>... suppliers) {
-        return mSupplyAllSuccessAsync(ASYNC_POOL, valueIfFailed, suppliers);
+    public static <T> CompletableFuture<List<T>> mSupplyAllSuccessAsync(@Nullable T valueIfFailed, Supplier<? extends T>... suppliers) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -112,14 +98,8 @@ public final class CompletableFutureUtils {
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `mRunAsyncAndForget`")
     @SafeVarargs
-    public static <T> CompletableFuture<List<T>> mSupplyAllSuccessAsync(
-            Executor executor, @Nullable T valueIfFailed, Supplier<? extends T>... suppliers) {
-        requireNonNull(executor, "executor is null");
-        requireArrayAndEleNonNull("supplier", suppliers);
-
-        CompletableFuture<? extends T>[] inputs = wrapSuppliers0(executor, suppliers);
-        handleAllSwallowedExceptions("mSupplyAllSuccessAsync", inputs);
-        return allSuccessResultsOf0(valueIfFailed, inputs);
+    public static <T> CompletableFuture<List<T>> mSupplyAllSuccessAsync(Executor executor, @Nullable T valueIfFailed, Supplier<? extends T>... suppliers) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -131,9 +111,8 @@ public final class CompletableFutureUtils {
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `mRunAsyncAndForget`")
     @SafeVarargs
-    public static <T> CompletableFuture<List<T>> mSupplyMostSuccessAsync(
-            @Nullable T valueIfNotSuccess, long timeout, TimeUnit unit, Supplier<? extends T>... suppliers) {
-        return mSupplyMostSuccessAsync(ASYNC_POOL, valueIfNotSuccess, timeout, unit, suppliers);
+    public static <T> CompletableFuture<List<T>> mSupplyMostSuccessAsync(@Nullable T valueIfNotSuccess, long timeout, TimeUnit unit, Supplier<? extends T>... suppliers) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -145,16 +124,8 @@ public final class CompletableFutureUtils {
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `mRunAsyncAndForget`")
     @SafeVarargs
-    public static <T> CompletableFuture<List<T>> mSupplyMostSuccessAsync(
-            Executor executor, @Nullable T valueIfNotSuccess, long timeout, TimeUnit unit,
-            Supplier<? extends T>... suppliers) {
-        requireNonNull(executor, "executor is null");
-        requireNonNull(unit, "unit is null");
-        requireArrayAndEleNonNull("supplier", suppliers);
-
-        CompletableFuture<? extends T>[] inputs = wrapSuppliers0(executor, suppliers);
-        handleAllSwallowedExceptions("mSupplyMostSuccessAsync", inputs);
-        return mostSuccessResultsOf0(executor, valueIfNotSuccess, timeout, unit, inputs);
+    public static <T> CompletableFuture<List<T>> mSupplyMostSuccessAsync(Executor executor, @Nullable T valueIfNotSuccess, long timeout, TimeUnit unit, Supplier<? extends T>... suppliers) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -166,7 +137,7 @@ public final class CompletableFutureUtils {
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `mRunAsyncAndForget`")
     @SafeVarargs
     public static <T> CompletableFuture<List<T>> mSupplyAsync(Supplier<? extends T>... suppliers) {
-        return mSupplyAsync(ASYNC_POOL, suppliers);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -178,13 +149,7 @@ public final class CompletableFutureUtils {
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `mRunAsyncAndForget`")
     @SafeVarargs
     public static <T> CompletableFuture<List<T>> mSupplyAsync(Executor executor, Supplier<? extends T>... suppliers) {
-        requireNonNull(executor, "executor is null");
-        requireArrayAndEleNonNull("supplier", suppliers);
-
-        CompletableFuture<? extends T>[] inputs = wrapSuppliers0(executor, suppliers);
-        CompletableFuture<List<T>> ret = allResultsOf0(false, inputs);
-        handleSwallowedExceptions("mSupplyAsync", ret, inputs);
-        return ret;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -196,7 +161,7 @@ public final class CompletableFutureUtils {
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `mRunAsyncAndForget`")
     @SafeVarargs
     public static <T> CompletableFuture<T> mSupplyAnySuccessAsync(Supplier<? extends T>... suppliers) {
-        return mSupplyAnySuccessAsync(ASYNC_POOL, suppliers);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -207,15 +172,8 @@ public final class CompletableFutureUtils {
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `mRunAsyncAndForget`")
     @SafeVarargs
-    public static <T> CompletableFuture<T> mSupplyAnySuccessAsync(
-            Executor executor, Supplier<? extends T>... suppliers) {
-        requireNonNull(executor, "executor is null");
-        requireArrayAndEleNonNull("supplier", suppliers);
-
-        CompletableFuture<? extends T>[] inputs = wrapSuppliers0(executor, suppliers);
-        CompletableFuture<T> ret = anySuccessOf0(inputs);
-        handleSwallowedExceptions("mSupplyAnySuccessAsync", ret, inputs);
-        return ret;
+    public static <T> CompletableFuture<T> mSupplyAnySuccessAsync(Executor executor, Supplier<? extends T>... suppliers) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -227,7 +185,7 @@ public final class CompletableFutureUtils {
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `mRunAsyncAndForget`")
     @SafeVarargs
     public static <T> CompletableFuture<T> mSupplyAnyAsync(Supplier<? extends T>... suppliers) {
-        return mSupplyAnyAsync(ASYNC_POOL, suppliers);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -239,17 +197,11 @@ public final class CompletableFutureUtils {
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `mRunAsyncAndForget`")
     @SafeVarargs
     public static <T> CompletableFuture<T> mSupplyAnyAsync(Executor executor, Supplier<? extends T>... suppliers) {
-        requireNonNull(executor, "executor is null");
-        requireArrayAndEleNonNull("supplier", suppliers);
-
-        CompletableFuture<? extends T>[] inputs = wrapSuppliers0(executor, suppliers);
-        CompletableFuture<T> ret = f_cast(CompletableFuture.anyOf(inputs));
-        handleSwallowedExceptions("mSupplyAnyAsync", ret, inputs);
-        return ret;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     static <T> CompletableFuture<? extends T>[] wrapSuppliers0(Executor executor, Supplier<? extends T>[] suppliers) {
-        return mapArray(suppliers, CommonUtils::newCfArray, s -> CompletableFuture.supplyAsync(s, executor));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -260,7 +212,7 @@ public final class CompletableFutureUtils {
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `mRunAsyncAndForget`")
     public static CompletableFuture<Void> mRunFailFastAsync(Runnable... actions) {
-        return mRunFailFastAsync(ASYNC_POOL, actions);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -271,13 +223,7 @@ public final class CompletableFutureUtils {
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `mRunAsyncAndForget`")
     public static CompletableFuture<Void> mRunFailFastAsync(Executor executor, Runnable... actions) {
-        requireNonNull(executor, "executor is null");
-        requireArrayAndEleNonNull("action", actions);
-
-        CompletableFuture<Void>[] inputs = wrapRunnables0(executor, actions);
-        CompletableFuture<Void> ret = allFailFastOf0(inputs);
-        handleSwallowedExceptions("mRunFailFastAsync", ret, inputs);
-        return ret;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -288,7 +234,7 @@ public final class CompletableFutureUtils {
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `mRunAsyncAndForget`")
     public static CompletableFuture<Void> mRunAsync(Runnable... actions) {
-        return mRunAsync(ASYNC_POOL, actions);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -299,13 +245,7 @@ public final class CompletableFutureUtils {
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `mRunAsyncAndForget`")
     public static CompletableFuture<Void> mRunAsync(Executor executor, Runnable... actions) {
-        requireNonNull(executor, "executor is null");
-        requireArrayAndEleNonNull("action", actions);
-
-        CompletableFuture<Void>[] inputs = wrapRunnables0(executor, actions);
-        CompletableFuture<Void> ret = CompletableFuture.allOf(inputs);
-        handleSwallowedExceptions("mRunAsync", ret, inputs);
-        return ret;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -316,7 +256,7 @@ public final class CompletableFutureUtils {
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `mRunAsyncAndForget`")
     public static CompletableFuture<Void> mRunAnySuccessAsync(Runnable... actions) {
-        return mRunAnySuccessAsync(ASYNC_POOL, actions);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -327,13 +267,7 @@ public final class CompletableFutureUtils {
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `mRunAsyncAndForget`")
     public static CompletableFuture<Void> mRunAnySuccessAsync(Executor executor, Runnable... actions) {
-        requireNonNull(executor, "executor is null");
-        requireArrayAndEleNonNull("action", actions);
-
-        CompletableFuture<Void>[] inputs = wrapRunnables0(executor, actions);
-        CompletableFuture<Void> ret = anySuccessOf0(inputs);
-        handleSwallowedExceptions("mRunAnySuccessAsync", ret, inputs);
-        return ret;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -344,7 +278,7 @@ public final class CompletableFutureUtils {
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `mRunAsyncAndForget`")
     public static CompletableFuture<Void> mRunAnyAsync(Runnable... actions) {
-        return mRunAnyAsync(ASYNC_POOL, actions);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -355,13 +289,7 @@ public final class CompletableFutureUtils {
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `mRunAsyncAndForget`")
     public static CompletableFuture<Void> mRunAnyAsync(Executor executor, Runnable... actions) {
-        requireNonNull(executor, "executor is null");
-        requireArrayAndEleNonNull("action", actions);
-
-        CompletableFuture<Void>[] inputs = wrapRunnables0(executor, actions);
-        CompletableFuture<Void> ret = f_cast(CompletableFuture.anyOf(inputs));
-        handleSwallowedExceptions("mRunAnyAsync", ret, inputs);
-        return ret;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -372,7 +300,7 @@ public final class CompletableFutureUtils {
      * @since 2.1.0
      */
     public static void mRunAsyncAndForget(Runnable... actions) {
-        mRunAsyncAndForget(ASYNC_POOL, actions);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -383,11 +311,7 @@ public final class CompletableFutureUtils {
      * @since 2.1.0
      */
     public static void mRunAsyncAndForget(Executor executor, Runnable... actions) {
-        requireNonNull(executor, "executor is null");
-        requireArrayAndEleNonNull("action", actions);
-
-        CompletableFuture<Void>[] inputs = wrapRunnables0(executor, actions);
-        handleAllSwallowedExceptions("mRunAsyncAndForget", inputs);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private static CompletableFuture<Void>[] wrapRunnables0(Executor executor, Runnable[] actions) {
@@ -400,7 +324,6 @@ public final class CompletableFutureUtils {
     //
     //    CompletionStage<T>[] -> CompletableFuture<List<T>>
     ////////////////////////////////////////////////////////////
-
     /**
      * Returns a new CompletableFuture that is completed normally with a list containing
      * the successful results of all given stages when all the given stages complete normally;
@@ -418,7 +341,7 @@ public final class CompletableFutureUtils {
     @Contract(pure = true)
     @SafeVarargs
     public static <T> CompletableFuture<List<T>> allResultsFailFastOf(CompletionStage<? extends T>... cfs) {
-        return allResultsOf0(true, requireCfsAndEleNonNull(cfs));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -440,15 +363,12 @@ public final class CompletableFutureUtils {
      */
     @Contract(pure = true)
     @SafeVarargs
-    public static <T> CompletableFuture<List<T>> allSuccessResultsOf(
-            @Nullable T valueIfFailed, CompletionStage<? extends T>... cfs) {
-        return allSuccessResultsOf0(valueIfFailed, requireCfsAndEleNonNull(cfs));
+    public static <T> CompletableFuture<List<T>> allSuccessResultsOf(@Nullable T valueIfFailed, CompletionStage<? extends T>... cfs) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    static <T> CompletableFuture<List<T>> allSuccessResultsOf0(
-            @Nullable T valueIfFailed, CompletionStage<? extends T>[] cfs) {
-        return allResultsOf0(false, mapArray(cfs, CommonUtils::newStageArray,
-                s -> covariantExceptionally0(s, ex -> valueIfFailed)));
+    static <T> CompletableFuture<List<T>> allSuccessResultsOf0(@Nullable T valueIfFailed, CompletionStage<? extends T>[] cfs) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -472,9 +392,8 @@ public final class CompletableFutureUtils {
      */
     @Contract(pure = true)
     @SafeVarargs
-    public static <T> CompletableFuture<List<T>> mostSuccessResultsOf(
-            @Nullable T valueIfNotSuccess, long timeout, TimeUnit unit, CompletionStage<? extends T>... cfs) {
-        return mostSuccessResultsOf(ASYNC_POOL, valueIfNotSuccess, timeout, unit, cfs);
+    public static <T> CompletableFuture<List<T>> mostSuccessResultsOf(@Nullable T valueIfNotSuccess, long timeout, TimeUnit unit, CompletionStage<? extends T>... cfs) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -499,36 +418,12 @@ public final class CompletableFutureUtils {
      */
     @Contract(pure = true)
     @SafeVarargs
-    public static <T> CompletableFuture<List<T>> mostSuccessResultsOf(
-            Executor executorWhenTimeout, @Nullable T valueIfNotSuccess, long timeout, TimeUnit unit,
-            CompletionStage<? extends T>... cfs) {
-        requireNonNull(executorWhenTimeout, "executorWhenTimeout is null");
-        requireNonNull(unit, "unit is null");
-        requireCfsAndEleNonNull(cfs);
-
-        return mostSuccessResultsOf0(executorWhenTimeout, valueIfNotSuccess, timeout, unit, cfs);
+    public static <T> CompletableFuture<List<T>> mostSuccessResultsOf(Executor executorWhenTimeout, @Nullable T valueIfNotSuccess, long timeout, TimeUnit unit, CompletionStage<? extends T>... cfs) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    static <T> CompletableFuture<List<T>> mostSuccessResultsOf0(
-            Executor executorWhenTimeout, @Nullable T valueIfNotSuccess, long timeout, TimeUnit unit,
-            CompletionStage<? extends T>[] cfs) {
-        if (cfs.length == 0) return completedFuture(arrayList());
-        if (cfs.length == 1) {
-            // defensive copy input cf to non-minimal-stage instance in order to
-            // 1. avoid writing it by `cffuCompleteOnTimeout` and is able to read its result(`getSuccessNow`)
-            // 2. ensure that the returned cf is not a minimal-stage instance (UnsupportedOperationException)
-            final CompletableFuture<T> f = toNonMinCfCopy0(cfs[0]);
-            return cffuCompleteOnTimeout(f, valueIfNotSuccess, timeout, unit, executorWhenTimeout)
-                    .handle((unused, ex) -> arrayList(getSuccessNow(f, valueIfNotSuccess)));
-        }
-
-        // 1. MUST be non-minimal-stage CF instances to read results(`getSuccessNow`), otherwise UnsupportedOpException.
-        // 2. SHOULD copy input cfs (by calling `exceptionally` method) to avoid memory leaks,
-        //    otherwise all input cfs would be retained until output cf completes.
-        CompletableFuture<T>[] cfArray = mapArray(cfs, CommonUtils::newCfArray,
-                s -> LLCF.<T>toNonMinCf0(s).exceptionally(v -> valueIfNotSuccess));
-        return cffuCompleteOnTimeout(CompletableFuture.allOf(cfArray), null, timeout, unit, executorWhenTimeout)
-                .handle((unused, ex) -> mGetSuccessNow0(valueIfNotSuccess, cfArray));
+    static <T> CompletableFuture<List<T>> mostSuccessResultsOf0(Executor executorWhenTimeout, @Nullable T valueIfNotSuccess, long timeout, TimeUnit unit, CompletionStage<? extends T>[] cfs) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -538,7 +433,7 @@ public final class CompletableFutureUtils {
      * @param cfs MUST be non-minimal CF instances to read results(`getSuccessNow`), otherwise UnsupportedOperationException
      */
     static <T> ArrayList<T> mGetSuccessNow0(@Nullable T valueIfNotSuccess, CompletableFuture<? extends T>[] cfs) {
-        return arrayList(cfs.length, i -> getSuccessNow(cfs[i], valueIfNotSuccess));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -562,24 +457,11 @@ public final class CompletableFutureUtils {
     @Contract(pure = true)
     @SafeVarargs
     public static <T> CompletableFuture<List<T>> allResultsOf(CompletionStage<? extends T>... cfs) {
-        return allResultsOf0(false, requireCfsAndEleNonNull(cfs));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     static <T> CompletableFuture<List<T>> allResultsOf0(boolean failFast, CompletionStage<? extends T>[] cfs) {
-        final int len = cfs.length;
-        if (len == 0) return completedFuture(arrayList());
-        // convert input cf to non-minimal-stage CF instance for SINGLE input to ensure that
-        // the returned cf is not a minimal-stage instance (UnsupportedOperationException)
-        if (len == 1) return toNonMinCf0(cfs[0]).thenApply(CommonUtils::arrayList);
-
-        final AtomicReferenceArray<T> results = new AtomicReferenceArray<>(len);
-        final CompletableFuture<Void>[] resultsSetterCfs = createAllResultsSetterCfs(cfs, results);
-
-        final CompletableFuture<Void> resultsSetter;
-        if (failFast) resultsSetter = allFailFastOf0(resultsSetterCfs);
-        else resultsSetter = CompletableFuture.allOf(resultsSetterCfs);
-
-        return resultsSetter.thenApply(unused -> toArrayList(results));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -589,22 +471,8 @@ public final class CompletableFutureUtils {
      * methods. Without this protection, if any inputs complete exceptionally while others are still running,
      * the results array would unnecessarily retain memory for cf results that will never be used.
      */
-    static <T> CompletableFuture<Void>[] createAllResultsSetterCfs(
-            CompletionStage<? extends T>[] stages, AtomicReferenceArray<T> results) {
-        final CompletableFuture<Void>[] resultSetterCfs = newCfArray(stages.length);
-        return fillArray(resultSetterCfs, i -> f_toCf0(stages[i]).<CompletableFuture<Void>>handle((v, ex) -> {
-            if (ex == null) {
-                // atomically store value if the slot has not been marked as unneeded with SENTINEL_UNNEEDED
-                results.compareAndSet(i, null, v);
-                return completedFuture(null);
-            } else {
-                // This `if` check is a minor optimization for a benign race condition;
-                //   The logic would remain correct even if SENTINEL_UNNEEDED were set unconditionally.
-                // Once any stage fails, the results from all stages are no longer needed
-                if (results.get(0) != SENTINEL_UNNEEDED) fillSentinelTo(results);
-                return failedFuture(ex);
-            }
-        }).thenCompose(x -> x));
+    static <T> CompletableFuture<Void>[] createAllResultsSetterCfs(CompletionStage<? extends T>[] stages, AtomicReferenceArray<T> results) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -646,31 +514,14 @@ public final class CompletableFutureUtils {
      */
     @Contract(pure = true)
     public static CompletableFuture<Void> allFailFastOf(CompletionStage<?>... cfs) {
-        return allFailFastOf0(requireCfsAndEleNonNull(cfs));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     static CompletableFuture<Void> allFailFastOf0(CompletionStage<?>[] cfs) {
-        final int len = cfs.length;
-        if (len == 0) return completedFuture(null);
-        // convert input cf to non-minimal-stage CF instance for SINGLE input to ensure that
-        // the returned cf is not a minimal-stage instance (UnsupportedOperationException)
-        if (len == 1) return toNonMinCf0(cfs[0]).thenApply(unused -> null);
-
-        final CompletableFuture<?>[] successOrBeIncomplete = newCfArray(len);
-        // NOTE: fill ONE MORE element of failedOrBeIncomplete LATER
-        final CompletableFuture<Void>[] failedOrBeIncomplete = newCfArray(len + 1);
-        fill0(cfs, successOrBeIncomplete, failedOrBeIncomplete);
-
-        // NOTE: fill the ONE MORE element of failedOrBeIncomplete HERE:
-        //       a cf that is completed normally when all given cfs completed normally, otherwise be incomplete
-        failedOrBeIncomplete[len] = CompletableFuture.allOf(successOrBeIncomplete);
-
-        return f_cast(CompletableFuture.anyOf(failedOrBeIncomplete));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    private static <T> void fill0(CompletionStage<? extends T>[] inputs,
-                                  CompletableFuture<? extends T>[] successOrBeIncomplete,
-                                  CompletableFuture<Void>[] failedOrBeIncomplete) {
+    private static <T> void fill0(CompletionStage<? extends T>[] inputs, CompletableFuture<? extends T>[] successOrBeIncomplete, CompletableFuture<Void>[] failedOrBeIncomplete) {
         for (int i = 0; i < inputs.length; i++) {
             final CompletableFuture<T> f = f_toCf0(inputs[i]);
             successOrBeIncomplete[i] = exceptionallyCompose(f, ex -> new CompletableFuture<>());
@@ -710,17 +561,12 @@ public final class CompletableFutureUtils {
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; forget to call its `join()` method?")
     @Contract(pure = true)
     public static CompletableFuture<Void> allOf(CompletionStage<?>... cfs) {
-        requireCfsAndEleNonNull(cfs);
-        if (cfs.length == 0) return completedFuture(null);
-        // convert input cf to non-minimal-stage CF instance for SINGLE input to ensure that
-        // the returned cf is not a minimal-stage instance (UnsupportedOperationException)
-        if (cfs.length == 1) return toNonMinCf0(cfs[0]).thenApply(unused -> null);
-        return CompletableFuture.allOf(f_toCfArray0(cfs));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @SafeVarargs
     static <S extends CompletionStage<?>> S[] requireCfsAndEleNonNull(S... cfs) {
-        return requireArrayAndEleNonNull("cf", cfs);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     // endregion
@@ -729,7 +575,6 @@ public final class CompletableFutureUtils {
     //
     //    CompletionStage<T>[] -> CompletableFuture<T>
     ////////////////////////////////////////////////////////////
-
     /**
      * Returns a new CompletableFuture that completed normally when any of the given stages complete normally,
      * with the same result; Otherwise, when all the given stages complete exceptionally, the returned CompletableFuture
@@ -745,27 +590,11 @@ public final class CompletableFutureUtils {
     @Contract(pure = true)
     @SafeVarargs
     public static <T> CompletableFuture<T> anySuccessOf(CompletionStage<? extends T>... cfs) {
-        return anySuccessOf0(requireCfsAndEleNonNull(cfs));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     static <T> CompletableFuture<T> anySuccessOf0(CompletionStage<? extends T>[] cfs) {
-        final int len = cfs.length;
-        if (len == 0) return failedFuture(new NoCfsProvidedException());
-        // defensive copy input cf to non-minimal-stage instance for SINGLE input to ensure that
-        // 1. avoid writing the input cf unexpectedly by caller code
-        // 2. the returned cf is not a minimal-stage instance (UnsupportedOperationException)
-        if (len == 1) return toNonMinCfCopy0(cfs[0]);
-
-        // NOTE: fill ONE MORE element of successOrBeIncompleteCfs LATER
-        final CompletableFuture<?>[] successOrBeIncomplete = newCfArray(len + 1);
-        final CompletableFuture<Void>[] failedOrBeIncomplete = newCfArray(len);
-        fill0(cfs, successOrBeIncomplete, failedOrBeIncomplete);
-
-        // NOTE: fill the ONE MORE element of successOrBeIncompleteCfs HERE:
-        //       a cf that is completed exceptionally when all given cfs completed exceptionally, otherwise be incomplete
-        successOrBeIncomplete[len] = CompletableFuture.allOf(failedOrBeIncomplete);
-
-        return f_cast(CompletableFuture.anyOf(successOrBeIncomplete));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -786,20 +615,13 @@ public final class CompletableFutureUtils {
     @Contract(pure = true)
     @SafeVarargs
     public static <T> CompletableFuture<T> anyOf(CompletionStage<? extends T>... cfs) {
-        requireCfsAndEleNonNull(cfs);
-        if (cfs.length == 0) return new CompletableFuture<>();
-        // defensive copy input cf to non-minimal-stage instance for SINGLE input to ensure that
-        // 1. avoid writing the input cf unexpectedly by caller code
-        // 2. the returned cf is not a minimal-stage instance (UnsupportedOperationException)
-        if (cfs.length == 1) return toNonMinCfCopy0(cfs[0]);
-        return f_cast(CompletableFuture.anyOf(f_toCfArray0(cfs)));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     // endregion
     ////////////////////////////////////////////////////////////
     // region## Immediate Value Argument Factory Methods(backport methods)
     ////////////////////////////////////////////////////////////
-
     /**
      * Returns a new CompletableFuture that is already completed exceptionally with the given exception.
      *
@@ -809,13 +631,7 @@ public final class CompletableFutureUtils {
      */
     @Contract(pure = true)
     public static <T> CompletableFuture<T> failedFuture(Throwable ex) {
-        requireNonNull(ex, "ex is null");
-        if (IS_JAVA9_PLUS) {
-            return CompletableFuture.failedFuture(ex);
-        }
-        final CompletableFuture<T> cf = new CompletableFuture<>();
-        cf.completeExceptionally(ex);
-        return cf;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -831,7 +647,7 @@ public final class CompletableFutureUtils {
      */
     @Contract(pure = true)
     public static <T> CompletionStage<T> completedStage(@Nullable T value) {
-        return IS_JAVA9_PLUS ? CompletableFuture.completedStage(value) : completedFuture(value);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -847,7 +663,7 @@ public final class CompletableFutureUtils {
      */
     @Contract(pure = true)
     public static <T> CompletionStage<T> failedStage(Throwable ex) {
-        return IS_JAVA9_PLUS ? CompletableFuture.failedStage(ex) : failedFuture(ex);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -861,20 +677,13 @@ public final class CompletableFutureUtils {
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, run directly instead of wrapping")
     public static <T> CompletableFuture<T> fromSyncCall(Callable<? extends T> callable) {
-        requireNonNull(callable, "callable is null");
-        try {
-            return completedFuture(callable.call());
-        } catch (Throwable ex) {
-            if (ex instanceof InterruptedException) currentThread().interrupt();
-            return failedFuture(ex);
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     // endregion
     ////////////////////////////////////////////////////////////
     // region## Incomplete CompletableFuture Constructor
     ////////////////////////////////////////////////////////////
-
     /**
      * Returns a new incomplete CompletableFuture of the type to be returned by a CompletionStage method.
      * <p>
@@ -889,8 +698,7 @@ public final class CompletableFutureUtils {
      */
     @Contract(pure = true)
     public static <U> CompletableFuture<U> newIncompleteFuture(CompletableFuture<?> cfThis) {
-        requireNonNull(cfThis, "cfThis is null");
-        return IS_JAVA9_PLUS ? cfThis.newIncompleteFuture() : new CompletableFuture<>();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     // endregion
@@ -899,7 +707,6 @@ public final class CompletableFutureUtils {
     //    - Delayed Execution (backport methods)
     //    - Concurrency Limit Execution / Sequential Execution
     ////////////////////////////////////////////////////////////
-
     /**
      * Returns a new Executor that submits a task to the default executor after the given delay (or no delay
      * if non-positive). Each delay commences upon invocation of the returned executor's {@code execute} method.
@@ -910,7 +717,7 @@ public final class CompletableFutureUtils {
      */
     @Contract(pure = true)
     public static Executor delayedExecutor(long delay, TimeUnit unit) {
-        return delayedExecutor(delay, unit, ASYNC_POOL);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -924,11 +731,7 @@ public final class CompletableFutureUtils {
      */
     @Contract(pure = true)
     public static Executor delayedExecutor(long delay, TimeUnit unit, Executor executor) {
-        requireNonNull(unit, "unit is null");
-        // NOTE: do NOT translate executor by screenExecutor method; same as CompletableFuture.delayedExecutor
-        requireNonNull(executor, "executor is null");
-        return IS_JAVA9_PLUS ? CompletableFuture.delayedExecutor(delay, unit, executor)
-                : new DelayedExecutor(delay, unit, executor);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -940,7 +743,7 @@ public final class CompletableFutureUtils {
      */
     @Contract(pure = true)
     public static Executor concurrencyLimitExecutor(int maxConcurrency) {
-        return concurrencyLimitExecutor(maxConcurrency, ASYNC_POOL);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -953,9 +756,7 @@ public final class CompletableFutureUtils {
      */
     @Contract(pure = true)
     public static Executor concurrencyLimitExecutor(int maxConcurrency, Executor executor) {
-        if (maxConcurrency <= 0) throw new IllegalArgumentException("maxConcurrency must be positive");
-        requireNonNull(executor, "executor is null");
-        return new ConcurrencyLimitExecutor(maxConcurrency, screenExecutor(executor));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -971,7 +772,7 @@ public final class CompletableFutureUtils {
      */
     @Contract(pure = true)
     public static Executor sequentialExecutor() {
-        return concurrencyLimitExecutor(1);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -987,7 +788,7 @@ public final class CompletableFutureUtils {
      */
     @Contract(pure = true)
     public static Executor sequentialExecutor(Executor executor) {
-        return concurrencyLimitExecutor(1, executor);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     // endregion
@@ -995,7 +796,6 @@ public final class CompletableFutureUtils {
     ////////////////////////////////////////////////////////////////////////////////
     // region# CF Instance Methods (including new enhanced + backport methods)
     ////////////////////////////////////////////////////////////////////////////////
-
     ////////////////////////////////////////////////////////////
     // region## Then-Multi-Actions(thenM*) Methods
     //
@@ -1003,7 +803,6 @@ public final class CompletableFutureUtils {
     //    - thenMAccept*(Consumer[]: T -> Void)    -> CompletableFuture<Void>
     //    - thenMRun*   (Runnable[]: Void -> Void) -> CompletableFuture<Void>
     ////////////////////////////////////////////////////////////
-
     /**
      * Shortcut to method {@link #allResultsFailFastOf allResultsFailFastOf}, wraps input functions to CompletableFuture by
      * {@link CompletableFuture#supplyAsync(Supplier, Executor)} using the default executor of parameter cfThis;
@@ -1013,9 +812,8 @@ public final class CompletableFutureUtils {
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMAcceptAsyncAndForget`")
     @SafeVarargs
-    public static <T, U> CompletableFuture<List<U>> thenMApplyFailFastAsync(
-            CompletableFuture<? extends T> cfThis, Function<? super T, ? extends U>... fns) {
-        return thenMApplyFailFastAsync(cfThis, defaultExecutor(cfThis), fns);
+    public static <T, U> CompletableFuture<List<U>> thenMApplyFailFastAsync(CompletableFuture<? extends T> cfThis, Function<? super T, ? extends U>... fns) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1031,27 +829,12 @@ public final class CompletableFutureUtils {
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMAcceptAsyncAndForget`")
     @SafeVarargs
-    public static <T, U> CompletableFuture<List<U>> thenMApplyFailFastAsync(
-            CompletableFuture<? extends T> cfThis, Executor executor, Function<? super T, ? extends U>... fns) {
-        // defensive shallow copy of the input array argument by `clone`,
-        //   since it is used asynchronously in `thenCompose` and could be mutated by caller (NOT thread-safe)
-        // this same defensive copying pattern is used in the similar methods below.
-        return _thenMApplyFailFastAsync(cfThis, executor, fns, true);
+    public static <T, U> CompletableFuture<List<U>> thenMApplyFailFastAsync(CompletableFuture<? extends T> cfThis, Executor executor, Function<? super T, ? extends U>... fns) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    static <T, U> CompletableFuture<List<U>> _thenMApplyFailFastAsync(
-            CompletableFuture<? extends T> cfThis, Executor executor, Function<? super T, ? extends U>[] fns, boolean defensiveCopy) {
-        requireNonNull(cfThis, "cfThis is null");
-        requireNonNull(executor, "executor is null");
-        requireArrayAndEleNonNull("fn", fns);
-
-        final Function<? super T, ? extends U>[] copy = defensiveCopy ? fns.clone() : fns;
-        return cfThis.thenCompose(v -> {
-            CompletableFuture<U>[] inputs = wrapFunctions0(executor, v, copy);
-            CompletableFuture<List<U>> ret = allResultsOf0(true, inputs);
-            handleSwallowedExceptions("thenMApplyFailFastAsync", ret, inputs);
-            return ret;
-        });
+    static <T, U> CompletableFuture<List<U>> _thenMApplyFailFastAsync(CompletableFuture<? extends T> cfThis, Executor executor, Function<? super T, ? extends U>[] fns, boolean defensiveCopy) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1063,9 +846,8 @@ public final class CompletableFutureUtils {
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMAcceptAsyncAndForget`")
     @SafeVarargs
-    public static <T, U> CompletableFuture<List<U>> thenMApplyAllSuccessAsync(
-            CompletableFuture<? extends T> cfThis, @Nullable U valueIfFailed, Function<? super T, ? extends U>... fns) {
-        return thenMApplyAllSuccessAsync(cfThis, defaultExecutor(cfThis), valueIfFailed, fns);
+    public static <T, U> CompletableFuture<List<U>> thenMApplyAllSuccessAsync(CompletableFuture<? extends T> cfThis, @Nullable U valueIfFailed, Function<? super T, ? extends U>... fns) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1081,25 +863,12 @@ public final class CompletableFutureUtils {
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMAcceptAsyncAndForget`")
     @SafeVarargs
-    public static <T, U> CompletableFuture<List<U>> thenMApplyAllSuccessAsync(
-            CompletableFuture<? extends T> cfThis, Executor executor,
-            @Nullable U valueIfFailed, Function<? super T, ? extends U>... fns) {
-        return _thenMApplyAllSuccessAsync(cfThis, executor, valueIfFailed, fns, true);
+    public static <T, U> CompletableFuture<List<U>> thenMApplyAllSuccessAsync(CompletableFuture<? extends T> cfThis, Executor executor, @Nullable U valueIfFailed, Function<? super T, ? extends U>... fns) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    static <T, U> CompletableFuture<List<U>> _thenMApplyAllSuccessAsync(
-            CompletableFuture<? extends T> cfThis, Executor executor,
-            @Nullable U valueIfFailed, Function<? super T, ? extends U>[] fns, boolean defensiveCopy) {
-        requireNonNull(cfThis, "cfThis is null");
-        requireNonNull(executor, "executor is null");
-        requireArrayAndEleNonNull("fn", fns);
-
-        final Function<? super T, ? extends U>[] copy = defensiveCopy ? fns.clone() : fns;
-        return cfThis.thenCompose(v -> {
-            CompletableFuture<U>[] inputs = wrapFunctions0(executor, v, copy);
-            handleAllSwallowedExceptions("thenMApplyAllSuccessAsync", inputs);
-            return allSuccessResultsOf0(valueIfFailed, inputs);
-        });
+    static <T, U> CompletableFuture<List<U>> _thenMApplyAllSuccessAsync(CompletableFuture<? extends T> cfThis, Executor executor, @Nullable U valueIfFailed, Function<? super T, ? extends U>[] fns, boolean defensiveCopy) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1113,10 +882,8 @@ public final class CompletableFutureUtils {
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMAcceptAsyncAndForget`")
     @SafeVarargs
-    public static <T, U> CompletableFuture<List<U>> thenMApplyMostSuccessAsync(
-            CompletableFuture<? extends T> cfThis, @Nullable U valueIfNotSuccess,
-            long timeout, TimeUnit unit, Function<? super T, ? extends U>... fns) {
-        return thenMApplyMostSuccessAsync(cfThis, defaultExecutor(cfThis), valueIfNotSuccess, timeout, unit, fns);
+    public static <T, U> CompletableFuture<List<U>> thenMApplyMostSuccessAsync(CompletableFuture<? extends T> cfThis, @Nullable U valueIfNotSuccess, long timeout, TimeUnit unit, Function<? super T, ? extends U>... fns) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1129,26 +896,12 @@ public final class CompletableFutureUtils {
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMAcceptAsyncAndForget`")
     @SafeVarargs
-    public static <T, U> CompletableFuture<List<U>> thenMApplyMostSuccessAsync(
-            CompletableFuture<? extends T> cfThis, Executor executor, @Nullable U valueIfNotSuccess,
-            long timeout, TimeUnit unit, Function<? super T, ? extends U>... fns) {
-        return _thenMApplyMostSuccessAsync(cfThis, executor, valueIfNotSuccess, timeout, unit, fns, true);
+    public static <T, U> CompletableFuture<List<U>> thenMApplyMostSuccessAsync(CompletableFuture<? extends T> cfThis, Executor executor, @Nullable U valueIfNotSuccess, long timeout, TimeUnit unit, Function<? super T, ? extends U>... fns) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    static <T, U> CompletableFuture<List<U>> _thenMApplyMostSuccessAsync(
-            CompletableFuture<? extends T> cfThis, Executor executor, @Nullable U valueIfNotSuccess,
-            long timeout, TimeUnit unit, Function<? super T, ? extends U>[] fns, boolean defensiveCopy) {
-        requireNonNull(cfThis, "cfThis is null");
-        requireNonNull(executor, "executor is null");
-        requireNonNull(unit, "unit is null");
-        requireArrayAndEleNonNull("fn", fns);
-
-        final Function<? super T, ? extends U>[] copy = defensiveCopy ? fns.clone() : fns;
-        return cfThis.thenCompose(v -> {
-            CompletableFuture<U>[] inputs = wrapFunctions0(executor, v, copy);
-            handleAllSwallowedExceptions("thenMApplyMostSuccessAsync", inputs);
-            return mostSuccessResultsOf0(executor, valueIfNotSuccess, timeout, unit, inputs);
-        });
+    static <T, U> CompletableFuture<List<U>> _thenMApplyMostSuccessAsync(CompletableFuture<? extends T> cfThis, Executor executor, @Nullable U valueIfNotSuccess, long timeout, TimeUnit unit, Function<? super T, ? extends U>[] fns, boolean defensiveCopy) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1160,9 +913,8 @@ public final class CompletableFutureUtils {
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMAcceptAsyncAndForget`")
     @SafeVarargs
-    public static <T, U> CompletableFuture<List<U>> thenMApplyAsync(
-            CompletableFuture<? extends T> cfThis, Function<? super T, ? extends U>... fns) {
-        return thenMApplyAsync(cfThis, defaultExecutor(cfThis), fns);
+    public static <T, U> CompletableFuture<List<U>> thenMApplyAsync(CompletableFuture<? extends T> cfThis, Function<? super T, ? extends U>... fns) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1178,24 +930,12 @@ public final class CompletableFutureUtils {
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMAcceptAsyncAndForget`")
     @SafeVarargs
-    public static <T, U> CompletableFuture<List<U>> thenMApplyAsync(
-            CompletableFuture<? extends T> cfThis, Executor executor, Function<? super T, ? extends U>... fns) {
-        return _thenMApplyAsync(cfThis, executor, fns, true);
+    public static <T, U> CompletableFuture<List<U>> thenMApplyAsync(CompletableFuture<? extends T> cfThis, Executor executor, Function<? super T, ? extends U>... fns) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    static <T, U> CompletableFuture<List<U>> _thenMApplyAsync(
-            CompletableFuture<? extends T> cfThis, Executor executor, Function<? super T, ? extends U>[] fns, boolean defensiveCopy) {
-        requireNonNull(cfThis, "cfThis is null");
-        requireNonNull(executor, "executor is null");
-        requireArrayAndEleNonNull("fn", fns);
-
-        final Function<? super T, ? extends U>[] copy = defensiveCopy ? fns.clone() : fns;
-        return cfThis.thenCompose(v -> {
-            CompletableFuture<U>[] inputs = wrapFunctions0(executor, v, copy);
-            CompletableFuture<List<U>> ret = allResultsOf0(false, inputs);
-            handleSwallowedExceptions("thenMApplyAsync", ret, inputs);
-            return ret;
-        });
+    static <T, U> CompletableFuture<List<U>> _thenMApplyAsync(CompletableFuture<? extends T> cfThis, Executor executor, Function<? super T, ? extends U>[] fns, boolean defensiveCopy) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1207,9 +947,8 @@ public final class CompletableFutureUtils {
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMAcceptAsyncAndForget`")
     @SafeVarargs
-    public static <T, U> CompletableFuture<U> thenMApplyAnySuccessAsync(
-            CompletableFuture<? extends T> cfThis, Function<? super T, ? extends U>... fns) {
-        return thenMApplyAnySuccessAsync(cfThis, defaultExecutor(cfThis), fns);
+    public static <T, U> CompletableFuture<U> thenMApplyAnySuccessAsync(CompletableFuture<? extends T> cfThis, Function<? super T, ? extends U>... fns) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1225,24 +964,12 @@ public final class CompletableFutureUtils {
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMAcceptAsyncAndForget`")
     @SafeVarargs
-    public static <T, U> CompletableFuture<U> thenMApplyAnySuccessAsync(
-            CompletableFuture<? extends T> cfThis, Executor executor, Function<? super T, ? extends U>... fns) {
-        return _thenMApplyAnySuccessAsync(cfThis, executor, fns, true);
+    public static <T, U> CompletableFuture<U> thenMApplyAnySuccessAsync(CompletableFuture<? extends T> cfThis, Executor executor, Function<? super T, ? extends U>... fns) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    static <T, U> CompletableFuture<U> _thenMApplyAnySuccessAsync(
-            CompletableFuture<? extends T> cfThis, Executor executor, Function<? super T, ? extends U>[] fns, boolean defensiveCopy) {
-        requireNonNull(cfThis, "cfThis is null");
-        requireNonNull(executor, "executor is null");
-        requireArrayAndEleNonNull("fn", fns);
-
-        final Function<? super T, ? extends U>[] copy = defensiveCopy ? fns.clone() : fns;
-        return cfThis.thenCompose(v -> {
-            CompletableFuture<U>[] inputs = wrapFunctions0(executor, v, copy);
-            CompletableFuture<U> ret = anySuccessOf0(inputs);
-            handleSwallowedExceptions("thenMApplyAnySuccessAsync", ret, inputs);
-            return ret;
-        });
+    static <T, U> CompletableFuture<U> _thenMApplyAnySuccessAsync(CompletableFuture<? extends T> cfThis, Executor executor, Function<? super T, ? extends U>[] fns, boolean defensiveCopy) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1254,9 +981,8 @@ public final class CompletableFutureUtils {
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMAcceptAsyncAndForget`")
     @SafeVarargs
-    public static <T, U> CompletableFuture<U> thenMApplyAnyAsync(
-            CompletableFuture<? extends T> cfThis, Function<? super T, ? extends U>... fns) {
-        return thenMApplyAnyAsync(cfThis, defaultExecutor(cfThis), fns);
+    public static <T, U> CompletableFuture<U> thenMApplyAnyAsync(CompletableFuture<? extends T> cfThis, Function<? super T, ? extends U>... fns) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1272,29 +998,16 @@ public final class CompletableFutureUtils {
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMAcceptAsyncAndForget`")
     @SafeVarargs
-    public static <T, U> CompletableFuture<U> thenMApplyAnyAsync(
-            CompletableFuture<? extends T> cfThis, Executor executor, Function<? super T, ? extends U>... fns) {
-        return _thenMApplyAnyAsync(cfThis, executor, fns, true);
+    public static <T, U> CompletableFuture<U> thenMApplyAnyAsync(CompletableFuture<? extends T> cfThis, Executor executor, Function<? super T, ? extends U>... fns) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    static <T, U> CompletableFuture<U> _thenMApplyAnyAsync(
-            CompletableFuture<? extends T> cfThis, Executor executor, Function<? super T, ? extends U>[] fns, boolean defensiveCopy) {
-        requireNonNull(cfThis, "cfThis is null");
-        requireNonNull(executor, "executor is null");
-        requireArrayAndEleNonNull("fn", fns);
-
-        final Function<? super T, ? extends U>[] copy = defensiveCopy ? fns.clone() : fns;
-        return cfThis.thenCompose(v -> {
-            CompletableFuture<U>[] inputs = wrapFunctions0(executor, v, copy);
-            CompletableFuture<U> ret = f_cast(CompletableFuture.anyOf(inputs));
-            handleSwallowedExceptions("thenMApplyAnyAsync", ret, inputs);
-            return ret;
-        });
+    static <T, U> CompletableFuture<U> _thenMApplyAnyAsync(CompletableFuture<? extends T> cfThis, Executor executor, Function<? super T, ? extends U>[] fns, boolean defensiveCopy) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    static <T, U> CompletableFuture<U>[] wrapFunctions0(
-            Executor executor, @Nullable T v, Function<? super T, ? extends U>[] fns) {
-        return mapArray(fns, CommonUtils::newCfArray, f -> CompletableFuture.supplyAsync(() -> f.apply(v), executor));
+    static <T, U> CompletableFuture<U>[] wrapFunctions0(Executor executor, @Nullable T v, Function<? super T, ? extends U>[] fns) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1311,9 +1024,8 @@ public final class CompletableFutureUtils {
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMAcceptAsyncAndForget`")
     @SafeVarargs
-    public static <T> CompletableFuture<Void> thenMAcceptFailFastAsync(
-            CompletableFuture<? extends T> cfThis, Consumer<? super T>... actions) {
-        return thenMAcceptFailFastAsync(cfThis, defaultExecutor(cfThis), actions);
+    public static <T> CompletableFuture<Void> thenMAcceptFailFastAsync(CompletableFuture<? extends T> cfThis, Consumer<? super T>... actions) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1330,24 +1042,12 @@ public final class CompletableFutureUtils {
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMAcceptAsyncAndForget`")
     @SafeVarargs
-    public static <T> CompletableFuture<Void> thenMAcceptFailFastAsync(
-            CompletableFuture<? extends T> cfThis, Executor executor, Consumer<? super T>... actions) {
-        return _thenMAcceptFailFastAsync(cfThis, executor, actions, true);
+    public static <T> CompletableFuture<Void> thenMAcceptFailFastAsync(CompletableFuture<? extends T> cfThis, Executor executor, Consumer<? super T>... actions) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    static <T> CompletableFuture<Void> _thenMAcceptFailFastAsync(
-            CompletableFuture<? extends T> cfThis, Executor executor, Consumer<? super T>[] actions, boolean defensiveCopy) {
-        requireNonNull(cfThis, "cfThis is null");
-        requireNonNull(executor, "executor is null");
-        requireArrayAndEleNonNull("action", actions);
-
-        final Consumer<? super T>[] copy = defensiveCopy ? actions.clone() : actions;
-        return cfThis.thenCompose(v -> {
-            CompletableFuture<Void>[] inputs = wrapConsumers0(executor, v, copy);
-            CompletableFuture<Void> ret = allFailFastOf0(inputs);
-            handleSwallowedExceptions("thenMAcceptFailFastAsync", ret, inputs);
-            return ret;
-        });
+    static <T> CompletableFuture<Void> _thenMAcceptFailFastAsync(CompletableFuture<? extends T> cfThis, Executor executor, Consumer<? super T>[] actions, boolean defensiveCopy) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1364,9 +1064,8 @@ public final class CompletableFutureUtils {
      */
     @SafeVarargs
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMAcceptAsyncAndForget`")
-    public static <T> CompletableFuture<Void> thenMAcceptAsync(
-            CompletableFuture<? extends T> cfThis, Consumer<? super T>... actions) {
-        return thenMAcceptAsync(cfThis, defaultExecutor(cfThis), actions);
+    public static <T> CompletableFuture<Void> thenMAcceptAsync(CompletableFuture<? extends T> cfThis, Consumer<? super T>... actions) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1382,24 +1081,12 @@ public final class CompletableFutureUtils {
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMAcceptAsyncAndForget`")
     @SafeVarargs
-    public static <T> CompletableFuture<Void> thenMAcceptAsync(
-            CompletableFuture<? extends T> cfThis, Executor executor, Consumer<? super T>... actions) {
-        return _thenMAcceptAsync(cfThis, executor, actions, true);
+    public static <T> CompletableFuture<Void> thenMAcceptAsync(CompletableFuture<? extends T> cfThis, Executor executor, Consumer<? super T>... actions) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    static <T> CompletableFuture<Void> _thenMAcceptAsync(
-            CompletableFuture<? extends T> cfThis, Executor executor, Consumer<? super T>[] actions, boolean defensiveCopy) {
-        requireNonNull(cfThis, "cfThis is null");
-        requireNonNull(executor, "executor is null");
-        requireArrayAndEleNonNull("action", actions);
-
-        final Consumer<? super T>[] copy = defensiveCopy ? actions.clone() : actions;
-        return cfThis.thenCompose(v -> {
-            CompletableFuture<Void>[] inputs = wrapConsumers0(executor, v, copy);
-            CompletableFuture<Void> ret = CompletableFuture.allOf(inputs);
-            handleSwallowedExceptions("thenMAcceptAsync", ret, inputs);
-            return ret;
-        });
+    static <T> CompletableFuture<Void> _thenMAcceptAsync(CompletableFuture<? extends T> cfThis, Executor executor, Consumer<? super T>[] actions, boolean defensiveCopy) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1416,9 +1103,8 @@ public final class CompletableFutureUtils {
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMAcceptAsyncAndForget`")
     @SafeVarargs
-    public static <T> CompletableFuture<Void> thenMAcceptAnySuccessAsync(
-            CompletableFuture<? extends T> cfThis, Consumer<? super T>... actions) {
-        return thenMAcceptAnySuccessAsync(cfThis, defaultExecutor(cfThis), actions);
+    public static <T> CompletableFuture<Void> thenMAcceptAnySuccessAsync(CompletableFuture<? extends T> cfThis, Consumer<? super T>... actions) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1434,24 +1120,12 @@ public final class CompletableFutureUtils {
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMAcceptAsyncAndForget`")
     @SafeVarargs
-    public static <T> CompletableFuture<Void> thenMAcceptAnySuccessAsync(
-            CompletableFuture<? extends T> cfThis, Executor executor, Consumer<? super T>... actions) {
-        return _thenMAcceptAnySuccessAsync(cfThis, executor, actions, true);
+    public static <T> CompletableFuture<Void> thenMAcceptAnySuccessAsync(CompletableFuture<? extends T> cfThis, Executor executor, Consumer<? super T>... actions) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    static <T> CompletableFuture<Void> _thenMAcceptAnySuccessAsync(
-            CompletableFuture<? extends T> cfThis, Executor executor, Consumer<? super T>[] actions, boolean defensiveCopy) {
-        requireNonNull(cfThis, "cfThis is null");
-        requireNonNull(executor, "executor is null");
-        requireArrayAndEleNonNull("action", actions);
-
-        final Consumer<? super T>[] copy = defensiveCopy ? actions.clone() : actions;
-        return cfThis.thenCompose(v -> {
-            CompletableFuture<Void>[] inputs = wrapConsumers0(executor, v, copy);
-            CompletableFuture<Void> ret = anySuccessOf0(inputs);
-            handleSwallowedExceptions("thenMAcceptAnySuccessAsync", ret, inputs);
-            return ret;
-        });
+    static <T> CompletableFuture<Void> _thenMAcceptAnySuccessAsync(CompletableFuture<? extends T> cfThis, Executor executor, Consumer<? super T>[] actions, boolean defensiveCopy) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1468,9 +1142,8 @@ public final class CompletableFutureUtils {
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMAcceptAsyncAndForget`")
     @SafeVarargs
-    public static <T> CompletableFuture<Void> thenMAcceptAnyAsync(
-            CompletableFuture<? extends T> cfThis, Consumer<? super T>... actions) {
-        return thenMAcceptAnyAsync(cfThis, defaultExecutor(cfThis), actions);
+    public static <T> CompletableFuture<Void> thenMAcceptAnyAsync(CompletableFuture<? extends T> cfThis, Consumer<? super T>... actions) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1486,24 +1159,12 @@ public final class CompletableFutureUtils {
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMAcceptAsyncAndForget`")
     @SafeVarargs
-    public static <T> CompletableFuture<Void> thenMAcceptAnyAsync(
-            CompletableFuture<? extends T> cfThis, Executor executor, Consumer<? super T>... actions) {
-        return _thenMAcceptAnyAsync(cfThis, executor, actions, true);
+    public static <T> CompletableFuture<Void> thenMAcceptAnyAsync(CompletableFuture<? extends T> cfThis, Executor executor, Consumer<? super T>... actions) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    static <T> CompletableFuture<Void> _thenMAcceptAnyAsync(
-            CompletableFuture<? extends T> cfThis, Executor executor, Consumer<? super T>[] actions, boolean defensiveCopy) {
-        requireNonNull(cfThis, "cfThis is null");
-        requireNonNull(executor, "executor is null");
-        requireArrayAndEleNonNull("action", actions);
-
-        final Consumer<? super T>[] copy = defensiveCopy ? actions.clone() : actions;
-        return cfThis.thenCompose(v -> {
-            CompletableFuture<Void>[] inputs = wrapConsumers0(executor, v, copy);
-            CompletableFuture<Void> ret = f_cast(CompletableFuture.anyOf(inputs));
-            handleSwallowedExceptions("thenMAcceptAnyAsync", ret, inputs);
-            return ret;
-        });
+    static <T> CompletableFuture<Void> _thenMAcceptAnyAsync(CompletableFuture<? extends T> cfThis, Executor executor, Consumer<? super T>[] actions, boolean defensiveCopy) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1522,9 +1183,8 @@ public final class CompletableFutureUtils {
      */
     @Contract("_, _ -> param1")
     @SafeVarargs
-    public static <T, F extends CompletionStage<? extends T>> F thenMAcceptAsyncAndForget(
-            F cfThis, Consumer<? super T>... actions) {
-        return thenMAcceptAsyncAndForget(cfThis, defaultExecutor(cfThis), actions);
+    public static <T, F extends CompletionStage<? extends T>> F thenMAcceptAsyncAndForget(F cfThis, Consumer<? super T>... actions) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1543,23 +1203,12 @@ public final class CompletableFutureUtils {
      */
     @Contract("_, _, _ -> param1")
     @SafeVarargs
-    public static <T, F extends CompletionStage<? extends T>> F thenMAcceptAsyncAndForget(
-            F cfThis, Executor executor, Consumer<? super T>... actions) {
-        return _thenMAcceptAsyncAndForget(cfThis, executor, actions, true);
+    public static <T, F extends CompletionStage<? extends T>> F thenMAcceptAsyncAndForget(F cfThis, Executor executor, Consumer<? super T>... actions) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    static <T, F extends CompletionStage<? extends T>> F _thenMAcceptAsyncAndForget(
-            F cfThis, Executor executor, Consumer<? super T>[] actions, boolean defensiveCopy) {
-        requireNonNull(cfThis, "cfThis is null");
-        requireNonNull(executor, "executor is null");
-        requireArrayAndEleNonNull("action", actions);
-
-        final Consumer<? super T>[] copy = defensiveCopy ? actions.clone() : actions;
-        cfThis.thenAccept(v -> {
-            CompletableFuture<Void>[] inputs = wrapConsumers0(executor, v, copy);
-            handleAllSwallowedExceptions("thenMAcceptAsyncAndForget", inputs);
-        });
-        return cfThis;
+    static <T, F extends CompletionStage<? extends T>> F _thenMAcceptAsyncAndForget(F cfThis, Executor executor, Consumer<? super T>[] actions, boolean defensiveCopy) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private static <T> CompletableFuture<Void>[] wrapConsumers0(Executor executor, T v, Consumer<? super T>[] actions) {
@@ -1574,7 +1223,7 @@ public final class CompletableFutureUtils {
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMRunAsyncAndForget`")
     public static CompletableFuture<Void> thenMRunFailFastAsync(CompletableFuture<?> cfThis, Runnable... actions) {
-        return thenMRunFailFastAsync(cfThis, defaultExecutor(cfThis), actions);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1584,24 +1233,12 @@ public final class CompletableFutureUtils {
      * See the {@link #allFailFastOf allFailFastOf} documentation for the rules of result computation.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMRunAsyncAndForget`")
-    public static CompletableFuture<Void> thenMRunFailFastAsync(
-            CompletableFuture<?> cfThis, Executor executor, Runnable... actions) {
-        return _thenMRunFailFastAsync(cfThis, executor, actions, true);
+    public static CompletableFuture<Void> thenMRunFailFastAsync(CompletableFuture<?> cfThis, Executor executor, Runnable... actions) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    static CompletableFuture<Void> _thenMRunFailFastAsync(
-            CompletableFuture<?> cfThis, Executor executor, Runnable[] actions, boolean defensiveCopy) {
-        requireNonNull(cfThis, "cfThis is null");
-        requireNonNull(executor, "executor is null");
-        requireArrayAndEleNonNull("action", actions);
-
-        final Runnable[] copy = defensiveCopy ? actions.clone() : actions;
-        return cfThis.thenCompose(unused -> {
-            CompletableFuture<Void>[] inputs = wrapRunnables0(executor, copy);
-            CompletableFuture<Void> ret = allFailFastOf0(inputs);
-            handleSwallowedExceptions("thenMRunFailFastAsync", ret, inputs);
-            return ret;
-        });
+    static CompletableFuture<Void> _thenMRunFailFastAsync(CompletableFuture<?> cfThis, Executor executor, Runnable[] actions, boolean defensiveCopy) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1612,7 +1249,7 @@ public final class CompletableFutureUtils {
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMRunAsyncAndForget`")
     public static CompletableFuture<Void> thenMRunAsync(CompletableFuture<?> cfThis, Runnable... actions) {
-        return thenMRunAsync(cfThis, defaultExecutor(cfThis), actions);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1622,24 +1259,12 @@ public final class CompletableFutureUtils {
      * See the {@link #allOf allOf} documentation for the rules of result computation.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMRunAsyncAndForget`")
-    public static CompletableFuture<Void> thenMRunAsync(
-            CompletableFuture<?> cfThis, Executor executor, Runnable... actions) {
-        return _thenMRunAsync(cfThis, executor, actions, true);
+    public static CompletableFuture<Void> thenMRunAsync(CompletableFuture<?> cfThis, Executor executor, Runnable... actions) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    static CompletableFuture<Void> _thenMRunAsync(
-            CompletableFuture<?> cfThis, Executor executor, Runnable[] actions, boolean defensiveCopy) {
-        requireNonNull(cfThis, "cfThis is null");
-        requireNonNull(executor, "executor is null");
-        requireArrayAndEleNonNull("action", actions);
-
-        final Runnable[] copy = defensiveCopy ? actions.clone() : actions;
-        return cfThis.thenCompose(unused -> {
-            CompletableFuture<Void>[] inputs = wrapRunnables0(executor, copy);
-            CompletableFuture<Void> ret = CompletableFuture.allOf(inputs);
-            handleSwallowedExceptions("thenMRunAsync", ret, inputs);
-            return ret;
-        });
+    static CompletableFuture<Void> _thenMRunAsync(CompletableFuture<?> cfThis, Executor executor, Runnable[] actions, boolean defensiveCopy) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1650,7 +1275,7 @@ public final class CompletableFutureUtils {
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMRunAsyncAndForget`")
     public static CompletableFuture<Void> thenMRunAnySuccessAsync(CompletableFuture<?> cfThis, Runnable... actions) {
-        return thenMRunAnySuccessAsync(cfThis, defaultExecutor(cfThis), actions);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1660,24 +1285,12 @@ public final class CompletableFutureUtils {
      * See the {@link #anySuccessOf anySuccessOf} documentation for the rules of result computation.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMRunAsyncAndForget`")
-    public static CompletableFuture<Void> thenMRunAnySuccessAsync(
-            CompletableFuture<?> cfThis, Executor executor, Runnable... actions) {
-        return _thenMRunAnySuccessAsync(cfThis, executor, actions, true);
+    public static CompletableFuture<Void> thenMRunAnySuccessAsync(CompletableFuture<?> cfThis, Executor executor, Runnable... actions) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    static CompletableFuture<Void> _thenMRunAnySuccessAsync(
-            CompletableFuture<?> cfThis, Executor executor, Runnable[] actions, boolean defensiveCopy) {
-        requireNonNull(cfThis, "cfThis is null");
-        requireNonNull(executor, "executor is null");
-        requireArrayAndEleNonNull("action", actions);
-
-        final Runnable[] copy = defensiveCopy ? actions.clone() : actions;
-        return cfThis.thenCompose(unused -> {
-            CompletableFuture<Void>[] inputs = wrapRunnables0(executor, copy);
-            CompletableFuture<Void> ret = anySuccessOf0(inputs);
-            handleSwallowedExceptions("thenMRunAnySuccessAsync", ret, inputs);
-            return ret;
-        });
+    static CompletableFuture<Void> _thenMRunAnySuccessAsync(CompletableFuture<?> cfThis, Executor executor, Runnable[] actions, boolean defensiveCopy) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1688,7 +1301,7 @@ public final class CompletableFutureUtils {
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMRunAsyncAndForget`")
     public static CompletableFuture<Void> thenMRunAnyAsync(CompletableFuture<?> cfThis, Runnable... actions) {
-        return thenMRunAnyAsync(cfThis, defaultExecutor(cfThis), actions);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1698,24 +1311,12 @@ public final class CompletableFutureUtils {
      * See the {@link #anyOf anyOf} documentation for the rules of result computation.
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, use method `thenMRunAsyncAndForget`")
-    public static CompletableFuture<Void> thenMRunAnyAsync(
-            CompletableFuture<?> cfThis, Executor executor, Runnable... actions) {
-        return _thenMRunAnyAsync(cfThis, executor, actions, true);
+    public static CompletableFuture<Void> thenMRunAnyAsync(CompletableFuture<?> cfThis, Executor executor, Runnable... actions) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    static CompletableFuture<Void> _thenMRunAnyAsync(
-            CompletableFuture<?> cfThis, Executor executor, Runnable[] actions, boolean defensiveCopy) {
-        requireNonNull(cfThis, "cfThis is null");
-        requireNonNull(executor, "executor is null");
-        requireArrayAndEleNonNull("action", actions);
-
-        final Runnable[] copy = defensiveCopy ? actions.clone() : actions;
-        return cfThis.thenCompose(unused -> {
-            CompletableFuture<Void>[] inputs = wrapRunnables0(executor, copy);
-            CompletableFuture<Void> ret = f_cast(CompletableFuture.anyOf(inputs));
-            handleSwallowedExceptions("thenMRunAnyAsync", ret, inputs);
-            return ret;
-        });
+    static CompletableFuture<Void> _thenMRunAnyAsync(CompletableFuture<?> cfThis, Executor executor, Runnable[] actions, boolean defensiveCopy) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1729,7 +1330,7 @@ public final class CompletableFutureUtils {
      */
     @Contract("_, _ -> param1")
     public static <F extends CompletionStage<?>> F thenMRunAsyncAndForget(F cfThis, Runnable... actions) {
-        return thenMRunAsyncAndForget(cfThis, defaultExecutor(cfThis), actions);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1742,23 +1343,12 @@ public final class CompletableFutureUtils {
      * @since 2.1.0
      */
     @Contract("_, _, _ -> param1")
-    public static <F extends CompletionStage<?>> F thenMRunAsyncAndForget(
-            F cfThis, Executor executor, Runnable... actions) {
-        return _thenMRunAsyncAndForget(cfThis, executor, actions, true);
+    public static <F extends CompletionStage<?>> F thenMRunAsyncAndForget(F cfThis, Executor executor, Runnable... actions) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    static <F extends CompletionStage<?>> F _thenMRunAsyncAndForget(
-            F cfThis, Executor executor, Runnable[] actions, boolean defensiveCopy) {
-        requireNonNull(cfThis, "cfThis is null");
-        requireNonNull(executor, "executor is null");
-        requireArrayAndEleNonNull("action", actions);
-
-        final Runnable[] copy = defensiveCopy ? actions.clone() : actions;
-        cfThis.thenRunAsync(() -> {
-            CompletableFuture<Void>[] inputs = wrapRunnables0(executor, copy);
-            handleAllSwallowedExceptions("thenMRunAsyncAndForget", inputs);
-        });
-        return cfThis;
+    static <F extends CompletionStage<?>> F _thenMRunAsyncAndForget(F cfThis, Executor executor, Runnable[] actions, boolean defensiveCopy) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     // endregion
@@ -1769,7 +1359,6 @@ public final class CompletableFutureUtils {
     //    - thenAcceptBothFailFast*(BiConsumer: (T, U) -> Void) -> CompletableFuture<Void>
     //    - runAfterBothFailFast*  (Runnable:   Void -> Void)   -> CompletableFuture<Void>
     ////////////////////////////////////////////////////////////
-
     /**
      * Returns a new CompletableFuture that, when both of given stages complete normally,
      * is executed with the two results as arguments to the supplied function.
@@ -1780,13 +1369,8 @@ public final class CompletableFutureUtils {
      * @param fn the function to use to compute the value of the returned CompletableFuture
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, prefer method `thenAcceptBoth`")
-    public static <T, U, V> CompletableFuture<V> thenCombineFailFast(
-            CompletableFuture<? extends T> cfThis, CompletionStage<? extends U> other,
-            BiFunction<? super T, ? super U, ? extends V> fn) {
-        requireThisAndOtherNonNull(cfThis, other);
-        requireNonNull(fn, "fn is null");
-
-        return bothFailFast0(cfThis, other).thenApply(t -> fn.apply(t._1, t._2));
+    public static <T, U, V> CompletableFuture<V> thenCombineFailFast(CompletableFuture<? extends T> cfThis, CompletionStage<? extends U> other, BiFunction<? super T, ? super U, ? extends V> fn) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1800,10 +1384,8 @@ public final class CompletableFutureUtils {
      * @param fn the function to use to compute the value of the returned CompletableFuture
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, prefer method `thenAcceptBothAsync`")
-    public static <T, U, V> CompletableFuture<V> thenCombineFailFastAsync(
-            CompletableFuture<? extends T> cfThis, CompletionStage<? extends U> other,
-            BiFunction<? super T, ? super U, ? extends V> fn) {
-        return thenCombineFailFastAsync(cfThis, other, fn, defaultExecutor(cfThis));
+    public static <T, U, V> CompletableFuture<V> thenCombineFailFastAsync(CompletableFuture<? extends T> cfThis, CompletionStage<? extends U> other, BiFunction<? super T, ? super U, ? extends V> fn) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1817,14 +1399,8 @@ public final class CompletableFutureUtils {
      * @param fn the function to use to compute the value of the returned CompletableFuture
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, prefer method `thenAcceptBothAsync`")
-    public static <T, U, V> CompletableFuture<V> thenCombineFailFastAsync(
-            CompletableFuture<? extends T> cfThis, CompletionStage<? extends U> other,
-            BiFunction<? super T, ? super U, ? extends V> fn, Executor executor) {
-        requireThisAndOtherNonNull(cfThis, other);
-        requireNonNull(fn, "fn is null");
-        requireNonNull(executor, "executor is null");
-
-        return bothFailFast0(cfThis, other).thenApplyAsync(t -> fn.apply(t._1, t._2), executor);
+    public static <T, U, V> CompletableFuture<V> thenCombineFailFastAsync(CompletableFuture<? extends T> cfThis, CompletionStage<? extends U> other, BiFunction<? super T, ? super U, ? extends V> fn, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private static void requireThisAndOtherNonNull(CompletionStage<?> cfThis, CompletionStage<?> other) {
@@ -1837,17 +1413,14 @@ public final class CompletableFutureUtils {
      * return cf same as input `cfThis` argument. The runtime type of method {@link #allResultsFailFastOf(CompletionStage[])}
      * return cf is always CompletableFuture, does NOT keep the runtime type of input `cfThis` argument.
      */
-    @SuppressWarnings({"unchecked", "rawtypes"})
-    private static <T1, T2> CompletableFuture<Tuple2<T1, T2>> bothFailFast0(
-            CompletableFuture<? extends T1> cfThis, CompletionStage<? extends T2> other) {
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    private static <T1, T2> CompletableFuture<Tuple2<T1, T2>> bothFailFast0(CompletableFuture<? extends T1> cfThis, CompletionStage<? extends T2> other) {
         CompletableFuture thisSuccessOrBeIncomplete = exceptionallyCompose(cfThis, ex -> new CompletableFuture());
         CompletionStage otherSuccessOrBeIncomplete = exceptionallyCompose(other, ex -> new CompletableFuture());
         CompletableFuture cfValue = thisSuccessOrBeIncomplete.thenCombine(otherSuccessOrBeIncomplete, Tuple2::of);
-
         CompletableFuture thisFailedOrBeIncomplete = cfThis.thenCompose(v -> new CompletableFuture());
         CompletionStage otherFailedOrBeIncomplete = other.thenCompose(v -> new CompletableFuture());
         CompletableFuture cfEx = thisFailedOrBeIncomplete.applyToEither(otherFailedOrBeIncomplete, v -> null);
-
         return cfValue.applyToEither(cfEx, x -> x);
     }
 
@@ -1861,13 +1434,8 @@ public final class CompletableFutureUtils {
      * @param action the action to perform before completing the returned CompletableFuture
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, prefer method `thenAcceptBoth`")
-    public static <T, U> CompletableFuture<Void> thenAcceptBothFailFast(
-            CompletableFuture<? extends T> cfThis, CompletionStage<? extends U> other,
-            BiConsumer<? super T, ? super U> action) {
-        requireThisAndOtherNonNull(cfThis, other);
-        requireNonNull(action, "action is null");
-
-        return bothFailFast0(cfThis, other).thenAccept(t -> action.accept(t._1, t._2));
+    public static <T, U> CompletableFuture<Void> thenAcceptBothFailFast(CompletableFuture<? extends T> cfThis, CompletionStage<? extends U> other, BiConsumer<? super T, ? super U> action) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1881,10 +1449,8 @@ public final class CompletableFutureUtils {
      * @param action the action to perform before completing the returned CompletableFuture
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, prefer method `thenAcceptBothAsync`")
-    public static <T, U> CompletableFuture<Void> thenAcceptBothFailFastAsync(
-            CompletableFuture<? extends T> cfThis, CompletionStage<? extends U> other,
-            BiConsumer<? super T, ? super U> action) {
-        return thenAcceptBothFailFastAsync(cfThis, other, action, defaultExecutor(cfThis));
+    public static <T, U> CompletableFuture<Void> thenAcceptBothFailFastAsync(CompletableFuture<? extends T> cfThis, CompletionStage<? extends U> other, BiConsumer<? super T, ? super U> action) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1898,14 +1464,8 @@ public final class CompletableFutureUtils {
      * @param action the action to perform before completing the returned CompletableFuture
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, prefer method `thenAcceptBothAsync`")
-    public static <T, U> CompletableFuture<Void> thenAcceptBothFailFastAsync(
-            CompletableFuture<? extends T> cfThis, CompletionStage<? extends U> other,
-            BiConsumer<? super T, ? super U> action, Executor executor) {
-        requireThisAndOtherNonNull(cfThis, other);
-        requireNonNull(action, "action is null");
-        requireNonNull(executor, "executor is null");
-
-        return bothFailFast0(cfThis, other).thenAcceptAsync(t -> action.accept(t._1, t._2), executor);
+    public static <T, U> CompletableFuture<Void> thenAcceptBothFailFastAsync(CompletableFuture<? extends T> cfThis, CompletionStage<? extends U> other, BiConsumer<? super T, ? super U> action, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1917,12 +1477,8 @@ public final class CompletableFutureUtils {
      * @param action the action to perform before completing the returned CompletableFuture
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, prefer method `runAfterBoth`")
-    public static CompletableFuture<Void> runAfterBothFailFast(
-            CompletableFuture<?> cfThis, CompletionStage<?> other, Runnable action) {
-        requireThisAndOtherNonNull(cfThis, other);
-        requireNonNull(action, "action is null");
-
-        return bothFailFast0(cfThis, other).thenRun(action);
+    public static CompletableFuture<Void> runAfterBothFailFast(CompletableFuture<?> cfThis, CompletionStage<?> other, Runnable action) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1935,9 +1491,8 @@ public final class CompletableFutureUtils {
      * @param action the action to perform before completing the returned CompletableFuture
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, prefer method `runAfterBothAsync`")
-    public static CompletableFuture<Void> runAfterBothFailFastAsync(
-            CompletableFuture<?> cfThis, CompletionStage<?> other, Runnable action) {
-        return runAfterBothFailFastAsync(cfThis, other, action, defaultExecutor(cfThis));
+    public static CompletableFuture<Void> runAfterBothFailFastAsync(CompletableFuture<?> cfThis, CompletionStage<?> other, Runnable action) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1950,13 +1505,8 @@ public final class CompletableFutureUtils {
      * @param action the action to perform before completing the returned CompletableFuture
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, prefer method `runAfterBothAsync`")
-    public static CompletableFuture<Void> runAfterBothFailFastAsync(
-            CompletableFuture<?> cfThis, CompletionStage<?> other, Runnable action, Executor executor) {
-        requireThisAndOtherNonNull(cfThis, other);
-        requireNonNull(action, "action is null");
-        requireNonNull(executor, "executor is null");
-
-        return bothFailFast0(cfThis, other).thenRunAsync(action, executor);
+    public static CompletableFuture<Void> runAfterBothFailFastAsync(CompletableFuture<?> cfThis, CompletionStage<?> other, Runnable action, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     // endregion
@@ -1967,7 +1517,6 @@ public final class CompletableFutureUtils {
     //    - acceptEitherSuccess*  (Consumer: (T) -> Void)  -> CompletableFuture<Void>
     //    - runAfterEitherSuccess*(Runnable: Void -> Void) -> CompletableFuture<Void>
     ////////////////////////////////////////////////////////////
-
     /**
      * Returns a new CompletableFuture that, when either of given stages success,
      * is executed with the corresponding result as argument to the supplied function.
@@ -1978,12 +1527,8 @@ public final class CompletableFutureUtils {
      * @param <U> the function's return type
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, prefer method `acceptEitherSuccess`")
-    public static <T, U> CompletableFuture<U> applyToEitherSuccess(
-            CompletableFuture<? extends T> cfThis, CompletionStage<? extends T> other, Function<? super T, ? extends U> fn) {
-        requireThisAndOtherNonNull(cfThis, other);
-        requireNonNull(fn, "fn is null");
-
-        return eitherSuccess0(cfThis, other).thenApply(fn);
+    public static <T, U> CompletableFuture<U> applyToEitherSuccess(CompletableFuture<? extends T> cfThis, CompletionStage<? extends T> other, Function<? super T, ? extends U> fn) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1997,9 +1542,8 @@ public final class CompletableFutureUtils {
      * @param <U> the function's return type
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, prefer method `acceptEitherSuccessAsync`")
-    public static <T, U> CompletableFuture<U> applyToEitherSuccessAsync(
-            CompletableFuture<? extends T> cfThis, CompletionStage<? extends T> other, Function<? super T, ? extends U> fn) {
-        return applyToEitherSuccessAsync(cfThis, other, fn, defaultExecutor(cfThis));
+    public static <T, U> CompletableFuture<U> applyToEitherSuccessAsync(CompletableFuture<? extends T> cfThis, CompletionStage<? extends T> other, Function<? super T, ? extends U> fn) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2013,14 +1557,8 @@ public final class CompletableFutureUtils {
      * @param <U>      the function's return type
      */
     @CheckReturnValue(explanation = "should use the returned CompletableFuture; otherwise, prefer method `acceptEitherSuccessAsync`")
-    public static <T, U> CompletableFuture<U> applyToEitherSuccessAsync(
-            CompletableFuture<? extends T> cfThis, CompletionStage<? extends T> other,
-            Function<? super T, ? extends U> fn, Executor executor) {
-        requireThisAndOtherNonNull(cfThis, other);
-        requireNonNull(fn, "fn is null");
-        requireNonNull(executor, "executor is null");
-
-        return eitherSuccess0(cfThis, other).thenApplyAsync(fn, executor);
+    public static <T, U> CompletableFuture<U> applyToEitherSuccessAsync(CompletableFuture<? extends T> cfThis, CompletionStage<? extends T> other, Function<? super T, ? extends U> fn, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2028,17 +1566,14 @@ public final class CompletableFutureUtils {
      * return cf same as input `cfThis` argument. The runtime type of method {@link #anySuccessOf(CompletionStage[])}
      * return cf is always CompletableFuture, does NOT keep the runtime type of input `cfThis` argument.
      */
-    @SuppressWarnings({"unchecked", "rawtypes"})
-    private static <T> CompletableFuture<T> eitherSuccess0(
-            CompletableFuture<? extends T> cfThis, CompletionStage<? extends T> other) {
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    private static <T> CompletableFuture<T> eitherSuccess0(CompletableFuture<? extends T> cfThis, CompletionStage<? extends T> other) {
         CompletableFuture thisSuccessOrBeIncomplete = exceptionallyCompose(cfThis, ex -> new CompletableFuture());
         CompletionStage otherSuccessOrBeIncomplete = exceptionallyCompose(other, ex -> new CompletableFuture());
         CompletableFuture cfValue = thisSuccessOrBeIncomplete.applyToEither(otherSuccessOrBeIncomplete, x -> x);
-
         CompletableFuture thisFailedOrBeIncomplete = cfThis.thenCompose(v -> new CompletableFuture());
         CompletionStage otherFailedOrBeIncomplete = other.thenCompose(v -> new CompletableFuture());
         CompletableFuture cfEx = thisFailedOrBeIncomplete.thenCombine(otherFailedOrBeIncomplete, (v1, v2) -> null);
-
         return cfValue.applyToEither(cfEx, x -> x);
     }
 
@@ -2050,12 +1585,8 @@ public final class CompletableFutureUtils {
      *
      * @param action the action to perform before completing the returned CompletableFuture
      */
-    public static <T> CompletableFuture<Void> acceptEitherSuccess(
-            CompletableFuture<? extends T> cfThis, CompletionStage<? extends T> other, Consumer<? super T> action) {
-        requireThisAndOtherNonNull(cfThis, other);
-        requireNonNull(action, "action is null");
-
-        return eitherSuccess0(cfThis, other).thenAccept(action);
+    public static <T> CompletableFuture<Void> acceptEitherSuccess(CompletableFuture<? extends T> cfThis, CompletionStage<? extends T> other, Consumer<? super T> action) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2067,9 +1598,8 @@ public final class CompletableFutureUtils {
      *
      * @param action the action to perform before completing the returned CompletableFuture
      */
-    public static <T> CompletableFuture<Void> acceptEitherSuccessAsync(
-            CompletableFuture<? extends T> cfThis, CompletionStage<? extends T> other, Consumer<? super T> action) {
-        return acceptEitherSuccessAsync(cfThis, other, action, defaultExecutor(cfThis));
+    public static <T> CompletableFuture<Void> acceptEitherSuccessAsync(CompletableFuture<? extends T> cfThis, CompletionStage<? extends T> other, Consumer<? super T> action) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2081,14 +1611,8 @@ public final class CompletableFutureUtils {
      * @param action   the action to perform before completing the returned CompletableFuture
      * @param executor the executor to use for asynchronous execution
      */
-    public static <T> CompletableFuture<Void> acceptEitherSuccessAsync(
-            CompletableFuture<? extends T> cfThis, CompletionStage<? extends T> other,
-            Consumer<? super T> action, Executor executor) {
-        requireThisAndOtherNonNull(cfThis, other);
-        requireNonNull(action, "action is null");
-        requireNonNull(executor, "executor is null");
-
-        return eitherSuccess0(cfThis, other).thenAcceptAsync(action, executor);
+    public static <T> CompletableFuture<Void> acceptEitherSuccessAsync(CompletableFuture<? extends T> cfThis, CompletionStage<? extends T> other, Consumer<? super T> action, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2098,12 +1622,8 @@ public final class CompletableFutureUtils {
      *
      * @param action the action to perform before completing the returned CompletableFuture
      */
-    public static CompletableFuture<Void> runAfterEitherSuccess(
-            CompletableFuture<?> cfThis, CompletionStage<?> other, Runnable action) {
-        requireThisAndOtherNonNull(cfThis, other);
-        requireNonNull(action, "action is null");
-
-        return eitherSuccess0(cfThis, other).thenRun(action);
+    public static CompletableFuture<Void> runAfterEitherSuccess(CompletableFuture<?> cfThis, CompletionStage<?> other, Runnable action) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2114,9 +1634,8 @@ public final class CompletableFutureUtils {
      *
      * @param action the action to perform before completing the returned CompletableFuture
      */
-    public static CompletableFuture<Void> runAfterEitherSuccessAsync(
-            CompletableFuture<?> cfThis, CompletionStage<?> other, Runnable action) {
-        return runAfterEitherSuccessAsync(cfThis, other, action, defaultExecutor(cfThis));
+    public static CompletableFuture<Void> runAfterEitherSuccessAsync(CompletableFuture<?> cfThis, CompletionStage<?> other, Runnable action) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2127,20 +1646,14 @@ public final class CompletableFutureUtils {
      *
      * @param action the action to perform before completing the returned CompletableFuture
      */
-    public static CompletableFuture<Void> runAfterEitherSuccessAsync(
-            CompletableFuture<?> cfThis, CompletionStage<?> other, Runnable action, Executor executor) {
-        requireThisAndOtherNonNull(cfThis, other);
-        requireNonNull(action, "action is null");
-        requireNonNull(executor, "executor is null");
-
-        return eitherSuccess0(cfThis, other).thenRunAsync(action, executor);
+    public static CompletableFuture<Void> runAfterEitherSuccessAsync(CompletableFuture<?> cfThis, CompletionStage<?> other, Runnable action, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     // endregion
     ////////////////////////////////////////////////////////////
     // region## Error Handling Methods of CompletionStage
     ////////////////////////////////////////////////////////////
-
     /**
      * Returns a new CompletableFuture that, when the given stage completes exceptionally with the given exceptionType,
      * is executed with the exception from the given stage({@code argument cfThis}) as the argument to the supplied function.
@@ -2158,18 +1671,8 @@ public final class CompletableFutureUtils {
      * @see #unwrapCfException(Throwable)
      * @see Futures#catching the equivalent Guava method catching()
      */
-    public static <T, X extends Throwable, F extends CompletionStage<T>>
-    F catching(F cfThis, Class<X> exceptionType, Function<? super X, ? extends T> fallback) {
-        requireNonNull(cfThis, "cfThis is null");
-        requireNonNull(exceptionType, "exceptionType is null");
-        requireNonNull(fallback, "fallback is null");
-
-        CompletionStage<T> ret = cfThis.handle((v, ex) -> {
-            X bizEx = castOrNull(exceptionType, unwrapCfException(ex));
-            if (bizEx == null) return cfThis;
-            return CompletableFuture.<T>completedFuture(fallback.apply(bizEx));
-        }).thenCompose(x -> x);
-        return f_selfTypeDownCast(ret);
+    public static <T, X extends Throwable, F extends CompletionStage<T>> F catching(F cfThis, Class<X> exceptionType, Function<? super X, ? extends T> fallback) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2190,9 +1693,8 @@ public final class CompletableFutureUtils {
      * @see #unwrapCfException(Throwable)
      * @see Futures#catching the equivalent Guava method catching()
      */
-    public static <T, X extends Throwable, F extends CompletionStage<T>>
-    F catchingAsync(F cfThis, Class<X> exceptionType, Function<? super X, ? extends T> fallback) {
-        return catchingAsync(cfThis, exceptionType, fallback, defaultExecutor(cfThis));
+    public static <T, X extends Throwable, F extends CompletionStage<T>> F catchingAsync(F cfThis, Class<X> exceptionType, Function<? super X, ? extends T> fallback) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2213,19 +1715,8 @@ public final class CompletableFutureUtils {
      * @see #unwrapCfException(Throwable)
      * @see Futures#catching the equivalent Guava method catching()
      */
-    public static <T, X extends Throwable, F extends CompletionStage<T>>
-    F catchingAsync(F cfThis, Class<X> exceptionType, Function<? super X, ? extends T> fallback, Executor executor) {
-        requireNonNull(cfThis, "cfThis is null");
-        requireNonNull(exceptionType, "exceptionType is null");
-        requireNonNull(fallback, "fallback is null");
-        requireNonNull(executor, "executor is null");
-
-        CompletionStage<T> ret = cfThis.handle((v, ex) -> {
-            X bizEx = castOrNull(exceptionType, unwrapCfException(ex));
-            if (bizEx == null) return cfThis;
-            return cfThis.<T>handleAsync((v1, ex1) -> fallback.apply(bizEx), executor);
-        }).thenCompose(x -> x);
-        return f_selfTypeDownCast(ret);
+    public static <T, X extends Throwable, F extends CompletionStage<T>> F catchingAsync(F cfThis, Class<X> exceptionType, Function<? super X, ? extends T> fallback, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2241,9 +1732,8 @@ public final class CompletableFutureUtils {
      *           if given CompletionStage completed exceptionally
      * @see #catchingAsync(CompletionStage, Class, Function)
      */
-    public static <T, F extends CompletionStage<T>>
-    F exceptionallyAsync(F cfThis, Function<Throwable, ? extends T> fn) {
-        return exceptionallyAsync(cfThis, fn, defaultExecutor(cfThis));
+    public static <T, F extends CompletionStage<T>> F exceptionallyAsync(F cfThis, Function<Throwable, ? extends T> fn) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2260,27 +1750,14 @@ public final class CompletableFutureUtils {
      * @param executor the executor to use for asynchronous execution
      * @see #catchingAsync(CompletionStage, Class, Function, Executor)
      */
-    public static <T, F extends CompletionStage<T>>
-    F exceptionallyAsync(F cfThis, Function<Throwable, ? extends T> fn, Executor executor) {
-        requireNonNull(cfThis, "cfThis is null");
-        requireNonNull(fn, "fn is null");
-        requireNonNull(executor, "executor is null");
-        if (IS_JAVA12_PLUS) {
-            CompletionStage<T> ret = cfThis.exceptionallyAsync(fn, executor);
-            return f_selfTypeDownCast(ret);
-        }
-        // the below code is copied from CompletionStage#exceptionallyAsync
-        CompletionStage<T> ret = cfThis.handle((v, ex) -> (ex == null) ? cfThis :
-                cfThis.<T>handleAsync((v1, ex1) -> fn.apply(ex1), executor)
-        ).thenCompose(x -> x);
-        return f_selfTypeDownCast(ret);
+    public static <T, F extends CompletionStage<T>> F exceptionallyAsync(F cfThis, Function<Throwable, ? extends T> fn, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     // endregion
     ////////////////////////////////////////////////////////////
     // region## Timeout Control Methods of CompletableFuture
     ////////////////////////////////////////////////////////////
-
     /**
      * Returns a new CompletableFuture that is completed exceptionally with a {@link TimeoutException}
      * when the given CompletableFuture is not completed before the given timeout; otherwise the returned
@@ -2300,7 +1777,7 @@ public final class CompletableFutureUtils {
      * @see #cffuOrTimeout(CompletableFuture, long, TimeUnit, Executor)
      */
     public static <F extends CompletableFuture<?>> F cffuOrTimeout(F cfThis, long timeout, TimeUnit unit) {
-        return cffuOrTimeout(cfThis, timeout, unit, defaultExecutor(cfThis));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2320,14 +1797,8 @@ public final class CompletableFutureUtils {
      * @param unit                a {@code TimeUnit} determining how to interpret the {@code timeout} parameter
      * @param executorWhenTimeout the executor to use for asynchronous execution when the wait timed out
      */
-    public static <F extends CompletableFuture<?>> F cffuOrTimeout(
-            F cfThis, long timeout, TimeUnit unit, Executor executorWhenTimeout) {
-        requireNonNull(cfThis, "cfThis is null");
-        requireNonNull(unit, "unit is null");
-        requireNonNull(executorWhenTimeout, "executorWhenTimeout is null");
-
-        final F f = orTimeout(cfThis, timeout, unit);
-        return switchExecutorIfTriggersInCfDelayerThread(f, screenExecutor(executorWhenTimeout));
+    public static <F extends CompletableFuture<?>> F cffuOrTimeout(F cfThis, long timeout, TimeUnit unit, Executor executorWhenTimeout) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2365,22 +1836,7 @@ public final class CompletableFutureUtils {
      */
     @Contract("_, _, _ -> param1")
     public static <F extends CompletableFuture<?>> F orTimeout(F cfThis, long timeout, TimeUnit unit) {
-        requireNonNull(cfThis, "cfThis is null");
-        requireNonNull(unit, "unit is null");
-        // NOTE: No need check minimal stage, because checked in cfThis.orTimeout() / cfThis.isDone() below
-
-        // because of bug JDK-8303742, delegate to CF#orTimeout for Java 21+(the bug was fixed at Java 21)
-        // instead of Java 9+(CF#orTimeout were introduced since Java 9)
-        if (IS_JAVA21_PLUS) {
-            cfThis.orTimeout(timeout, unit);
-        } else {
-            // the below code is copied from CompletableFuture#orTimeout with small adaptions
-            if (!cfThis.isDone()) {
-                ScheduledFuture<?> f = Delayer.delayToTimeoutCf(cfThis, timeout, unit);
-                peek0(cfThis, new FutureCanceller(f), "CFU#orTimeout");
-            }
-        }
-        return cfThis;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2403,9 +1859,8 @@ public final class CompletableFutureUtils {
      * @param unit    a {@code TimeUnit} determining how to interpret the {@code timeout} parameter
      * @see #cffuCompleteOnTimeout(CompletableFuture, Object, long, TimeUnit, Executor)
      */
-    public static <T, F extends CompletableFuture<? super T>>
-    F cffuCompleteOnTimeout(F cfThis, @Nullable T value, long timeout, TimeUnit unit) {
-        return cffuCompleteOnTimeout(cfThis, value, timeout, unit, defaultExecutor(cfThis));
+    public static <T, F extends CompletableFuture<? super T>> F cffuCompleteOnTimeout(F cfThis, @Nullable T value, long timeout, TimeUnit unit) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2426,14 +1881,8 @@ public final class CompletableFutureUtils {
      * @param unit                a {@code TimeUnit} determining how to interpret the {@code timeout} parameter
      * @param executorWhenTimeout the executor to use for asynchronous execution when the wait timed out
      */
-    public static <T, F extends CompletableFuture<? super T>>
-    F cffuCompleteOnTimeout(F cfThis, @Nullable T value, long timeout, TimeUnit unit, Executor executorWhenTimeout) {
-        requireNonNull(cfThis, "cfThis is null");
-        requireNonNull(unit, "unit is null");
-        requireNonNull(executorWhenTimeout, "executorWhenTimeout is null");
-
-        final F f = completeOnTimeout(cfThis, value, timeout, unit);
-        return switchExecutorIfTriggersInCfDelayerThread(f, screenExecutor(executorWhenTimeout));
+    public static <T, F extends CompletableFuture<? super T>> F cffuCompleteOnTimeout(F cfThis, @Nullable T value, long timeout, TimeUnit unit, Executor executorWhenTimeout) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2464,21 +1913,8 @@ public final class CompletableFutureUtils {
      * @see #cffuCompleteOnTimeout(CompletableFuture, Object, long, TimeUnit, Executor)
      */
     @Contract("_, _, _, _ -> param1")
-    public static <T, F extends CompletableFuture<? super T>>
-    F completeOnTimeout(F cfThis, @Nullable T value, long timeout, TimeUnit unit) {
-        requireNonNull(cfThis, "cfThis is null");
-        requireNonNull(unit, "unit is null");
-        // NOTE: No need check minimal stage, because checked in cfThis.completeOnTimeout() / cfThis.isDone() below
-        if (IS_JAVA9_PLUS) {
-            cfThis.completeOnTimeout(value, timeout, unit);
-        } else {
-            // the below code is copied from CompletableFuture#completeOnTimeout with small adaptions
-            if (!cfThis.isDone()) {
-                ScheduledFuture<?> f = Delayer.delayToCompleteCf(cfThis, value, timeout, unit);
-                peek0(cfThis, new FutureCanceller(f), "CFU#completeOnTimeout");
-            }
-        }
-        return cfThis;
+    public static <T, F extends CompletableFuture<? super T>> F completeOnTimeout(F cfThis, @Nullable T value, long timeout, TimeUnit unit) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     // endregion
@@ -2489,7 +1925,6 @@ public final class CompletableFutureUtils {
     //   - `compose` methods, input function argument returns CompletionStage
     //   - handle the successful and failed result together(handle*/whenComplete*/peek*)
     ////////////////////////////////////////////////////////////
-
     /**
      * Returns a new CompletionStage that, when the given stage completes exceptionally with the given exceptionType, is composed
      * using the results of the supplied function applied to the exception from the given stage({@code argument cfThis}).
@@ -2506,18 +1941,8 @@ public final class CompletableFutureUtils {
      * @see #unwrapCfException(Throwable)
      * @see Futures#catchingAsync the equivalent Guava method catchingAsync()
      */
-    public static <T, X extends Throwable, F extends CompletionStage<T>>
-    F catchingCompose(F cfThis, Class<X> exceptionType, Function<? super X, ? extends CompletionStage<T>> fallback) {
-        requireNonNull(cfThis, "cfThis is null");
-        requireNonNull(exceptionType, "exceptionType is null");
-        requireNonNull(fallback, "fallback is null");
-
-        CompletionStage<T> ret = cfThis.handle((v, ex) -> {
-            X bizEx = castOrNull(exceptionType, unwrapCfException(ex));
-            if (bizEx == null) return cfThis;
-            return fallback.apply(bizEx);
-        }).thenCompose(x -> x);
-        return f_selfTypeDownCast(ret);
+    public static <T, X extends Throwable, F extends CompletionStage<T>> F catchingCompose(F cfThis, Class<X> exceptionType, Function<? super X, ? extends CompletionStage<T>> fallback) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2537,9 +1962,8 @@ public final class CompletableFutureUtils {
      * @see #unwrapCfException(Throwable)
      * @see Futures#catchingAsync the equivalent Guava method catchingAsync()
      */
-    public static <T, X extends Throwable, F extends CompletionStage<T>> F catchingComposeAsync(
-            F cfThis, Class<X> exceptionType, Function<? super X, ? extends CompletionStage<T>> fallback) {
-        return catchingComposeAsync(cfThis, exceptionType, fallback, defaultExecutor(cfThis));
+    public static <T, X extends Throwable, F extends CompletionStage<T>> F catchingComposeAsync(F cfThis, Class<X> exceptionType, Function<? super X, ? extends CompletionStage<T>> fallback) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2560,20 +1984,8 @@ public final class CompletableFutureUtils {
      * @see #unwrapCfException(Throwable)
      * @see Futures#catchingAsync the equivalent Guava method catchingAsync()
      */
-    public static <T, X extends Throwable, F extends CompletionStage<T>> F catchingComposeAsync(
-            F cfThis, Class<X> exceptionType,
-            Function<? super X, ? extends CompletionStage<T>> fallback, Executor executor) {
-        requireNonNull(cfThis, "cfThis is null");
-        requireNonNull(exceptionType, "exceptionType is null");
-        requireNonNull(fallback, "fallback is null");
-        requireNonNull(executor, "executor is null");
-
-        CompletionStage<T> ret = cfThis.handle((v, ex) -> {
-            X bizEx = castOrNull(exceptionType, unwrapCfException(ex));
-            if (bizEx == null) return cfThis;
-            return cfThis.handleAsync((v1, ex1) -> fallback.apply(bizEx), executor).thenCompose(x -> x);
-        }).thenCompose(x -> x);
-        return f_selfTypeDownCast(ret);
+    public static <T, X extends Throwable, F extends CompletionStage<T>> F catchingComposeAsync(F cfThis, Class<X> exceptionType, Function<? super X, ? extends CompletionStage<T>> fallback, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2588,17 +2000,8 @@ public final class CompletableFutureUtils {
      *           if given CompletionStage completed exceptionally
      * @see #catchingCompose(CompletionStage, Class, Function)
      */
-    public static <T, F extends CompletionStage<T>>
-    F exceptionallyCompose(F cfThis, Function<Throwable, ? extends CompletionStage<T>> fn) {
-        requireNonNull(cfThis, "cfThis is null");
-        requireNonNull(fn, "fn is null");
-        if (IS_JAVA12_PLUS) {
-            CompletionStage<T> ret = cfThis.exceptionallyCompose(fn);
-            return f_selfTypeDownCast(ret);
-        }
-        // the below code is copied from CompletionStage.exceptionallyCompose
-        CompletionStage<T> ret = cfThis.handle((v, ex) -> (ex == null) ? cfThis : fn.apply(ex)).thenCompose(x -> x);
-        return f_selfTypeDownCast(ret);
+    public static <T, F extends CompletionStage<T>> F exceptionallyCompose(F cfThis, Function<Throwable, ? extends CompletionStage<T>> fn) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2614,9 +2017,8 @@ public final class CompletableFutureUtils {
      *           if given CompletionStage completed exceptionally
      * @see #catchingComposeAsync(CompletionStage, Class, Function)
      */
-    public static <T, F extends CompletionStage<T>>
-    F exceptionallyComposeAsync(F cfThis, Function<Throwable, ? extends CompletionStage<T>> fn) {
-        return exceptionallyComposeAsync(cfThis, fn, defaultExecutor(cfThis));
+    public static <T, F extends CompletionStage<T>> F exceptionallyComposeAsync(F cfThis, Function<Throwable, ? extends CompletionStage<T>> fn) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2632,20 +2034,8 @@ public final class CompletableFutureUtils {
      * @param executor the executor to use for asynchronous execution
      * @see #catchingComposeAsync(CompletionStage, Class, Function, Executor)
      */
-    public static <T, F extends CompletionStage<T>>
-    F exceptionallyComposeAsync(F cfThis, Function<Throwable, ? extends CompletionStage<T>> fn, Executor executor) {
-        requireNonNull(cfThis, "cfThis is null");
-        requireNonNull(fn, "fn is null");
-        requireNonNull(executor, "executor is null");
-        if (IS_JAVA12_PLUS) {
-            CompletionStage<T> ret = cfThis.exceptionallyComposeAsync(fn, executor);
-            return f_selfTypeDownCast(ret);
-        }
-        // the below code is copied from CompletionStage.exceptionallyComposeAsync
-        CompletionStage<T> ret = cfThis.handle((v, ex) -> (ex == null) ? cfThis :
-                cfThis.handleAsync((v1, ex1) -> fn.apply(ex1), executor).thenCompose(x -> x)
-        ).thenCompose(x -> x);
-        return f_selfTypeDownCast(ret);
+    public static <T, F extends CompletionStage<T>> F exceptionallyComposeAsync(F cfThis, Function<Throwable, ? extends CompletionStage<T>> fn, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2674,12 +2064,8 @@ public final class CompletableFutureUtils {
      * @see java.util.stream.Stream#peek(Consumer)
      */
     @Contract("_, _ -> param1")
-    public static <T, F extends CompletionStage<? extends T>>
-    F peek(F cfThis, BiConsumer<? super T, ? super Throwable> action) {
-        requireNonNull(cfThis, "cfThis is null");
-        requireNonNull(action, "action is null");
-
-        return peek0(cfThis, action, "CFU#peek");
+    public static <T, F extends CompletionStage<? extends T>> F peek(F cfThis, BiConsumer<? super T, ? super Throwable> action) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2709,9 +2095,8 @@ public final class CompletableFutureUtils {
      * @see java.util.stream.Stream#peek(Consumer)
      */
     @Contract("_, _ -> param1")
-    public static <T, F extends CompletionStage<? extends T>>
-    F peekAsync(F cfThis, BiConsumer<? super T, ? super Throwable> action) {
-        return peekAsync(cfThis, action, defaultExecutor(cfThis));
+    public static <T, F extends CompletionStage<? extends T>> F peekAsync(F cfThis, BiConsumer<? super T, ? super Throwable> action) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2741,13 +2126,8 @@ public final class CompletableFutureUtils {
      * @see java.util.stream.Stream#peek(Consumer)
      */
     @Contract("_, _, _ -> param1")
-    public static <T, F extends CompletionStage<? extends T>>
-    F peekAsync(F cfThis, BiConsumer<? super T, ? super Throwable> action, Executor executor) {
-        requireNonNull(cfThis, "cfThis is null");
-        requireNonNull(action, "action is null");
-        requireNonNull(executor, "executor is null");
-
-        return peekAsync0(cfThis, action, "CFU#peekAsync", executor);
+    public static <T, F extends CompletionStage<? extends T>> F peekAsync(F cfThis, BiConsumer<? super T, ? super Throwable> action, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     // endregion
@@ -2775,7 +2155,6 @@ public final class CompletableFutureUtils {
     //   - getNow/join throw CompletionException(unchecked exception),
     //     these methods exists in `CompletableFuture` since Java 8
     ////////////////////////////////////////////////////////////
-
     /**
      * Waits if necessary for at most the given time for the computation to complete
      * and then retrieves its result value when complete, or throws an (unchecked) exception if completed exceptionally.
@@ -2804,11 +2183,9 @@ public final class CompletableFutureUtils {
      * @see CompletableFuture#join()
      */
     @Blocking
-    public static <T> @Nullable T join(CompletableFuture<? extends T> cfThis, long timeout, TimeUnit unit) {
-        requireNonNull(cfThis, "cfThis is null");
-        requireNonNull(unit, "unit is null");
-        // defensive copy input cf to avoid writing it by `orTimeout`
-        return cfThis.isDone() ? cfThis.join() : orTimeout(copy0(cfThis), timeout, unit).join();
+    @Nullable
+    public static <T> T join(CompletableFuture<? extends T> cfThis, long timeout, TimeUnit unit) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2822,15 +2199,9 @@ public final class CompletableFutureUtils {
      * @throws NullPointerException if the given CompletableFuture is {@code null}
      */
     @Contract(pure = true)
-    public static <T> @Nullable T getSuccessNow(CompletableFuture<? extends T> cfThis, @Nullable T valueIfNotSuccess) {
-        requireNonNull(cfThis, "cfThis is null");
-        // NOTE: No need check minimal stage, because checked in cfThis.isDone() below
-        try {
-            return cfThis.isDone() && !cfThis.isCompletedExceptionally() ? cfThis.join() : valueIfNotSuccess;
-        } catch (CancellationException | CompletionException e) {
-            // these exceptions can only occur if the cfThis was re-completed exceptionally using obtrudeException
-            return valueIfNotSuccess;
-        }
+    @Nullable
+    public static <T> T getSuccessNow(CompletableFuture<? extends T> cfThis, @Nullable T valueIfNotSuccess) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2849,41 +2220,9 @@ public final class CompletableFutureUtils {
      * @throws IllegalStateException if the task has not completed, or the task did not complete with a result
      */
     @Contract(pure = true)
-    public static <T> @Nullable T resultNow(Future<? extends T> cfThis) {
-        requireNonNull(cfThis, "cfThis is null");
-        if (IS_JAVA19_PLUS) {
-            return cfThis.resultNow();
-        }
-
-        // the below code is copied from Future.resultNow
-
-        if (!cfThis.isDone()) throw new IllegalStateException("Task has not completed");
-        if (cfThis.isCancelled()) throw new IllegalStateException("Task was cancelled");
-        // simple path for CompletableFuture/Cffu
-        if (cfThis instanceof CompletableFuture) {
-            if (((CompletableFuture<?>) cfThis).isCompletedExceptionally())
-                throw new IllegalStateException("Task completed with exception");
-        } else if (cfThis instanceof BaseCffu) {
-            if (((BaseCffu<?, ?>) cfThis).isCompletedExceptionally())
-                throw new IllegalStateException("Task completed with exception");
-        }
-
-        boolean interrupted = false;
-        try {
-            while (true) {
-                try {
-                    return cfThis.get();
-                } catch (InterruptedException e) {
-                    interrupted = true;
-                } catch (ExecutionException e) {
-                    throw new IllegalStateException("Task completed with exception");
-                } catch (CancellationException e) {
-                    throw new IllegalStateException("Task was cancelled");
-                }
-            }
-        } finally {
-            if (interrupted) currentThread().interrupt();
-        }
+    @Nullable
+    public static <T> T resultNow(Future<? extends T> cfThis) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2897,31 +2236,7 @@ public final class CompletableFutureUtils {
      */
     @Contract(pure = true)
     public static Throwable exceptionNow(Future<?> cfThis) {
-        requireNonNull(cfThis, "cfThis is null");
-        if (IS_JAVA19_PLUS) {
-            return cfThis.exceptionNow();
-        }
-
-        // the below code is copied from Future.exceptionNow
-
-        if (!cfThis.isDone()) throw new IllegalStateException("Task has not completed");
-        if (cfThis.isCancelled()) throw new IllegalStateException("Task was cancelled");
-
-        boolean interrupted = false;
-        try {
-            while (true) {
-                try {
-                    cfThis.get();
-                    throw new IllegalStateException("Task completed with a result");
-                } catch (InterruptedException e) {
-                    interrupted = true;
-                } catch (ExecutionException e) {
-                    return e.getCause();
-                }
-            }
-        } finally {
-            if (interrupted) currentThread().interrupt();
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2933,43 +2248,13 @@ public final class CompletableFutureUtils {
      */
     @Contract(pure = true)
     public static CffuState state(Future<?> cfThis) {
-        requireNonNull(cfThis, "cfThis is null");
-        if (IS_JAVA19_PLUS) {
-            return CffuState.toCffuState(cfThis.state());
-        }
-
-        // the below code is copied from Future#state() with small adaptions
-
-        if (!cfThis.isDone()) return CffuState.RUNNING;
-        if (cfThis.isCancelled()) return CffuState.CANCELLED;
-        // simple path for CompletableFuture/Cffu
-        if (cfThis instanceof CompletableFuture)
-            return ((CompletableFuture<?>) cfThis).isCompletedExceptionally() ? CffuState.FAILED : CffuState.SUCCESS;
-        else if (cfThis instanceof BaseCffu)
-            return ((BaseCffu<?, ?>) cfThis).isCompletedExceptionally() ? CffuState.FAILED : CffuState.SUCCESS;
-
-        boolean interrupted = false;
-        try {
-            while (true) {
-                try {
-                    cfThis.get();  // may throw InterruptedException when done
-                    return CffuState.SUCCESS;
-                } catch (InterruptedException e) {
-                    interrupted = true;
-                } catch (ExecutionException e) {
-                    return CffuState.FAILED;
-                }
-            }
-        } finally {
-            if (interrupted) currentThread().interrupt();
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     // endregion
     ////////////////////////////////////////////////////////////
     // region## Write Methods of CompletableFuture
     ////////////////////////////////////////////////////////////
-
     /**
      * Completes given CompletableFuture with the result of the given Supplier function invoked
      * from an asynchronous task using the default executor of parameter cfThis.
@@ -2980,7 +2265,7 @@ public final class CompletableFutureUtils {
      */
     @Contract("_, _ -> param1")
     public static <T, F extends CompletableFuture<? super T>> F completeAsync(F cfThis, Supplier<? extends T> supplier) {
-        return completeAsync(cfThis, supplier, defaultExecutor(cfThis));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2993,21 +2278,8 @@ public final class CompletableFutureUtils {
      * @see CompletableFuture#completeAsync(Supplier, Executor)
      */
     @Contract("_, _, _ -> param1")
-    public static <T, F extends CompletableFuture<? super T>>
-    F completeAsync(F cfThis, Supplier<? extends T> supplier, Executor executor) {
-        requireNonNull(cfThis, "cfThis is null");
-        requireNonNull(supplier, "supplier is null");
-        // NOTE: do NOT translate executor by screenExecutor method; same as CompletableFuture.completeAsync
-        requireNonNull(executor, "executor is null");
-        if (IS_JAVA9_PLUS) {
-            cfThis.completeAsync(supplier, executor);
-        } else {
-            // NOTE: No need check minimal stage, because Java 8(not Java 9+) NOT support minimal stage
-
-            // the below code is copied from CompletableFuture#completeAsync with small adaptions
-            executor.execute(new CfCompleterBySupplier<>(cfThis, supplier));
-        }
-        return cfThis;
+    public static <T, F extends CompletableFuture<? super T>> F completeAsync(F cfThis, Supplier<? extends T> supplier, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -3019,9 +2291,8 @@ public final class CompletableFutureUtils {
      * @see CompletableFuture#completeExceptionally(Throwable)
      */
     @Contract("_, _ -> param1")
-    public static <F extends CompletableFuture<?>>
-    F completeExceptionallyAsync(F cfThis, Supplier<? extends Throwable> supplier) {
-        return completeExceptionallyAsync(cfThis, supplier, defaultExecutor(cfThis));
+    public static <F extends CompletableFuture<?>> F completeExceptionallyAsync(F cfThis, Supplier<? extends Throwable> supplier) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -3034,23 +2305,14 @@ public final class CompletableFutureUtils {
      * @see CompletableFuture#completeExceptionally(Throwable)
      */
     @Contract("_, _, _ -> param1")
-    public static <F extends CompletableFuture<?>>
-    F completeExceptionallyAsync(F cfThis, Supplier<? extends Throwable> supplier, Executor executor) {
-        requireNonNull(cfThis, "cfThis is null");
-        requireNonNull(supplier, "supplier is null");
-        // NOTE: do NOT translate executor by screenExecutor method; same as CompletableFuture.completeAsync
-        requireNonNull(executor, "executor is null");
-        if (isMinStageCf0(cfThis)) throw new UnsupportedOperationException();
-
-        executor.execute(new CfExCompleterBySupplier(cfThis, supplier));
-        return cfThis;
+    public static <F extends CompletableFuture<?>> F completeExceptionallyAsync(F cfThis, Supplier<? extends Throwable> supplier, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     // endregion
     ////////////////////////////////////////////////////////////
     // region## Re-Config Methods of CompletableFuture
     ////////////////////////////////////////////////////////////
-
     /**
      * Returns a new CompletableFuture that is completed normally with the same value as this CompletableFuture when
      * it completes normally. If this CompletableFuture completes exceptionally, then the returned CompletableFuture
@@ -3062,7 +2324,7 @@ public final class CompletableFutureUtils {
      */
     @Contract(pure = true)
     public static <T> CompletableFuture<T> copy(CompletableFuture<T> cfThis) {
-        return copy0(requireNonNull(cfThis, "cfThis is null"));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -3079,8 +2341,7 @@ public final class CompletableFutureUtils {
      */
     @Contract(pure = true)
     public static <T> CompletionStage<T> minimalCompletionStage(CompletableFuture<T> cfThis) {
-        requireNonNull(cfThis, "cfThis is null");
-        return IS_JAVA9_PLUS ? cfThis.minimalCompletionStage() : cfThis.thenApply(x -> x);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -3094,13 +2355,7 @@ public final class CompletableFutureUtils {
      */
     @Contract(pure = true)
     public static Executor defaultExecutor(CompletionStage<?> cfThis) {
-        requireNonNull(cfThis, "cfThis is null");
-        // FIXME hard-code runtime type: CompletableFuture and Cffu...
-        //       need a SPI to support other CompletionStage subclasses equivalently
-        if (cfThis instanceof CompletableFuture)
-            return IS_JAVA9_PLUS ? ((CompletableFuture<?>) cfThis).defaultExecutor() : ASYNC_POOL;
-        if (cfThis instanceof BaseCffu) return ((BaseCffu<?, ?>) cfThis).defaultExecutor();
-        throw new UnsupportedOperationException("Unsupported CompletionStage subclass: " + cfThis.getClass());
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     // endregion
@@ -3108,7 +2363,6 @@ public final class CompletableFutureUtils {
     ////////////////////////////////////////////////////////////////////////////////
     // region# CF Exception Utility Methods
     ////////////////////////////////////////////////////////////////////////////////
-
     /**
      * Unwraps CompletableFuture exception ({@link CompletionException} or {@link ExecutionException})
      * to its cause exception. If the input exception is not a {@code CompletableFuture}/{@code ExecutionException}
@@ -3119,27 +2373,9 @@ public final class CompletableFutureUtils {
      * the loop detection code using fast and slow pointers is adapted from it
      */
     @Contract(value = "null -> null; !null -> !null", pure = true)
-    public static @Nullable Throwable unwrapCfException(@Nullable final Throwable ex) {
-        // keep a slow pointer that slowly walks the causal chain.
-        // if the fast pointer ever catches the slower pointer, then there's a loop.
-        Throwable fastPointer = ex, slowPointer = ex;
-        boolean advanceSlowPointer = false;
-
-        while (true) {
-            if (!(fastPointer instanceof CompletionException) && !(fastPointer instanceof ExecutionException))
-                return fastPointer;
-
-            final Throwable cause = fastPointer.getCause();
-            // if there are no cause exceptions except for CF exceptions, return the input exception as the best option.
-            if (cause == null) return ex;
-
-            fastPointer = cause;
-            // if a loop is detected in the causal chain, return the input exception as the best option.
-            if (fastPointer == slowPointer) return ex;
-
-            if (advanceSlowPointer) slowPointer = slowPointer.getCause();
-            advanceSlowPointer = !advanceSlowPointer; // only advance every other iteration
-        }
+    @Nullable
+    public static Throwable unwrapCfException(@Nullable final Throwable ex) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -3168,22 +2404,9 @@ public final class CompletableFutureUtils {
      * @see <a href="https://peps.python.org/pep-0020/">Errors should never pass silently. Unless explicitly silenced.</a>
      */
     @Contract(value = "null, _ -> null; !null, _ -> !null", pure = true)
-    public static <X extends Throwable, T> @Nullable Function<X, T> nonExSwallowedFunction(
-            @Nullable Function<? super X, ? extends T> fn, boolean addSuppressedToOriginalEx) {
-        if (fn == null) return null;
-        return originalEx -> {
-            try {
-                return fn.apply(originalEx);
-            } catch (Throwable newEx) {
-                if (originalEx != null) {
-                    // when exceptions occur in this exception process function,
-                    // the error context is preserved by calling addSuppressed
-                    if (addSuppressedToOriginalEx) safeAddSuppressedEx(newEx, originalEx);
-                    else safeAddSuppressedEx(originalEx, newEx);
-                }
-                throw newEx;
-            }
-        };
+    @Nullable
+    public static <X extends Throwable, T> Function<X, T> nonExSwallowedFunction(@Nullable Function<? super X, ? extends T> fn, boolean addSuppressedToOriginalEx) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -3206,22 +2429,9 @@ public final class CompletableFutureUtils {
      * @see <a href="https://peps.python.org/pep-0020/">Errors should never pass silently. Unless explicitly silenced.</a>
      */
     @Contract(value = "null, _ -> null; !null, _ -> !null", pure = true)
-    public static <T, X extends Throwable, U> @Nullable BiFunction<T, X, U> nonExSwallowedBiFunction(
-            @Nullable BiFunction<? super T, ? super X, ? extends U> fn, boolean addSuppressedToOriginalEx) {
-        if (fn == null) return null;
-        return (T v, X originalEx) -> {
-            try {
-                return fn.apply(v, originalEx);
-            } catch (Throwable newEx) {
-                if (originalEx != null) {
-                    // when exceptions occur in this exception process function,
-                    // the error context is preserved by calling addSuppressed
-                    if (addSuppressedToOriginalEx) safeAddSuppressedEx(newEx, originalEx);
-                    else safeAddSuppressedEx(originalEx, newEx);
-                }
-                throw newEx;
-            }
-        };
+    @Nullable
+    public static <T, X extends Throwable, U> BiFunction<T, X, U> nonExSwallowedBiFunction(@Nullable BiFunction<? super T, ? super X, ? extends U> fn, boolean addSuppressedToOriginalEx) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -3244,23 +2454,11 @@ public final class CompletableFutureUtils {
      * @see <a href="https://peps.python.org/pep-0020/">Errors should never pass silently. Unless explicitly silenced.</a>
      */
     @Contract(value = "null, _ -> null; !null, _ -> !null", pure = true)
-    public static <T, X extends Throwable> @Nullable BiConsumer<T, X> nonExSwallowedBiConsumer(
-            @Nullable BiConsumer<? super T, ? super X> action, boolean addSuppressedToOriginalEx) {
-        if (action == null) return null;
-        return (T v, X originalEx) -> {
-            try {
-                action.accept(v, originalEx);
-            } catch (Throwable newEx) {
-                if (originalEx != null) {
-                    // when exceptions occur in this exception process action,
-                    // the error context is preserved by calling addSuppressed
-                    if (addSuppressedToOriginalEx) safeAddSuppressedEx(newEx, originalEx);
-                    else safeAddSuppressedEx(originalEx, newEx);
-                }
-                throw newEx;
-            }
-        };
+    @Nullable
+    public static <T, X extends Throwable> BiConsumer<T, X> nonExSwallowedBiConsumer(@Nullable BiConsumer<? super T, ? super X> action, boolean addSuppressedToOriginalEx) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    private CompletableFutureUtils() {}
+    private CompletableFutureUtils() {
+    }
 }

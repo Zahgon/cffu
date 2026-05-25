@@ -3,10 +3,8 @@ package io.foldright.cffu2.eh;
 import edu.umd.cs.findbugs.annotations.Nullable;
 import io.foldright.cffu2.Cffu;
 import io.foldright.cffu2.internal.CommonUtils;
-
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
-
 import static io.foldright.cffu2.CompletableFutureUtils.unwrapCfException;
 import static io.foldright.cffu2.LLCF.*;
 import static io.foldright.cffu2.internal.CffuLogger.Level.ERROR;
@@ -15,7 +13,6 @@ import static io.foldright.cffu2.internal.CffuLogger.logException;
 import static io.foldright.cffu2.internal.CffuLogger.logUncaughtException;
 import static io.foldright.cffu2.internal.CommonUtils.requireArrayAndEleNonNull;
 import static java.util.Objects.requireNonNull;
-
 
 /**
  * Utilities to handle swallowed exceptions from <strong>MULTIPLE</strong> {@link CompletionStage}s
@@ -29,6 +26,7 @@ import static java.util.Objects.requireNonNull;
  * @see <a href="https://peps.python.org/pep-0020/">Errors should never pass silently. Unless explicitly silenced.</a>
  */
 public final class SwallowedExceptionHandleUtils {
+
     /**
      * Handles all exceptions from multiple input {@code CompletionStage}s as swallowed exceptions,
      * using {@link #cffuSwallowedExceptionHandler()} and calling back it with {@code null} attachment.
@@ -36,7 +34,7 @@ public final class SwallowedExceptionHandleUtils {
      * @param where the location where the exception occurs
      */
     public static void handleAllSwallowedExceptions(String where, CompletionStage<?>... inputs) {
-        handleAllSwallowedExceptions(where, cffuSwallowedExceptionHandler(), inputs);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -46,9 +44,8 @@ public final class SwallowedExceptionHandleUtils {
      * @param where            the location where the exception occurs
      * @param exceptionHandler the exception handler
      */
-    public static void handleAllSwallowedExceptions(
-            String where, ExceptionHandler exceptionHandler, CompletionStage<?>... inputs) {
-        handleAllSwallowedExceptions(where, null, exceptionHandler, inputs);
+    public static void handleAllSwallowedExceptions(String where, ExceptionHandler exceptionHandler, CompletionStage<?>... inputs) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -58,19 +55,8 @@ public final class SwallowedExceptionHandleUtils {
      * @param attachments      the attachment objects
      * @param exceptionHandler the exception handler
      */
-    public static void handleAllSwallowedExceptions(
-            String where, @Nullable Object[] attachments, ExceptionHandler exceptionHandler, CompletionStage<?>... inputs) {
-        requireNonNull(where, "where is null");
-        requireNonNull(exceptionHandler, "exceptionHandler is null");
-        requireArrayAndEleNonNull("input", inputs);
-
-        for (int i = 0; i < inputs.length; i++) {
-            final int idx = i;
-            peek0(inputs[i], (v, ex) -> {
-                if (ex == null) return;
-                safeHandle(new ExceptionInfo(where, idx, ex, safeGet(attachments, idx)), exceptionHandler);
-            }, "handleAllSwallowedExceptions");
-        }
+    public static void handleAllSwallowedExceptions(String where, @Nullable Object[] attachments, ExceptionHandler exceptionHandler, CompletionStage<?>... inputs) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -80,9 +66,8 @@ public final class SwallowedExceptionHandleUtils {
      *
      * @param where the location where the exception occurs
      */
-    public static void handleSwallowedExceptions(
-            String where, CompletionStage<?> output, CompletionStage<?>... inputs) {
-        handleSwallowedExceptions(where, cffuSwallowedExceptionHandler(), output, inputs);
+    public static void handleSwallowedExceptions(String where, CompletionStage<?> output, CompletionStage<?>... inputs) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -92,9 +77,8 @@ public final class SwallowedExceptionHandleUtils {
      * @param where            the location where the exception occurs
      * @param exceptionHandler the exception handler
      */
-    public static void handleSwallowedExceptions(
-            String where, ExceptionHandler exceptionHandler, CompletionStage<?> output, CompletionStage<?>... inputs) {
-        handleSwallowedExceptions(where, null, exceptionHandler, output, inputs);
+    public static void handleSwallowedExceptions(String where, ExceptionHandler exceptionHandler, CompletionStage<?> output, CompletionStage<?>... inputs) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -105,32 +89,8 @@ public final class SwallowedExceptionHandleUtils {
      * @param attachments      the attachment objects
      * @param exceptionHandler the exception handler
      */
-    public static void handleSwallowedExceptions(
-            String where, @Nullable Object[] attachments, ExceptionHandler exceptionHandler,
-            CompletionStage<?> output, CompletionStage<?>... inputs) {
-        requireNonNull(where, "where is null");
-        requireNonNull(exceptionHandler, "exceptionHandler is null");
-        requireNonNull(output, "output is null");
-        requireArrayAndEleNonNull("input", inputs);
-
-        // uses unreferenced cfs to prevent memory leaks, in case that
-        // some inputs complete quickly and retain large memory while other inputs or output continue running
-        CompletionStage<Void>[] unreferencedInputs = unreferenced(inputs);
-
-        // whether to swallow exceptions from inputs depends on the output's result,
-        // so must check when the output CompletionStage completes.
-        peek0(output, (v, outputEx) -> { // outputEx may be null
-            Throwable outputBizEx = unwrapCfException(outputEx);
-            for (int i = 0; i < unreferencedInputs.length; i++) {
-                final int idx = i;
-                peek0(unreferencedInputs[i], (v1, ex) -> {
-                    if (ex == null) return;
-                    // if ex is returned to output cf (i.e. not swallowed ex), do NOTHING
-                    if (unwrapCfException(ex) == outputBizEx) return;
-                    safeHandle(new ExceptionInfo(where, idx, ex, safeGet(attachments, idx)), exceptionHandler);
-                }, "handleSwallowedExceptions(handle the input cf)");
-            }
-        }, "handleSwallowedExceptions(handle the output cf)");
+    public static void handleSwallowedExceptions(String where, @Nullable Object[] attachments, ExceptionHandler exceptionHandler, CompletionStage<?> output, CompletionStage<?>... inputs) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -138,7 +98,7 @@ public final class SwallowedExceptionHandleUtils {
      * at warning level using the cffu logger.
      */
     public static ExceptionHandler cffuSwallowedExceptionHandler() {
-        return CFFU_SWALLOWED_EX_HANDLER;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private static final ExceptionHandler CFFU_SWALLOWED_EX_HANDLER = exInfo -> {
@@ -158,10 +118,14 @@ public final class SwallowedExceptionHandleUtils {
         });
     }
 
-    private static @Nullable Object safeGet(@Nullable Object[] attachments, int index) {
-        if (attachments == null) return null;
-        else if (index < attachments.length) return attachments[index];
-        else return null;
+    @Nullable
+    private static Object safeGet(@Nullable Object[] attachments, int index) {
+        if (attachments == null)
+            return null;
+        else if (index < attachments.length)
+            return attachments[index];
+        else
+            return null;
     }
 
     private static void safeHandle(ExceptionInfo info, ExceptionHandler handler) {
@@ -173,5 +137,6 @@ public final class SwallowedExceptionHandleUtils {
         }
     }
 
-    private SwallowedExceptionHandleUtils() {}
+    private SwallowedExceptionHandleUtils() {
+    }
 }

@@ -3,15 +3,12 @@ package io.foldright.cffu2;
 import edu.umd.cs.findbugs.annotations.CheckReturnValue;
 import edu.umd.cs.findbugs.annotations.Nullable;
 import org.jetbrains.annotations.Contract;
-
 import java.util.List;
 import java.util.concurrent.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
-
 import static io.foldright.cffu2.CffuFactoryBuilder.cffuScreened;
-
 
 /**
  * Cffu with result type {@link Iterable}, i.e. multiply data/collection,
@@ -22,12 +19,11 @@ import static io.foldright.cffu2.CffuFactoryBuilder.cffuScreened;
  * @author Jerry Lee (oldratlee at gmail dot com)
  * @see Cffu
  */
-public final class MCffu<E, T extends Iterable<? extends E>>
-        extends BaseCffu<T, MCffu<E, T>> implements Future<T>, CompletionStage<T> {
+public final class MCffu<E, T extends Iterable<? extends E>> extends BaseCffu<T, MCffu<E, T>> implements Future<T>, CompletionStage<T> {
+
     ////////////////////////////////////////////////////////////////////////////////
     // region# Internal constructor/methods
     ////////////////////////////////////////////////////////////////////////////////
-
     /**
      * INTERNAL constructor.
      */
@@ -37,14 +33,13 @@ public final class MCffu<E, T extends Iterable<? extends E>>
 
     @Override
     MCffu<E, T> create(CffuFactory fac, boolean isMinimalStage, CompletableFuture<T> cf) {
-        return new MCffu<>(fac, isMinimalStage, cf);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     // endregion
     ////////////////////////////////////////////////////////////////////////////////
     // region# Conversion Methods
     ////////////////////////////////////////////////////////////////////////////////
-
     /**
      * Converts to {@link Cffu}, reuse the underlying CompletableFuture instance and rewraps it to {@link Cffu}.
      *
@@ -53,14 +48,13 @@ public final class MCffu<E, T extends Iterable<? extends E>>
      */
     @Contract(pure = true)
     public Cffu<T> asCffu() {
-        return createCffu(cf);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     // endregion
     ////////////////////////////////////////////////////////////////////////////////
     // region# More Ops
     ////////////////////////////////////////////////////////////////////////////////
-
     /**
      * Returns a {@link ParOps} instance to access the methods for parallel data processing.
      *
@@ -68,7 +62,7 @@ public final class MCffu<E, T extends Iterable<? extends E>>
      * @see CfParallelUtils
      */
     public ParOps parOps() {
-        return new ParOps();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -78,11 +72,11 @@ public final class MCffu<E, T extends Iterable<? extends E>>
      * @see CfParallelUtils
      */
     public final class ParOps {
+
         ////////////////////////////////////////////////////////////////////////////////
         // - thenParApply* (CF<Iterable>, Function: E -> U)    -> MCffu<U, List<U>>
         // - thenParAccept*(CF<Iterable>, Consumer: E -> Void) -> Cffu<Void>
         ////////////////////////////////////////////////////////////////////////////////
-
         /**
          * Shortcut to method {@link CffuFactory#allResultsFailFastOf allResultsFailFastOf},
          * processes elements from the result of this MCffu in parallel by wrapping each element's function computation
@@ -92,7 +86,7 @@ public final class MCffu<E, T extends Iterable<? extends E>>
          */
         @CheckReturnValue(explanation = "should use the returned MCffu; otherwise, use method `thenParAcceptAsyncAndForget`")
         public <U> MCffu<U, List<U>> thenParApplyFailFastAsync(Function<? super E, ? extends U> fn) {
-            return thenParApplyFailFastAsync(fn, fac.defaultExecutor);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -104,7 +98,7 @@ public final class MCffu<E, T extends Iterable<? extends E>>
          */
         @CheckReturnValue(explanation = "should use the returned MCffu; otherwise, use method `thenParAcceptAsyncAndForget`")
         public <U> MCffu<U, List<U>> thenParApplyFailFastAsync(Function<? super E, ? extends U> fn, Executor executor) {
-            return createMCffu(CfParallelUtils.thenParApplyFailFastAsync(cf, fn, cffuScreened(executor)));
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -116,7 +110,7 @@ public final class MCffu<E, T extends Iterable<? extends E>>
          */
         @CheckReturnValue(explanation = "should use the returned MCffu; otherwise, use method `thenParAcceptAsyncAndForget`")
         public <U> MCffu<U, List<U>> thenParApplyAllSuccessAsync(@Nullable U valueIfFailed, Function<? super E, ? extends U> fn) {
-            return thenParApplyAllSuccessAsync(valueIfFailed, fn, fac.defaultExecutor);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -128,7 +122,7 @@ public final class MCffu<E, T extends Iterable<? extends E>>
          */
         @CheckReturnValue(explanation = "should use the returned MCffu; otherwise, use method `thenParAcceptAsyncAndForget`")
         public <U> MCffu<U, List<U>> thenParApplyAllSuccessAsync(@Nullable U valueIfFailed, Function<? super E, ? extends U> fn, Executor executor) {
-            return createMCffu(CfParallelUtils.thenParApplyAllSuccessAsync(cf, valueIfFailed, fn, cffuScreened(executor)));
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -139,9 +133,8 @@ public final class MCffu<E, T extends Iterable<? extends E>>
          * See the {@link CffuFactory#mostSuccessResultsOf mostSuccessResultsOf} documentation for the rules of result computation.
          */
         @CheckReturnValue(explanation = "should use the returned MCffu; otherwise, use method `thenParAcceptAsyncAndForget`")
-        public <U> MCffu<U, List<U>> thenParApplyMostSuccessAsync(
-                @Nullable U valueIfNotSuccess, long timeout, TimeUnit unit, Function<? super E, ? extends U> fn) {
-            return thenParApplyMostSuccessAsync(valueIfNotSuccess, timeout, unit, fn, fac.defaultExecutor);
+        public <U> MCffu<U, List<U>> thenParApplyMostSuccessAsync(@Nullable U valueIfNotSuccess, long timeout, TimeUnit unit, Function<? super E, ? extends U> fn) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -152,10 +145,8 @@ public final class MCffu<E, T extends Iterable<? extends E>>
          * See the {@link CffuFactory#mostSuccessResultsOf mostSuccessResultsOf} documentation for the rules of result computation.
          */
         @CheckReturnValue(explanation = "should use the returned MCffu; otherwise, use method `thenParAcceptAsyncAndForget`")
-        public <U> MCffu<U, List<U>> thenParApplyMostSuccessAsync(
-                @Nullable U valueIfNotSuccess, long timeout, TimeUnit unit, Function<? super E, ? extends U> fn, Executor executor) {
-            return createMCffu(CfParallelUtils.thenParApplyMostSuccessAsync(
-                    cf, valueIfNotSuccess, timeout, unit, fn, cffuScreened(executor)));
+        public <U> MCffu<U, List<U>> thenParApplyMostSuccessAsync(@Nullable U valueIfNotSuccess, long timeout, TimeUnit unit, Function<? super E, ? extends U> fn, Executor executor) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -167,7 +158,7 @@ public final class MCffu<E, T extends Iterable<? extends E>>
          */
         @CheckReturnValue(explanation = "should use the returned MCffu; otherwise, use method `thenParAcceptAsyncAndForget`")
         public <U> MCffu<U, List<U>> thenParApplyAsync(Function<? super E, ? extends U> fn) {
-            return thenParApplyAsync(fn, fac.defaultExecutor);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -179,7 +170,7 @@ public final class MCffu<E, T extends Iterable<? extends E>>
          */
         @CheckReturnValue(explanation = "should use the returned MCffu; otherwise, use method `thenParAcceptAsyncAndForget`")
         public <U> MCffu<U, List<U>> thenParApplyAsync(Function<? super E, ? extends U> fn, Executor executor) {
-            return createMCffu(CfParallelUtils.thenParApplyAsync(cf, fn, cffuScreened(executor)));
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -191,7 +182,7 @@ public final class MCffu<E, T extends Iterable<? extends E>>
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenParAcceptAsyncAndForget`")
         public <U> Cffu<U> thenParApplyAnySuccessAsync(Function<? super E, ? extends U> fn) {
-            return thenParApplyAnySuccessAsync(fn, fac.defaultExecutor);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -203,7 +194,7 @@ public final class MCffu<E, T extends Iterable<? extends E>>
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenParAcceptAsyncAndForget`")
         public <U> Cffu<U> thenParApplyAnySuccessAsync(Function<? super E, ? extends U> fn, Executor executor) {
-            return createCffu(CfParallelUtils.thenParApplyAnySuccessAsync(cf, fn, cffuScreened(executor)));
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -215,7 +206,7 @@ public final class MCffu<E, T extends Iterable<? extends E>>
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenParAcceptAsyncAndForget`")
         public <U> Cffu<U> thenParApplyAnyAsync(Function<? super E, ? extends U> fn) {
-            return thenParApplyAnyAsync(fn, fac.defaultExecutor);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -227,7 +218,7 @@ public final class MCffu<E, T extends Iterable<? extends E>>
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenParAcceptAsyncAndForget`")
         public <U> Cffu<U> thenParApplyAnyAsync(Function<? super E, ? extends U> fn, Executor executor) {
-            return createCffu(CfParallelUtils.thenParApplyAnyAsync(cf, fn, cffuScreened(executor)));
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -239,7 +230,7 @@ public final class MCffu<E, T extends Iterable<? extends E>>
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenParAcceptAsyncAndForget`")
         public Cffu<Void> thenParAcceptFailFastAsync(Consumer<? super E> action) {
-            return thenParAcceptFailFastAsync(action, fac.defaultExecutor);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -251,7 +242,7 @@ public final class MCffu<E, T extends Iterable<? extends E>>
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenParAcceptAsyncAndForget`")
         public Cffu<Void> thenParAcceptFailFastAsync(Consumer<? super E> action, Executor executor) {
-            return createCffu(CfParallelUtils.thenParAcceptFailFastAsync(cf, action, cffuScreened(executor)));
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -263,7 +254,7 @@ public final class MCffu<E, T extends Iterable<? extends E>>
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenParAcceptAsyncAndForget`")
         public Cffu<Void> thenParAcceptAsync(Consumer<? super E> action) {
-            return thenParAcceptAsync(action, fac.defaultExecutor);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -275,7 +266,7 @@ public final class MCffu<E, T extends Iterable<? extends E>>
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenParAcceptAsyncAndForget`")
         public Cffu<Void> thenParAcceptAsync(Consumer<? super E> action, Executor executor) {
-            return createCffu(CfParallelUtils.thenParAcceptAsync(cf, action, cffuScreened(executor)));
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -287,7 +278,7 @@ public final class MCffu<E, T extends Iterable<? extends E>>
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenParAcceptAsyncAndForget`")
         public Cffu<Void> thenParAcceptAnySuccessAsync(Consumer<? super E> action) {
-            return thenParAcceptAnySuccessAsync(action, fac.defaultExecutor);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -299,7 +290,7 @@ public final class MCffu<E, T extends Iterable<? extends E>>
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenParAcceptAsyncAndForget`")
         public Cffu<Void> thenParAcceptAnySuccessAsync(Consumer<? super E> action, Executor executor) {
-            return createCffu(CfParallelUtils.thenParAcceptAnySuccessAsync(cf, action, cffuScreened(executor)));
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -311,7 +302,7 @@ public final class MCffu<E, T extends Iterable<? extends E>>
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenParAcceptAsyncAndForget`")
         public Cffu<Void> thenParAcceptAnyAsync(Consumer<? super E> action) {
-            return thenParAcceptAnyAsync(action, fac.defaultExecutor);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -323,7 +314,7 @@ public final class MCffu<E, T extends Iterable<? extends E>>
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenParAcceptAsyncAndForget`")
         public Cffu<Void> thenParAcceptAnyAsync(Consumer<? super E> action, Executor executor) {
-            return createCffu(CfParallelUtils.thenParAcceptAnyAsync(cf, action, cffuScreened(executor)));
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -335,7 +326,7 @@ public final class MCffu<E, T extends Iterable<? extends E>>
          * @since 2.1.0
          */
         public MCffu<E, T> thenParAcceptAsyncAndForget(Consumer<? super E> action) {
-            return thenParAcceptAsyncAndForget(action, fac.defaultExecutor);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -347,10 +338,10 @@ public final class MCffu<E, T extends Iterable<? extends E>>
          * @since 2.1.0
          */
         public MCffu<E, T> thenParAcceptAsyncAndForget(Consumer<? super E> action, Executor executor) {
-            CfParallelUtils.thenParAcceptAsyncAndForget(cf, action, cffuScreened(executor));
-            return MCffu.this;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        private ParOps() {}
+        private ParOps() {
+        }
     }
 }

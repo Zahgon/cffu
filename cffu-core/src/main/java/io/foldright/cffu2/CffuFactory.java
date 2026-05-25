@@ -9,7 +9,6 @@ import io.foldright.cffu2.tuple.Tuple3;
 import io.foldright.cffu2.tuple.Tuple4;
 import io.foldright.cffu2.tuple.Tuple5;
 import org.jetbrains.annotations.Contract;
-
 import javax.annotation.concurrent.ThreadSafe;
 import java.util.Collection;
 import java.util.List;
@@ -17,11 +16,9 @@ import java.util.concurrent.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
-
 import static io.foldright.cffu2.CffuFactoryBuilder.cffuScreened;
 import static io.foldright.cffu2.CffuFactoryBuilder.cffuUnscreened;
 import static java.util.Objects.requireNonNull;
-
 
 /**
  * This class {@link CffuFactory} is equivalent to {@link CompletableFuture},
@@ -46,10 +43,10 @@ import static java.util.Objects.requireNonNull;
  */
 @ThreadSafe
 public final class CffuFactory {
+
     ////////////////////////////////////////////////////////////////////////////////
     // region# Builder and Constructor Methods (including internal constructors and fields)
     ////////////////////////////////////////////////////////////////////////////////
-
     /**
      * default executor of Cffu.
      */
@@ -70,7 +67,7 @@ public final class CffuFactory {
      */
     @Contract(pure = true)
     public static CffuFactoryBuilder builder(Executor defaultExecutor) {
-        return new CffuFactoryBuilder(defaultExecutor);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -78,7 +75,7 @@ public final class CffuFactory {
      */
     @Contract(pure = true)
     public CffuFactory withDefaultExecutor(Executor defaultExecutor) {
-        return CffuFactoryBuilder.withDefaultExecutor(this, defaultExecutor);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private <T> Cffu<T> createCffu(CompletableFuture<T> cf) {
@@ -93,14 +90,12 @@ public final class CffuFactory {
     ////////////////////////////////////////////////////////////////////////////////
     // region# Factory Methods
     ////////////////////////////////////////////////////////////////////////////////
-
     ////////////////////////////////////////////////////////////////////////////////
     // region## supplyAsync*/runAsync* Methods(create by action)
     //
     //    - Supplier<T> -> Cffu<T>
     //    - Runnable    -> Cffu<Void>
     ////////////////////////////////////////////////////////////////////////////////
-
     /**
      * Returns a new Cffu that is asynchronously completed by a task running
      * in the {@link #defaultExecutor()} with the value obtained by calling the given Supplier.
@@ -110,7 +105,7 @@ public final class CffuFactory {
      */
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, prefer method `mRunAsyncAndForget`")
     public <T> Cffu<T> supplyAsync(Supplier<T> supplier) {
-        return supplyAsync(supplier, defaultExecutor);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -123,7 +118,7 @@ public final class CffuFactory {
      */
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, prefer method `mRunAsyncAndForget`")
     public <T> Cffu<T> supplyAsync(Supplier<T> supplier, Executor executor) {
-        return createCffu(CompletableFuture.supplyAsync(supplier, cffuScreened(executor)));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -134,7 +129,7 @@ public final class CffuFactory {
      */
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, prefer method `mRunAsyncAndForget`")
     public Cffu<Void> runAsync(Runnable action) {
-        return runAsync(action, defaultExecutor);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -146,7 +141,7 @@ public final class CffuFactory {
      */
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, prefer method `mRunAsyncAndForget`")
     public Cffu<Void> runAsync(Runnable action, Executor executor) {
-        return createCffu(CompletableFuture.runAsync(action, cffuScreened(executor)));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     // endregion
@@ -156,7 +151,6 @@ public final class CffuFactory {
     //    - Supplier<E>[] -> MCffu<E, List<E>>
     //    - Runnable[]    -> Cffu<Void>
     ////////////////////////////////////////////////////////////
-
     /**
      * Shortcut to method {@link #allResultsFailFastOf allResultsFailFastOf},
      * wraps input suppliers to Cffu by {@link #supplyAsync(Supplier)}.
@@ -166,7 +160,7 @@ public final class CffuFactory {
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `mRunAsyncAndForget`")
     @SafeVarargs
     public final <E> MCffu<E, List<E>> mSupplyFailFastAsync(Supplier<? extends E>... suppliers) {
-        return mSupplyFailFastAsync(defaultExecutor, suppliers);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -178,7 +172,7 @@ public final class CffuFactory {
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `mRunAsyncAndForget`")
     @SafeVarargs
     public final <E> MCffu<E, List<E>> mSupplyFailFastAsync(Executor executor, Supplier<? extends E>... suppliers) {
-        return createMCffu(CompletableFutureUtils.mSupplyFailFastAsync(cffuScreened(executor), suppliers));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -189,9 +183,8 @@ public final class CffuFactory {
      */
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `mRunAsyncAndForget`")
     @SafeVarargs
-    public final <E> MCffu<E, List<E>> mSupplyAllSuccessAsync(
-            @Nullable E valueIfFailed, Supplier<? extends E>... suppliers) {
-        return mSupplyAllSuccessAsync(defaultExecutor, valueIfFailed, suppliers);
+    public final <E> MCffu<E, List<E>> mSupplyAllSuccessAsync(@Nullable E valueIfFailed, Supplier<? extends E>... suppliers) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -202,9 +195,8 @@ public final class CffuFactory {
      */
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `mRunAsyncAndForget`")
     @SafeVarargs
-    public final <E> MCffu<E, List<E>> mSupplyAllSuccessAsync(
-            Executor executor, @Nullable E valueIfFailed, Supplier<? extends E>... suppliers) {
-        return createMCffu(CompletableFutureUtils.mSupplyAllSuccessAsync(cffuScreened(executor), valueIfFailed, suppliers));
+    public final <E> MCffu<E, List<E>> mSupplyAllSuccessAsync(Executor executor, @Nullable E valueIfFailed, Supplier<? extends E>... suppliers) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -216,9 +208,8 @@ public final class CffuFactory {
      */
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `mRunAsyncAndForget`")
     @SafeVarargs
-    public final <E> MCffu<E, List<E>> mSupplyMostSuccessAsync(
-            @Nullable E valueIfNotSuccess, long timeout, TimeUnit unit, Supplier<? extends E>... suppliers) {
-        return mSupplyMostSuccessAsync(defaultExecutor, valueIfNotSuccess, timeout, unit, suppliers);
+    public final <E> MCffu<E, List<E>> mSupplyMostSuccessAsync(@Nullable E valueIfNotSuccess, long timeout, TimeUnit unit, Supplier<? extends E>... suppliers) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -230,11 +221,8 @@ public final class CffuFactory {
      */
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `mRunAsyncAndForget`")
     @SafeVarargs
-    public final <E> MCffu<E, List<E>> mSupplyMostSuccessAsync(
-            Executor executor, @Nullable E valueIfNotSuccess, long timeout, TimeUnit unit,
-            Supplier<? extends E>... suppliers) {
-        return createMCffu(CompletableFutureUtils.mSupplyMostSuccessAsync(
-                cffuScreened(executor), valueIfNotSuccess, timeout, unit, suppliers));
+    public final <E> MCffu<E, List<E>> mSupplyMostSuccessAsync(Executor executor, @Nullable E valueIfNotSuccess, long timeout, TimeUnit unit, Supplier<? extends E>... suppliers) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -245,7 +233,7 @@ public final class CffuFactory {
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `mRunAsyncAndForget`")
     @SafeVarargs
     public final <E> MCffu<E, List<E>> mSupplyAsync(Supplier<? extends E>... suppliers) {
-        return mSupplyAsync(defaultExecutor, suppliers);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -256,9 +244,8 @@ public final class CffuFactory {
      */
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `mRunAsyncAndForget`")
     @SafeVarargs
-    public final <E> MCffu<E, List<E>> mSupplyAsync(
-            Executor executor, Supplier<? extends E>... suppliers) {
-        return createMCffu(CompletableFutureUtils.mSupplyAsync(cffuScreened(executor), suppliers));
+    public final <E> MCffu<E, List<E>> mSupplyAsync(Executor executor, Supplier<? extends E>... suppliers) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -269,7 +256,7 @@ public final class CffuFactory {
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `mRunAsyncAndForget`")
     @SafeVarargs
     public final <T> Cffu<T> mSupplyAnySuccessAsync(Supplier<? extends T>... suppliers) {
-        return mSupplyAnySuccessAsync(defaultExecutor, suppliers);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -281,7 +268,7 @@ public final class CffuFactory {
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `mRunAsyncAndForget`")
     @SafeVarargs
     public final <T> Cffu<T> mSupplyAnySuccessAsync(Executor executor, Supplier<? extends T>... suppliers) {
-        return createCffu(CompletableFutureUtils.mSupplyAnySuccessAsync(cffuScreened(executor), suppliers));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -292,7 +279,7 @@ public final class CffuFactory {
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `mRunAsyncAndForget`")
     @SafeVarargs
     public final <T> Cffu<T> mSupplyAnyAsync(Supplier<? extends T>... suppliers) {
-        return mSupplyAnyAsync(defaultExecutor, suppliers);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -304,7 +291,7 @@ public final class CffuFactory {
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `mRunAsyncAndForget`")
     @SafeVarargs
     public final <T> Cffu<T> mSupplyAnyAsync(Executor executor, Supplier<? extends T>... suppliers) {
-        return createCffu(CompletableFutureUtils.mSupplyAnyAsync(cffuScreened(executor), suppliers));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -314,7 +301,7 @@ public final class CffuFactory {
      */
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `mRunAsyncAndForget`")
     public Cffu<Void> mRunFailFastAsync(Runnable... actions) {
-        return mRunFailFastAsync(defaultExecutor, actions);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -325,7 +312,7 @@ public final class CffuFactory {
      */
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `mRunAsyncAndForget`")
     public Cffu<Void> mRunFailFastAsync(Executor executor, Runnable... actions) {
-        return createCffu(CompletableFutureUtils.mRunFailFastAsync(cffuScreened(executor), actions));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -335,7 +322,7 @@ public final class CffuFactory {
      */
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `mRunAsyncAndForget`")
     public Cffu<Void> mRunAsync(Runnable... actions) {
-        return mRunAsync(defaultExecutor, actions);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -345,7 +332,7 @@ public final class CffuFactory {
      */
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `mRunAsyncAndForget`")
     public Cffu<Void> mRunAsync(Executor executor, Runnable... actions) {
-        return createCffu(CompletableFutureUtils.mRunAsync(cffuScreened(executor), actions));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -355,7 +342,7 @@ public final class CffuFactory {
      */
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `mRunAsyncAndForget`")
     public Cffu<Void> mRunAnySuccessAsync(Runnable... actions) {
-        return mRunAnySuccessAsync(defaultExecutor, actions);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -366,7 +353,7 @@ public final class CffuFactory {
      */
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `mRunAsyncAndForget`")
     public Cffu<Void> mRunAnySuccessAsync(Executor executor, Runnable... actions) {
-        return createCffu(CompletableFutureUtils.mRunAnySuccessAsync(cffuScreened(executor), actions));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -376,7 +363,7 @@ public final class CffuFactory {
      */
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `mRunAsyncAndForget`")
     public Cffu<Void> mRunAnyAsync(Runnable... actions) {
-        return mRunAnyAsync(defaultExecutor, actions);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -386,7 +373,7 @@ public final class CffuFactory {
      */
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `mRunAsyncAndForget`")
     public Cffu<Void> mRunAnyAsync(Executor executor, Runnable... actions) {
-        return createCffu(CompletableFutureUtils.mRunAnyAsync(cffuScreened(executor), actions));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -397,7 +384,7 @@ public final class CffuFactory {
      * @since 2.1.0
      */
     public void mRunAsyncAndForget(Runnable... actions) {
-        mRunAsyncAndForget(defaultExecutor, actions);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -408,7 +395,7 @@ public final class CffuFactory {
      * @since 2.1.0
      */
     public void mRunAsyncAndForget(Executor executor, Runnable... actions) {
-        CompletableFutureUtils.mRunAsyncAndForget(cffuScreened(executor), actions);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     // endregion
@@ -417,7 +404,6 @@ public final class CffuFactory {
     //
     //    CompletionStage<T>[] -> MCffu<T, List<T>>
     ////////////////////////////////////////////////////////////////////////////////
-
     /**
      * Returns a new Cffu that is completed normally with a list containing
      * the successful results of all given stages when all the given stages complete normally;
@@ -435,7 +421,7 @@ public final class CffuFactory {
     @Contract(pure = true)
     @SafeVarargs
     public final <T> MCffu<T, List<T>> allResultsFailFastOf(CompletionStage<? extends T>... cfs) {
-        return createMCffu(CompletableFutureUtils.allResultsFailFastOf(cfs));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -457,9 +443,8 @@ public final class CffuFactory {
      */
     @Contract(pure = true)
     @SafeVarargs
-    public final <T> MCffu<T, List<T>> allSuccessResultsOf(
-            @Nullable T valueIfFailed, CompletionStage<? extends T>... cfs) {
-        return createMCffu(CompletableFutureUtils.allSuccessResultsOf(valueIfFailed, cfs));
+    public final <T> MCffu<T, List<T>> allSuccessResultsOf(@Nullable T valueIfFailed, CompletionStage<? extends T>... cfs) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -483,10 +468,8 @@ public final class CffuFactory {
      */
     @Contract(pure = true)
     @SafeVarargs
-    public final <T> MCffu<T, List<T>> mostSuccessResultsOf(
-            @Nullable T valueIfNotSuccess, long timeout, TimeUnit unit, CompletionStage<? extends T>... cfs) {
-        return createMCffu(CompletableFutureUtils.mostSuccessResultsOf(
-                defaultExecutor, valueIfNotSuccess, timeout, unit, cfs));
+    public final <T> MCffu<T, List<T>> mostSuccessResultsOf(@Nullable T valueIfNotSuccess, long timeout, TimeUnit unit, CompletionStage<? extends T>... cfs) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -510,7 +493,7 @@ public final class CffuFactory {
     @Contract(pure = true)
     @SafeVarargs
     public final <T> MCffu<T, List<T>> allResultsOf(CompletionStage<? extends T>... cfs) {
-        return createMCffu(CompletableFutureUtils.allResultsOf(cfs));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -536,7 +519,7 @@ public final class CffuFactory {
      */
     @Contract(pure = true)
     public Cffu<Void> allFailFastOf(CompletionStage<?>... cfs) {
-        return createCffu(CompletableFutureUtils.allFailFastOf(cfs));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -564,7 +547,7 @@ public final class CffuFactory {
     @CheckReturnValue(explanation = "should use the returned Cffu; forget to call its `join()` method?")
     @Contract(pure = true)
     public Cffu<Void> allOf(CompletionStage<?>... cfs) {
-        return createCffu(CompletableFutureUtils.allOf(cfs));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     // endregion
@@ -573,7 +556,6 @@ public final class CffuFactory {
     //
     //    CompletionStage<T>[] -> Cffu<T>
     ////////////////////////////////////////////////////////////////////////////////
-
     /**
      * Returns a new Cffu that completed normally when any of the given stages complete normally,
      * with the same result; Otherwise, when all the given stages complete exceptionally, the returned Cffu
@@ -588,7 +570,7 @@ public final class CffuFactory {
      */
     @SafeVarargs
     public final <T> Cffu<T> anySuccessOf(CompletionStage<? extends T>... cfs) {
-        return createCffu(CompletableFutureUtils.anySuccessOf(cfs));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -604,14 +586,13 @@ public final class CffuFactory {
     @Contract(pure = true)
     @SafeVarargs
     public final <T> Cffu<T> anyOf(CompletionStage<? extends T>... cfs) {
-        return createCffu(CompletableFutureUtils.anyOf(cfs));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     // endregion
     ////////////////////////////////////////////////////////////////////////////////
     // region## Immediate Value Argument Factory Methods
     ////////////////////////////////////////////////////////////////////////////////
-
     /**
      * Returns a new Cffu that is already completed with the given value.
      *
@@ -622,7 +603,7 @@ public final class CffuFactory {
      */
     @Contract(pure = true)
     public <T> Cffu<T> completedFuture(@Nullable T value) {
-        return createCffu(CompletableFuture.completedFuture(value));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -635,7 +616,7 @@ public final class CffuFactory {
      */
     @Contract(pure = true)
     public <T> Cffu<T> failedFuture(Throwable ex) {
-        return createCffu(CompletableFutureUtils.failedFuture(ex));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -649,7 +630,7 @@ public final class CffuFactory {
      */
     @Contract(pure = true)
     public <E, T extends Iterable<? extends E>> MCffu<E, T> completedMCffu(@Nullable T value) {
-        return createMCffu(CompletableFuture.completedFuture(value));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -663,7 +644,7 @@ public final class CffuFactory {
      */
     @Contract(pure = true)
     public <E, T extends Iterable<? extends E>> MCffu<E, T> failedMCffu(Throwable ex) {
-        return createMCffu(CompletableFutureUtils.failedFuture(ex));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -679,7 +660,7 @@ public final class CffuFactory {
      */
     @Contract(pure = true)
     public <T> CompletionStage<T> completedStage(@Nullable T value) {
-        return new Cffu<>(this, true, (CompletableFuture<T>) CompletableFutureUtils.completedStage(value));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -695,7 +676,7 @@ public final class CffuFactory {
      */
     @Contract(pure = true)
     public <T> CompletionStage<T> failedStage(Throwable ex) {
-        return new Cffu<>(this, true, (CompletableFuture<T>) CompletableFutureUtils.<T>failedStage(ex));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -709,7 +690,7 @@ public final class CffuFactory {
      */
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, run directly instead of wrapping")
     public <T> Cffu<T> fromSyncCall(Callable<? extends T> callable) {
-        return createCffu(CompletableFutureUtils.fromSyncCall(callable));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -722,7 +703,7 @@ public final class CffuFactory {
      */
     @CheckReturnValue(explanation = "should use the returned MCffu; otherwise, run directly instead of wrapping")
     public <E, T extends Iterable<? extends E>> MCffu<E, T> mCffuFromSyncCall(Callable<? extends T> callable) {
-        return createMCffu(CompletableFutureUtils.fromSyncCall(callable));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     // endregion
@@ -732,7 +713,6 @@ public final class CffuFactory {
     //    - toCffu:      CF/CompletionStage   -> Cffu
     //    - toMCffu:     CF/CompletionStage   -> MCffu
     ////////////////////////////////////////////////////////////////////////////////
-
     /**
      * Returns a Cffu that maintains the same completion properties as the given stage, configured with this {@code CffuFactory}.
      * If the given stage is already a Cffu and uses this {@code CffuFactory}, this method may return the given stage.
@@ -745,12 +725,7 @@ public final class CffuFactory {
      */
     @Contract(pure = true)
     public <T> Cffu<T> toCffu(CompletionStage<T> stage) {
-        requireNonNull(stage, "stage is null");
-        if (stage instanceof Cffu) {
-            Cffu<T> f = ((Cffu<T>) stage);
-            if (f.fac == this && !f.isMinimalStage) return f;
-        }
-        return createCffu(stage.toCompletableFuture());
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -767,19 +742,13 @@ public final class CffuFactory {
      */
     @Contract(pure = true)
     public <E, T extends Iterable<? extends E>> MCffu<E, T> toMCffu(CompletionStage<T> stage) {
-        requireNonNull(stage, "stage is null");
-        if (stage instanceof MCffu) {
-            MCffu<E, T> f = ((MCffu<E, T>) stage);
-            if (f.fac == this && !f.isMinimalStage) return f;
-        }
-        return createMCffu(stage.toCompletableFuture());
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     // endregion
     ////////////////////////////////////////////////////////////////////////////////
     // region## Incomplete Cffu/MCffu Constructor
     ////////////////////////////////////////////////////////////////////////////////
-
     /**
      * Returns a new incomplete Cffu.
      * <p>
@@ -791,7 +760,7 @@ public final class CffuFactory {
      */
     @Contract(pure = true)
     public <T> Cffu<T> newIncompleteCffu() {
-        return createCffu(new CompletableFuture<>());
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -805,7 +774,7 @@ public final class CffuFactory {
      */
     @Contract(pure = true)
     public <E, T extends Iterable<? extends E>> MCffu<E, T> newIncompleteMCffu() {
-        return createMCffu(new CompletableFuture<>());
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     // endregion
@@ -815,7 +784,6 @@ public final class CffuFactory {
     //    - Delayed Execution (backport methods)
     //    - Concurrency Limit Execution / Sequential Execution
     ////////////////////////////////////////////////////////////////////////////////
-
     /**
      * Returns a new Executor that submits a task to the default executor after the given delay (or no delay
      * if non-positive). Each delay commences upon invocation of the returned executor's {@code execute} method.
@@ -826,7 +794,7 @@ public final class CffuFactory {
      */
     @Contract(pure = true)
     public Executor delayedExecutor(long delay, TimeUnit unit) {
-        return delayedExecutor(delay, unit, defaultExecutor);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -840,8 +808,7 @@ public final class CffuFactory {
      */
     @Contract(pure = true)
     public Executor delayedExecutor(long delay, TimeUnit unit, Executor executor) {
-        // NOTE: do NOT translate (ad hoc input) executor to screened executor; same as CompletableFuture.delayedExecutor
-        return CompletableFutureUtils.delayedExecutor(delay, unit, cffuUnscreened(executor));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -853,7 +820,7 @@ public final class CffuFactory {
      */
     @Contract(pure = true)
     public Executor concurrencyLimitExecutor(int maxConcurrency) {
-        return concurrencyLimitExecutor(maxConcurrency, defaultExecutor);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -866,7 +833,7 @@ public final class CffuFactory {
      */
     @Contract(pure = true)
     public Executor concurrencyLimitExecutor(int maxConcurrency, Executor executor) {
-        return CompletableFutureUtils.concurrencyLimitExecutor(maxConcurrency, cffuScreened(executor));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -882,7 +849,7 @@ public final class CffuFactory {
      */
     @Contract(pure = true)
     public Executor sequentialExecutor() {
-        return concurrencyLimitExecutor(1);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -898,14 +865,13 @@ public final class CffuFactory {
      */
     @Contract(pure = true)
     public Executor sequentialExecutor(Executor executor) {
-        return concurrencyLimitExecutor(1, executor);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     // endregion
     ////////////////////////////////////////////////////////////////////////////////
     // region# Getter Methods of CffuFactory properties
     ////////////////////////////////////////////////////////////////////////////////
-
     /**
      * Returns the default Executor used for async methods that do not specify an Executor.
      * Configured by {@link CffuFactory#builder(Executor)}.
@@ -916,7 +882,7 @@ public final class CffuFactory {
      */
     @Contract(pure = true)
     public Executor defaultExecutor() {
-        return defaultExecutor.original;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -926,14 +892,13 @@ public final class CffuFactory {
      */
     @Contract(pure = true)
     public boolean forbidObtrudeMethods() {
-        return forbidObtrudeMethods;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     // endregion
     ////////////////////////////////////////////////////////////////////////////////
     // region# More Ops
     ////////////////////////////////////////////////////////////////////////////////
-
     /**
      * Returns a {@link IterableOps} instance to access the {@link Iterable}-based variants
      * (including {@link Collection}, {@link List}, etc.) of same-named varargs methods from {@link CffuFactory}.
@@ -943,7 +908,7 @@ public final class CffuFactory {
      * @see CfIterableUtils
      */
     public IterableOps iterableOps() {
-        return new IterableOps();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -953,7 +918,7 @@ public final class CffuFactory {
      * @see CfParallelUtils
      */
     public ParOps parOps() {
-        return new ParOps();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -964,7 +929,7 @@ public final class CffuFactory {
      * @see CfTupleUtils
      */
     public TupleOps tupleOps() {
-        return new TupleOps();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -973,19 +938,19 @@ public final class CffuFactory {
      * These methods handle multiple actions and Futures with the same type, aka. homogeneous.
      */
     public final class IterableOps {
+
         ////////////////////////////////////////////////////////////
         // region## Multi-Actions(M*) Methods(create by actions)
         //
         //    - Iterable<Supplier<E>> -> MCffu<E, List<E>>
         //    - Iterable<Runnable>    -> Cffu<Void>
         ////////////////////////////////////////////////////////////
-
         /**
          * Iterable variant of {@link CffuFactory#mSupplyFailFastAsync(Supplier[])}.
          */
         @CheckReturnValue(explanation = "should use the returned MCffu; otherwise, use method `mRunAsyncAndForget`")
         public <E> MCffu<E, List<E>> mSupplyFailFastAsync(Iterable<? extends Supplier<? extends E>> suppliers) {
-            return mSupplyFailFastAsync(suppliers, defaultExecutor);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -993,45 +958,39 @@ public final class CffuFactory {
          */
         @CheckReturnValue(explanation = "should use the returned MCffu; otherwise, use method `mRunAsyncAndForget`")
         public <E> MCffu<E, List<E>> mSupplyFailFastAsync(Iterable<? extends Supplier<? extends E>> suppliers, Executor executor) {
-            return createMCffu(CfIterableUtils.mSupplyFailFastAsync(suppliers, cffuScreened(executor)));
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
          * Iterable variant of {@link CffuFactory#mSupplyAllSuccessAsync(Object, Supplier[])}.
          */
         @CheckReturnValue(explanation = "should use the returned MCffu; otherwise, use method `mRunAsyncAndForget`")
-        public <E> MCffu<E, List<E>> mSupplyAllSuccessAsync(
-                @Nullable E valueIfFailed, Iterable<? extends Supplier<? extends E>> suppliers) {
-            return mSupplyAllSuccessAsync(valueIfFailed, suppliers, defaultExecutor);
+        public <E> MCffu<E, List<E>> mSupplyAllSuccessAsync(@Nullable E valueIfFailed, Iterable<? extends Supplier<? extends E>> suppliers) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
          * Iterable variant of {@link CffuFactory#mSupplyAllSuccessAsync(Executor, Object, Supplier[])}.
          */
         @CheckReturnValue(explanation = "should use the returned MCffu; otherwise, use method `mRunAsyncAndForget`")
-        public <E> MCffu<E, List<E>> mSupplyAllSuccessAsync(
-                @Nullable E valueIfFailed, Iterable<? extends Supplier<? extends E>> suppliers, Executor executor) {
-            return createMCffu(CfIterableUtils.mSupplyAllSuccessAsync(valueIfFailed, suppliers, cffuScreened(executor)));
+        public <E> MCffu<E, List<E>> mSupplyAllSuccessAsync(@Nullable E valueIfFailed, Iterable<? extends Supplier<? extends E>> suppliers, Executor executor) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
          * Iterable variant of {@link CffuFactory#mSupplyMostSuccessAsync(Object, long, TimeUnit, Supplier[])}.
          */
         @CheckReturnValue(explanation = "should use the returned MCffu; otherwise, use method `mRunAsyncAndForget`")
-        public <E> MCffu<E, List<E>> mSupplyMostSuccessAsync(
-                @Nullable E valueIfNotSuccess, long timeout, TimeUnit unit, Iterable<? extends Supplier<? extends E>> suppliers) {
-            return mSupplyMostSuccessAsync(valueIfNotSuccess, timeout, unit, suppliers, defaultExecutor);
+        public <E> MCffu<E, List<E>> mSupplyMostSuccessAsync(@Nullable E valueIfNotSuccess, long timeout, TimeUnit unit, Iterable<? extends Supplier<? extends E>> suppliers) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
          * Iterable variant of {@link CffuFactory#mSupplyMostSuccessAsync(Executor, Object, long, TimeUnit, Supplier[])}.
          */
         @CheckReturnValue(explanation = "should use the returned MCffu; otherwise, use method `mRunAsyncAndForget`")
-        public <E> MCffu<E, List<E>> mSupplyMostSuccessAsync(
-                @Nullable E valueIfNotSuccess, long timeout, TimeUnit unit,
-                Iterable<? extends Supplier<? extends E>> suppliers, Executor executor) {
-            return createMCffu(CfIterableUtils.mSupplyMostSuccessAsync(
-                    valueIfNotSuccess, timeout, unit, suppliers, cffuScreened(executor)));
+        public <E> MCffu<E, List<E>> mSupplyMostSuccessAsync(@Nullable E valueIfNotSuccess, long timeout, TimeUnit unit, Iterable<? extends Supplier<? extends E>> suppliers, Executor executor) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1039,7 +998,7 @@ public final class CffuFactory {
          */
         @CheckReturnValue(explanation = "should use the returned MCffu; otherwise, use method `mRunAsyncAndForget`")
         public <E> MCffu<E, List<E>> mSupplyAsync(Iterable<? extends Supplier<? extends E>> suppliers) {
-            return mSupplyAsync(suppliers, defaultExecutor);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1047,7 +1006,7 @@ public final class CffuFactory {
          */
         @CheckReturnValue(explanation = "should use the returned MCffu; otherwise, use method `mRunAsyncAndForget`")
         public <E> MCffu<E, List<E>> mSupplyAsync(Iterable<? extends Supplier<? extends E>> suppliers, Executor executor) {
-            return createMCffu(CfIterableUtils.mSupplyAsync(suppliers, cffuScreened(executor)));
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1055,7 +1014,7 @@ public final class CffuFactory {
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `mRunAsyncAndForget`")
         public <T> Cffu<T> mSupplyAnySuccessAsync(Iterable<? extends Supplier<? extends T>> suppliers) {
-            return mSupplyAnySuccessAsync(suppliers, defaultExecutor);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1063,7 +1022,7 @@ public final class CffuFactory {
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `mRunAsyncAndForget`")
         public <T> Cffu<T> mSupplyAnySuccessAsync(Iterable<? extends Supplier<? extends T>> suppliers, Executor executor) {
-            return createCffu(CfIterableUtils.mSupplyAnySuccessAsync(suppliers, cffuScreened(executor)));
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1071,7 +1030,7 @@ public final class CffuFactory {
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `mRunAsyncAndForget`")
         public <T> Cffu<T> mSupplyAnyAsync(Iterable<? extends Supplier<? extends T>> suppliers) {
-            return mSupplyAnyAsync(suppliers, defaultExecutor);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1079,7 +1038,7 @@ public final class CffuFactory {
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `mRunAsyncAndForget`")
         public <T> Cffu<T> mSupplyAnyAsync(Iterable<? extends Supplier<? extends T>> suppliers, Executor executor) {
-            return createCffu(CfIterableUtils.mSupplyAnyAsync(suppliers, cffuScreened(executor)));
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1087,7 +1046,7 @@ public final class CffuFactory {
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `mRunAsyncAndForget`")
         public Cffu<Void> mRunFailFastAsync(Iterable<? extends Runnable> actions) {
-            return mRunFailFastAsync(actions, defaultExecutor);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1095,7 +1054,7 @@ public final class CffuFactory {
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `mRunAsyncAndForget`")
         public Cffu<Void> mRunFailFastAsync(Iterable<? extends Runnable> actions, Executor executor) {
-            return createCffu(CfIterableUtils.mRunFailFastAsync(actions, cffuScreened(executor)));
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1103,7 +1062,7 @@ public final class CffuFactory {
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `mRunAsyncAndForget`")
         public Cffu<Void> mRunAsync(Iterable<? extends Runnable> actions) {
-            return mRunAsync(actions, defaultExecutor);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1111,7 +1070,7 @@ public final class CffuFactory {
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `mRunAsyncAndForget`")
         public Cffu<Void> mRunAsync(Iterable<? extends Runnable> actions, Executor executor) {
-            return createCffu(CfIterableUtils.mRunAsync(actions, cffuScreened(executor)));
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1119,7 +1078,7 @@ public final class CffuFactory {
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `mRunAsyncAndForget`")
         public Cffu<Void> mRunAnySuccessAsync(Iterable<? extends Runnable> actions) {
-            return mRunAnySuccessAsync(actions, defaultExecutor);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1127,7 +1086,7 @@ public final class CffuFactory {
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `mRunAsyncAndForget`")
         public Cffu<Void> mRunAnySuccessAsync(Iterable<? extends Runnable> actions, Executor executor) {
-            return createCffu(CfIterableUtils.mRunAnySuccessAsync(actions, cffuScreened(executor)));
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1135,7 +1094,7 @@ public final class CffuFactory {
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `mRunAsyncAndForget`")
         public Cffu<Void> mRunAnyAsync(Iterable<? extends Runnable> actions) {
-            return mRunAnyAsync(actions, defaultExecutor);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1143,7 +1102,7 @@ public final class CffuFactory {
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `mRunAsyncAndForget`")
         public Cffu<Void> mRunAnyAsync(Iterable<? extends Runnable> actions, Executor executor) {
-            return createCffu(CfIterableUtils.mRunAnyAsync(actions, cffuScreened(executor)));
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1152,8 +1111,7 @@ public final class CffuFactory {
          * @since 2.1.0
          */
         public void mRunAsyncAndForget(Iterable<? extends Runnable> actions) {
-            mRunAsyncAndForget(actions, defaultExecutor);
-
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1162,7 +1120,7 @@ public final class CffuFactory {
          * @since 2.1.0
          */
         public void mRunAsyncAndForget(Iterable<? extends Runnable> actions, Executor executor) {
-            CfIterableUtils.mRunAsyncAndForget(actions, cffuScreened(executor));
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         // endregion
@@ -1171,32 +1129,28 @@ public final class CffuFactory {
         //
         //    Iterable<CompletionStage<T>> -> MCffu<T, List<T>>
         ////////////////////////////////////////////////////////////
-
         /**
          * Iterable variant of {@link CffuFactory#allResultsFailFastOf(CompletionStage[])}.
          */
         @Contract(pure = true)
         public <T> MCffu<T, List<T>> allResultsFailFastOf(Iterable<? extends CompletionStage<? extends T>> cfs) {
-            return createMCffu(CfIterableUtils.allResultsFailFastOf(cfs));
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
          * Iterable variant of {@link CffuFactory#allSuccessResultsOf(Object, CompletionStage[])}.
          */
         @Contract(pure = true)
-        public <T> MCffu<T, List<T>> allSuccessResultsOf(
-                @Nullable T valueIfFailed, Iterable<? extends CompletionStage<? extends T>> cfs) {
-            return createMCffu(CfIterableUtils.allSuccessResultsOf(valueIfFailed, cfs));
+        public <T> MCffu<T, List<T>> allSuccessResultsOf(@Nullable T valueIfFailed, Iterable<? extends CompletionStage<? extends T>> cfs) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
          * Iterable variant of {@link CffuFactory#mostSuccessResultsOf(Object, long, TimeUnit, CompletionStage[])}.
          */
         @Contract(pure = true)
-        public <T> MCffu<T, List<T>> mostSuccessResultsOf(
-                @Nullable T valueIfNotSuccess, long timeout, TimeUnit unit,
-                Iterable<? extends CompletionStage<? extends T>> cfs) {
-            return createMCffu(CfIterableUtils.mostSuccessResultsOf(valueIfNotSuccess, timeout, unit, cfs, defaultExecutor));
+        public <T> MCffu<T, List<T>> mostSuccessResultsOf(@Nullable T valueIfNotSuccess, long timeout, TimeUnit unit, Iterable<? extends CompletionStage<? extends T>> cfs) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1204,7 +1158,7 @@ public final class CffuFactory {
          */
         @Contract(pure = true)
         public <T> MCffu<T, List<T>> allResultsOf(Iterable<? extends CompletionStage<? extends T>> cfs) {
-            return createMCffu(CfIterableUtils.allResultsOf(cfs));
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1212,7 +1166,7 @@ public final class CffuFactory {
          */
         @Contract(pure = true)
         public Cffu<Void> allFailFastOf(Iterable<? extends CompletionStage<?>> cfs) {
-            return createCffu(CfIterableUtils.allFailFastOf(cfs));
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1220,7 +1174,7 @@ public final class CffuFactory {
          */
         @Contract(pure = true)
         public Cffu<Void> allOf(Iterable<? extends CompletionStage<?>> cfs) {
-            return createCffu(CfIterableUtils.allOf(cfs));
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         // endregion
@@ -1229,13 +1183,12 @@ public final class CffuFactory {
         //
         //    Iterable<CompletionStage<T>> -> CompletableFuture<T>
         ////////////////////////////////////////////////////////////
-
         /**
          * Iterable variant of {@link CffuFactory#anySuccessOf(CompletionStage[])}.
          */
         @Contract(pure = true)
         public <T> Cffu<T> anySuccessOf(Iterable<? extends CompletionStage<? extends T>> cfs) {
-            return createCffu(CfIterableUtils.anySuccessOf(cfs));
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1243,10 +1196,11 @@ public final class CffuFactory {
          */
         @Contract(pure = true)
         public <T> Cffu<T> anyOf(Iterable<? extends CompletionStage<? extends T>> cfs) {
-            return createCffu(CfIterableUtils.anyOf(cfs));
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        private IterableOps() {}
+        private IterableOps() {
+        }
     }
 
     /**
@@ -1256,13 +1210,13 @@ public final class CffuFactory {
      * @see CfParallelUtils
      */
     public final class ParOps {
+
         ////////////////////////////////////////////////////////////////////////////////
         // Par Methods (create by multiply data and one action)
         //
         //    - parApply* (Iterable, Function: T -> U)    -> MCffu<U, List<U>>
         //    - parAccept*(Iterable, Consumer: T -> Void) -> Cffu<Void>
         ////////////////////////////////////////////////////////////////////////////////
-
         /**
          * Shortcut to method {@link CffuFactory#allResultsFailFastOf allResultsFailFastOf},
          * processes multiple input elements in parallel by wrapping each element's function computation
@@ -1271,9 +1225,8 @@ public final class CffuFactory {
          * See the {@link CffuFactory#allResultsFailFastOf allResultsFailFastOf} documentation for the rules of result computation.
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `parAcceptAsyncAndForget`")
-        public <T, U> MCffu<U, List<U>> parApplyFailFastAsync(
-                Iterable<? extends T> elements, Function<? super T, ? extends U> fn) {
-            return parApplyFailFastAsync(elements, fn, defaultExecutor);
+        public <T, U> MCffu<U, List<U>> parApplyFailFastAsync(Iterable<? extends T> elements, Function<? super T, ? extends U> fn) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1284,9 +1237,8 @@ public final class CffuFactory {
          * See the {@link CffuFactory#allResultsFailFastOf allResultsFailFastOf} documentation for the rules of result computation.
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `parAcceptAsyncAndForget`")
-        public <T, U> MCffu<U, List<U>> parApplyFailFastAsync(
-                Iterable<? extends T> elements, Function<? super T, ? extends U> fn, Executor executor) {
-            return createMCffu(CfParallelUtils.parApplyFailFastAsync(elements, fn, cffuScreened(executor)));
+        public <T, U> MCffu<U, List<U>> parApplyFailFastAsync(Iterable<? extends T> elements, Function<? super T, ? extends U> fn, Executor executor) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1297,9 +1249,8 @@ public final class CffuFactory {
          * See the {@link CffuFactory#allSuccessResultsOf allSuccessResultsOf} documentation for the rules of result computation.
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `parAcceptAsyncAndForget`")
-        public <T, U> MCffu<U, List<U>> parApplyAllSuccessAsync(
-                Iterable<? extends T> elements, @Nullable U valueIfFailed, Function<? super T, ? extends U> fn) {
-            return parApplyAllSuccessAsync(elements, valueIfFailed, fn, defaultExecutor);
+        public <T, U> MCffu<U, List<U>> parApplyAllSuccessAsync(Iterable<? extends T> elements, @Nullable U valueIfFailed, Function<? super T, ? extends U> fn) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1310,9 +1261,8 @@ public final class CffuFactory {
          * See the {@link CffuFactory#allSuccessResultsOf allSuccessResultsOf} documentation for the rules of result computation.
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `parAcceptAsyncAndForget`")
-        public <T, U> MCffu<U, List<U>> parApplyAllSuccessAsync(
-                Iterable<? extends T> elements, @Nullable U valueIfFailed, Function<? super T, ? extends U> fn, Executor executor) {
-            return createMCffu(CfParallelUtils.parApplyAllSuccessAsync(elements, valueIfFailed, fn, cffuScreened(executor)));
+        public <T, U> MCffu<U, List<U>> parApplyAllSuccessAsync(Iterable<? extends T> elements, @Nullable U valueIfFailed, Function<? super T, ? extends U> fn, Executor executor) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1323,10 +1273,8 @@ public final class CffuFactory {
          * See the {@link CffuFactory#mostSuccessResultsOf mostSuccessResultsOf} documentation for the rules of result computation.
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `parAcceptAsyncAndForget`")
-        public <T, U> MCffu<U, List<U>> parApplyMostSuccessAsync(
-                Iterable<? extends T> elements, @Nullable U valueIfNotSuccess, long timeout, TimeUnit unit,
-                Function<? super T, ? extends U> fn) {
-            return parApplyMostSuccessAsync(elements, valueIfNotSuccess, timeout, unit, fn, defaultExecutor);
+        public <T, U> MCffu<U, List<U>> parApplyMostSuccessAsync(Iterable<? extends T> elements, @Nullable U valueIfNotSuccess, long timeout, TimeUnit unit, Function<? super T, ? extends U> fn) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1337,10 +1285,8 @@ public final class CffuFactory {
          * See the {@link CffuFactory#mostSuccessResultsOf mostSuccessResultsOf} documentation for the rules of result computation.
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `parAcceptAsyncAndForget`")
-        public <T, U> MCffu<U, List<U>> parApplyMostSuccessAsync(
-                Iterable<? extends T> elements, @Nullable U valueIfNotSuccess, long timeout, TimeUnit unit,
-                Function<? super T, ? extends U> fn, Executor executor) {
-            return createMCffu(CfParallelUtils.parApplyMostSuccessAsync(elements, valueIfNotSuccess, timeout, unit, fn, cffuScreened(executor)));
+        public <T, U> MCffu<U, List<U>> parApplyMostSuccessAsync(Iterable<? extends T> elements, @Nullable U valueIfNotSuccess, long timeout, TimeUnit unit, Function<? super T, ? extends U> fn, Executor executor) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1351,9 +1297,8 @@ public final class CffuFactory {
          * See the {@link CffuFactory#allResultsOf allResultsOf} documentation for the rules of result computation.
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `parAcceptAsyncAndForget`")
-        public <T, U> MCffu<U, List<U>> parApplyAsync(
-                Iterable<? extends T> elements, Function<? super T, ? extends U> fn) {
-            return parApplyAsync(elements, fn, defaultExecutor);
+        public <T, U> MCffu<U, List<U>> parApplyAsync(Iterable<? extends T> elements, Function<? super T, ? extends U> fn) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1364,9 +1309,8 @@ public final class CffuFactory {
          * See the {@link CffuFactory#allResultsOf allResultsOf} documentation for the rules of result computation.
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `parAcceptAsyncAndForget`")
-        public <T, U> MCffu<U, List<U>> parApplyAsync(
-                Iterable<? extends T> elements, Function<? super T, ? extends U> fn, Executor executor) {
-            return createMCffu(CfParallelUtils.parApplyAsync(elements, fn, cffuScreened(executor)));
+        public <T, U> MCffu<U, List<U>> parApplyAsync(Iterable<? extends T> elements, Function<? super T, ? extends U> fn, Executor executor) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1377,9 +1321,8 @@ public final class CffuFactory {
          * See the {@link CffuFactory#anySuccessOf anySuccessOf} documentation for the rules of result computation.
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `parAcceptAsyncAndForget`")
-        public <T, U> Cffu<U> parApplyAnySuccessAsync(
-                Iterable<? extends T> elements, Function<? super T, ? extends U> fn) {
-            return parApplyAnySuccessAsync(elements, fn, defaultExecutor);
+        public <T, U> Cffu<U> parApplyAnySuccessAsync(Iterable<? extends T> elements, Function<? super T, ? extends U> fn) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1390,9 +1333,8 @@ public final class CffuFactory {
          * See the {@link CffuFactory#anySuccessOf anySuccessOf} documentation for the rules of result computation.
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `parAcceptAsyncAndForget`")
-        public <T, U> Cffu<U> parApplyAnySuccessAsync(
-                Iterable<? extends T> elements, Function<? super T, ? extends U> fn, Executor executor) {
-            return createCffu(CfParallelUtils.parApplyAnySuccessAsync(elements, fn, cffuScreened(executor)));
+        public <T, U> Cffu<U> parApplyAnySuccessAsync(Iterable<? extends T> elements, Function<? super T, ? extends U> fn, Executor executor) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1403,9 +1345,8 @@ public final class CffuFactory {
          * See the {@link CffuFactory#anyOf anyOf} documentation for the rules of result computation.
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `parAcceptAsyncAndForget`")
-        public <T, U> Cffu<U> parApplyAnyAsync(
-                Iterable<? extends T> elements, Function<? super T, ? extends U> fn) {
-            return parApplyAnyAsync(elements, fn, defaultExecutor);
+        public <T, U> Cffu<U> parApplyAnyAsync(Iterable<? extends T> elements, Function<? super T, ? extends U> fn) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1416,9 +1357,8 @@ public final class CffuFactory {
          * See the {@link CffuFactory#anyOf anyOf} documentation for the rules of result computation.
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `parAcceptAsyncAndForget`")
-        public <T, U> Cffu<U> parApplyAnyAsync(
-                Iterable<? extends T> elements, Function<? super T, ? extends U> fn, Executor executor) {
-            return createCffu(CfParallelUtils.parApplyAnyAsync(elements, fn, cffuScreened(executor)));
+        public <T, U> Cffu<U> parApplyAnyAsync(Iterable<? extends T> elements, Function<? super T, ? extends U> fn, Executor executor) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1429,9 +1369,8 @@ public final class CffuFactory {
          * See the {@link CffuFactory#allResultsFailFastOf allResultsFailFastOf} documentation for the rules of result computation.
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `parAcceptAsyncAndForget`")
-        public <T> Cffu<Void> parAcceptFailFastAsync(
-                Iterable<? extends T> elements, Consumer<? super T> action) {
-            return parAcceptFailFastAsync(elements, action, defaultExecutor);
+        public <T> Cffu<Void> parAcceptFailFastAsync(Iterable<? extends T> elements, Consumer<? super T> action) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1442,9 +1381,8 @@ public final class CffuFactory {
          * See the {@link CffuFactory#allResultsFailFastOf allResultsFailFastOf} documentation for the rules of result computation.
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `parAcceptAsyncAndForget`")
-        public <T> Cffu<Void> parAcceptFailFastAsync(
-                Iterable<? extends T> elements, Consumer<? super T> action, Executor executor) {
-            return createCffu(CfParallelUtils.parAcceptFailFastAsync(elements, action, cffuScreened(executor)));
+        public <T> Cffu<Void> parAcceptFailFastAsync(Iterable<? extends T> elements, Consumer<? super T> action, Executor executor) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1455,9 +1393,8 @@ public final class CffuFactory {
          * See the {@link CffuFactory#allResultsOf allResultsOf} documentation for the rules of result computation.
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `parAcceptAsyncAndForget`")
-        public <T> Cffu<Void> parAcceptAsync(
-                Iterable<? extends T> elements, Consumer<? super T> action) {
-            return parAcceptAsync(elements, action, defaultExecutor);
+        public <T> Cffu<Void> parAcceptAsync(Iterable<? extends T> elements, Consumer<? super T> action) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1468,9 +1405,8 @@ public final class CffuFactory {
          * See the {@link CffuFactory#allResultsOf allResultsOf} documentation for the rules of result computation.
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `parAcceptAsyncAndForget`")
-        public <T> Cffu<Void> parAcceptAsync(
-                Iterable<? extends T> elements, Consumer<? super T> action, Executor executor) {
-            return createCffu(CfParallelUtils.parAcceptAsync(elements, action, cffuScreened(executor)));
+        public <T> Cffu<Void> parAcceptAsync(Iterable<? extends T> elements, Consumer<? super T> action, Executor executor) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1481,9 +1417,8 @@ public final class CffuFactory {
          * See the {@link CffuFactory#anySuccessOf anySuccessOf} documentation for the rules of result computation.
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `parAcceptAsyncAndForget`")
-        public <T> Cffu<Void> parAcceptAnySuccessAsync(
-                Iterable<? extends T> elements, Consumer<? super T> action) {
-            return parAcceptAnySuccessAsync(elements, action, defaultExecutor);
+        public <T> Cffu<Void> parAcceptAnySuccessAsync(Iterable<? extends T> elements, Consumer<? super T> action) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1494,9 +1429,8 @@ public final class CffuFactory {
          * See the {@link CffuFactory#anySuccessOf anySuccessOf} documentation for the rules of result computation.
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `parAcceptAsyncAndForget`")
-        public <T> Cffu<Void> parAcceptAnySuccessAsync(
-                Iterable<? extends T> elements, Consumer<? super T> action, Executor executor) {
-            return createCffu(CfParallelUtils.parAcceptAnySuccessAsync(elements, action, cffuScreened(executor)));
+        public <T> Cffu<Void> parAcceptAnySuccessAsync(Iterable<? extends T> elements, Consumer<? super T> action, Executor executor) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1507,9 +1441,8 @@ public final class CffuFactory {
          * See the {@link CffuFactory#anyOf anyOf} documentation for the rules of result computation.
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `parAcceptAsyncAndForget`")
-        public <T> Cffu<Void> parAcceptAnyAsync(
-                Iterable<? extends T> elements, Consumer<? super T> action) {
-            return parAcceptAnyAsync(elements, action, defaultExecutor);
+        public <T> Cffu<Void> parAcceptAnyAsync(Iterable<? extends T> elements, Consumer<? super T> action) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1520,9 +1453,8 @@ public final class CffuFactory {
          * See the {@link CffuFactory#anyOf anyOf} documentation for the rules of result computation.
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `parAcceptAsyncAndForget`")
-        public <T> Cffu<Void> parAcceptAnyAsync(
-                Iterable<? extends T> elements, Consumer<? super T> action, Executor executor) {
-            return createCffu(CfParallelUtils.parAcceptAnyAsync(elements, action, cffuScreened(executor)));
+        public <T> Cffu<Void> parAcceptAnyAsync(Iterable<? extends T> elements, Consumer<? super T> action, Executor executor) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1532,9 +1464,8 @@ public final class CffuFactory {
          *
          * @since 2.1.0
          */
-        public <T> void parAcceptAsyncAndForget(
-                Iterable<? extends T> elements, Consumer<? super T> action) {
-            parAcceptAsyncAndForget(elements, action, defaultExecutor);
+        public <T> void parAcceptAsyncAndForget(Iterable<? extends T> elements, Consumer<? super T> action) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1546,12 +1477,12 @@ public final class CffuFactory {
          *
          * @since 2.1.0
          */
-        public <T> void parAcceptAsyncAndForget(
-                Iterable<? extends T> elements, Consumer<? super T> action, Executor executor) {
-            CfParallelUtils.parAcceptAsyncAndForget(elements, action, cffuScreened(executor));
+        public <T> void parAcceptAsyncAndForget(Iterable<? extends T> elements, Consumer<? super T> action, Executor executor) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        private ParOps() {}
+        private ParOps() {
+        }
     }
 
     /**
@@ -1566,87 +1497,72 @@ public final class CffuFactory {
      * @see CfTupleUtils
      */
     public final class TupleOps {
+
         ////////////////////////////////////////////////////////////
         // region## Multi-Actions-Tuple(MTuple*) Methods(create by actions)
         ////////////////////////////////////////////////////////////
-
         /**
          * Tuple variant of {@link #mSupplyFailFastAsync(Supplier[])}.
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `CffuFactory#mRunAsyncAndForget`")
-        public <T1, T2> Cffu<Tuple2<T1, T2>> mSupplyTupleFailFastAsync(
-                Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2) {
-            return mSupplyTupleFailFastAsync(supplier1, supplier2, defaultExecutor);
+        public <T1, T2> Cffu<Tuple2<T1, T2>> mSupplyTupleFailFastAsync(Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
          * Tuple variant of {@link #mSupplyFailFastAsync(Executor, Supplier[])}.
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `CffuFactory#mRunAsyncAndForget`")
-        public <T1, T2> Cffu<Tuple2<T1, T2>> mSupplyTupleFailFastAsync(
-                Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2, Executor executor) {
-            return createCffu(CfTupleUtils.mSupplyTupleFailFastAsync(supplier1, supplier2, cffuScreened(executor)));
+        public <T1, T2> Cffu<Tuple2<T1, T2>> mSupplyTupleFailFastAsync(Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2, Executor executor) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
          * Tuple variant of {@link #mSupplyFailFastAsync(Supplier[])}.
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `CffuFactory#mRunAsyncAndForget`")
-        public <T1, T2, T3> Cffu<Tuple3<T1, T2, T3>> mSupplyTupleFailFastAsync(
-                Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2, Supplier<? extends T3> supplier3) {
-            return mSupplyTupleFailFastAsync(supplier1, supplier2, supplier3, defaultExecutor);
+        public <T1, T2, T3> Cffu<Tuple3<T1, T2, T3>> mSupplyTupleFailFastAsync(Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2, Supplier<? extends T3> supplier3) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
          * Tuple variant of {@link #mSupplyFailFastAsync(Executor, Supplier[])}.
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `CffuFactory#mRunAsyncAndForget`")
-        public <T1, T2, T3> Cffu<Tuple3<T1, T2, T3>> mSupplyTupleFailFastAsync(
-                Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2, Supplier<? extends T3> supplier3,
-                Executor executor) {
-            return createCffu(CfTupleUtils.mSupplyTupleFailFastAsync(supplier1, supplier2, supplier3, cffuScreened(executor)));
+        public <T1, T2, T3> Cffu<Tuple3<T1, T2, T3>> mSupplyTupleFailFastAsync(Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2, Supplier<? extends T3> supplier3, Executor executor) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
          * Tuple variant of {@link #mSupplyFailFastAsync(Supplier[])}.
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `CffuFactory#mRunAsyncAndForget`")
-        public <T1, T2, T3, T4> Cffu<Tuple4<T1, T2, T3, T4>> mSupplyTupleFailFastAsync(
-                Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2,
-                Supplier<? extends T3> supplier3, Supplier<? extends T4> supplier4) {
-            return mSupplyTupleFailFastAsync(supplier1, supplier2, supplier3, supplier4, defaultExecutor);
+        public <T1, T2, T3, T4> Cffu<Tuple4<T1, T2, T3, T4>> mSupplyTupleFailFastAsync(Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2, Supplier<? extends T3> supplier3, Supplier<? extends T4> supplier4) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
          * Tuple variant of {@link #mSupplyFailFastAsync(Executor, Supplier[])}.
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `CffuFactory#mRunAsyncAndForget`")
-        public <T1, T2, T3, T4> Cffu<Tuple4<T1, T2, T3, T4>> mSupplyTupleFailFastAsync(
-                Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2,
-                Supplier<? extends T3> supplier3, Supplier<? extends T4> supplier4, Executor executor) {
-            return createCffu(CfTupleUtils.mSupplyTupleFailFastAsync(
-                    supplier1, supplier2, supplier3, supplier4, cffuScreened(executor)));
+        public <T1, T2, T3, T4> Cffu<Tuple4<T1, T2, T3, T4>> mSupplyTupleFailFastAsync(Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2, Supplier<? extends T3> supplier3, Supplier<? extends T4> supplier4, Executor executor) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
          * Tuple variant of {@link #mSupplyFailFastAsync(Supplier[])}.
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `CffuFactory#mRunAsyncAndForget`")
-        public <T1, T2, T3, T4, T5> Cffu<Tuple5<T1, T2, T3, T4, T5>> mSupplyTupleFailFastAsync(
-                Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2, Supplier<? extends T3> supplier3,
-                Supplier<? extends T4> supplier4, Supplier<? extends T5> supplier5) {
-            return mSupplyTupleFailFastAsync(supplier1, supplier2, supplier3, supplier4, supplier5, defaultExecutor);
+        public <T1, T2, T3, T4, T5> Cffu<Tuple5<T1, T2, T3, T4, T5>> mSupplyTupleFailFastAsync(Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2, Supplier<? extends T3> supplier3, Supplier<? extends T4> supplier4, Supplier<? extends T5> supplier5) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
          * Tuple variant of {@link #mSupplyFailFastAsync(Executor, Supplier[])}.
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `CffuFactory#mRunAsyncAndForget`")
-        public <T1, T2, T3, T4, T5> Cffu<Tuple5<T1, T2, T3, T4, T5>> mSupplyTupleFailFastAsync(
-                Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2, Supplier<? extends T3> supplier3,
-                Supplier<? extends T4> supplier4, Supplier<? extends T5> supplier5, Executor executor) {
-            return createCffu(CfTupleUtils.mSupplyTupleFailFastAsync(
-                    supplier1, supplier2, supplier3, supplier4, supplier5, cffuScreened(executor)));
+        public <T1, T2, T3, T4, T5> Cffu<Tuple5<T1, T2, T3, T4, T5>> mSupplyTupleFailFastAsync(Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2, Supplier<? extends T3> supplier3, Supplier<? extends T4> supplier4, Supplier<? extends T5> supplier5, Executor executor) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1656,9 +1572,8 @@ public final class CffuFactory {
          * (which is indistinguishable from the supplier having a successful value of {@code null}).
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `CffuFactory#mRunAsyncAndForget`")
-        public <T1, T2> Cffu<Tuple2<T1, T2>> mSupplyAllSuccessTupleAsync(
-                Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2) {
-            return mSupplyAllSuccessTupleAsync(supplier1, supplier2, defaultExecutor);
+        public <T1, T2> Cffu<Tuple2<T1, T2>> mSupplyAllSuccessTupleAsync(Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1668,9 +1583,8 @@ public final class CffuFactory {
          * (which is indistinguishable from the supplier having a successful value of {@code null}).
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `CffuFactory#mRunAsyncAndForget`")
-        public <T1, T2> Cffu<Tuple2<T1, T2>> mSupplyAllSuccessTupleAsync(
-                Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2, Executor executor) {
-            return createCffu(CfTupleUtils.mSupplyAllSuccessTupleAsync(supplier1, supplier2, cffuScreened(executor)));
+        public <T1, T2> Cffu<Tuple2<T1, T2>> mSupplyAllSuccessTupleAsync(Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2, Executor executor) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1680,9 +1594,8 @@ public final class CffuFactory {
          * (which is indistinguishable from the supplier having a successful value of {@code null}).
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `CffuFactory#mRunAsyncAndForget`")
-        public <T1, T2, T3> Cffu<Tuple3<T1, T2, T3>> mSupplyAllSuccessTupleAsync(
-                Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2, Supplier<? extends T3> supplier3) {
-            return mSupplyAllSuccessTupleAsync(supplier1, supplier2, supplier3, defaultExecutor);
+        public <T1, T2, T3> Cffu<Tuple3<T1, T2, T3>> mSupplyAllSuccessTupleAsync(Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2, Supplier<? extends T3> supplier3) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1692,10 +1605,8 @@ public final class CffuFactory {
          * (which is indistinguishable from the supplier having a successful value of {@code null}).
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `CffuFactory#mRunAsyncAndForget`")
-        public <T1, T2, T3> Cffu<Tuple3<T1, T2, T3>> mSupplyAllSuccessTupleAsync(
-                Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2, Supplier<? extends T3> supplier3,
-                Executor executor) {
-            return createCffu(CfTupleUtils.mSupplyAllSuccessTupleAsync(supplier1, supplier2, supplier3, cffuScreened(executor)));
+        public <T1, T2, T3> Cffu<Tuple3<T1, T2, T3>> mSupplyAllSuccessTupleAsync(Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2, Supplier<? extends T3> supplier3, Executor executor) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1705,10 +1616,8 @@ public final class CffuFactory {
          * (which is indistinguishable from the supplier having a successful value of {@code null}).
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `CffuFactory#mRunAsyncAndForget`")
-        public <T1, T2, T3, T4> Cffu<Tuple4<T1, T2, T3, T4>> mSupplyAllSuccessTupleAsync(
-                Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2,
-                Supplier<? extends T3> supplier3, Supplier<? extends T4> supplier4) {
-            return mSupplyAllSuccessTupleAsync(supplier1, supplier2, supplier3, supplier4, defaultExecutor);
+        public <T1, T2, T3, T4> Cffu<Tuple4<T1, T2, T3, T4>> mSupplyAllSuccessTupleAsync(Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2, Supplier<? extends T3> supplier3, Supplier<? extends T4> supplier4) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1718,11 +1627,8 @@ public final class CffuFactory {
          * (which is indistinguishable from the supplier having a successful value of {@code null}).
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `CffuFactory#mRunAsyncAndForget`")
-        public <T1, T2, T3, T4> Cffu<Tuple4<T1, T2, T3, T4>> mSupplyAllSuccessTupleAsync(
-                Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2,
-                Supplier<? extends T3> supplier3, Supplier<? extends T4> supplier4, Executor executor) {
-            return createCffu(CfTupleUtils.mSupplyAllSuccessTupleAsync(
-                    supplier1, supplier2, supplier3, supplier4, cffuScreened(executor)));
+        public <T1, T2, T3, T4> Cffu<Tuple4<T1, T2, T3, T4>> mSupplyAllSuccessTupleAsync(Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2, Supplier<? extends T3> supplier3, Supplier<? extends T4> supplier4, Executor executor) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1732,10 +1638,8 @@ public final class CffuFactory {
          * (which is indistinguishable from the supplier having a successful value of {@code null}).
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `CffuFactory#mRunAsyncAndForget`")
-        public <T1, T2, T3, T4, T5> Cffu<Tuple5<T1, T2, T3, T4, T5>> mSupplyAllSuccessTupleAsync(
-                Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2, Supplier<? extends T3> supplier3,
-                Supplier<? extends T4> supplier4, Supplier<? extends T5> supplier5) {
-            return mSupplyAllSuccessTupleAsync(supplier1, supplier2, supplier3, supplier4, supplier5, defaultExecutor);
+        public <T1, T2, T3, T4, T5> Cffu<Tuple5<T1, T2, T3, T4, T5>> mSupplyAllSuccessTupleAsync(Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2, Supplier<? extends T3> supplier3, Supplier<? extends T4> supplier4, Supplier<? extends T5> supplier5) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1745,11 +1649,8 @@ public final class CffuFactory {
          * (which is indistinguishable from the supplier having a successful value of {@code null}).
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `CffuFactory#mRunAsyncAndForget`")
-        public <T1, T2, T3, T4, T5> Cffu<Tuple5<T1, T2, T3, T4, T5>> mSupplyAllSuccessTupleAsync(
-                Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2, Supplier<? extends T3> supplier3,
-                Supplier<? extends T4> supplier4, Supplier<? extends T5> supplier5, Executor executor) {
-            return createCffu(CfTupleUtils.mSupplyAllSuccessTupleAsync(
-                    supplier1, supplier2, supplier3, supplier4, supplier5, cffuScreened(executor)));
+        public <T1, T2, T3, T4, T5> Cffu<Tuple5<T1, T2, T3, T4, T5>> mSupplyAllSuccessTupleAsync(Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2, Supplier<? extends T3> supplier3, Supplier<? extends T4> supplier4, Supplier<? extends T5> supplier5, Executor executor) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1759,9 +1660,8 @@ public final class CffuFactory {
          * (which is indistinguishable from the supplier having a successful value of {@code null}).
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `CffuFactory#mRunAsyncAndForget`")
-        public <T1, T2> Cffu<Tuple2<T1, T2>> mSupplyMostSuccessTupleAsync(
-                long timeout, TimeUnit unit, Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2) {
-            return mSupplyMostSuccessTupleAsync(timeout, unit, supplier1, supplier2, defaultExecutor);
+        public <T1, T2> Cffu<Tuple2<T1, T2>> mSupplyMostSuccessTupleAsync(long timeout, TimeUnit unit, Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1772,11 +1672,8 @@ public final class CffuFactory {
          * (which is indistinguishable from the supplier having a successful value of {@code null}).
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `CffuFactory#mRunAsyncAndForget`")
-        public <T1, T2> Cffu<Tuple2<T1, T2>> mSupplyMostSuccessTupleAsync(
-                long timeout, TimeUnit unit, Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2,
-                Executor executor) {
-            return createCffu(CfTupleUtils.mSupplyMostSuccessTupleAsync(
-                    timeout, unit, supplier1, supplier2, cffuScreened(executor)));
+        public <T1, T2> Cffu<Tuple2<T1, T2>> mSupplyMostSuccessTupleAsync(long timeout, TimeUnit unit, Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2, Executor executor) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1786,10 +1683,8 @@ public final class CffuFactory {
          * (which is indistinguishable from the supplier having a successful value of {@code null}).
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `CffuFactory#mRunAsyncAndForget`")
-        public <T1, T2, T3> Cffu<Tuple3<T1, T2, T3>> mSupplyMostSuccessTupleAsync(
-                long timeout, TimeUnit unit, Supplier<? extends T1> supplier1,
-                Supplier<? extends T2> supplier2, Supplier<? extends T3> supplier3) {
-            return mSupplyMostSuccessTupleAsync(timeout, unit, supplier1, supplier2, supplier3, defaultExecutor);
+        public <T1, T2, T3> Cffu<Tuple3<T1, T2, T3>> mSupplyMostSuccessTupleAsync(long timeout, TimeUnit unit, Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2, Supplier<? extends T3> supplier3) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1800,11 +1695,8 @@ public final class CffuFactory {
          * (which is indistinguishable from the supplier having a successful value of {@code null}).
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `CffuFactory#mRunAsyncAndForget`")
-        public <T1, T2, T3> Cffu<Tuple3<T1, T2, T3>> mSupplyMostSuccessTupleAsync(
-                long timeout, TimeUnit unit, Supplier<? extends T1> supplier1,
-                Supplier<? extends T2> supplier2, Supplier<? extends T3> supplier3, Executor executor) {
-            return createCffu(CfTupleUtils.mSupplyMostSuccessTupleAsync(
-                    timeout, unit, supplier1, supplier2, supplier3, cffuScreened(executor)));
+        public <T1, T2, T3> Cffu<Tuple3<T1, T2, T3>> mSupplyMostSuccessTupleAsync(long timeout, TimeUnit unit, Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2, Supplier<? extends T3> supplier3, Executor executor) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1814,10 +1706,8 @@ public final class CffuFactory {
          * (which is indistinguishable from the supplier having a successful value of {@code null}).
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `CffuFactory#mRunAsyncAndForget`")
-        public <T1, T2, T3, T4> Cffu<Tuple4<T1, T2, T3, T4>> mSupplyMostSuccessTupleAsync(
-                long timeout, TimeUnit unit, Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2,
-                Supplier<? extends T3> supplier3, Supplier<? extends T4> supplier4) {
-            return mSupplyMostSuccessTupleAsync(timeout, unit, supplier1, supplier2, supplier3, supplier4, defaultExecutor);
+        public <T1, T2, T3, T4> Cffu<Tuple4<T1, T2, T3, T4>> mSupplyMostSuccessTupleAsync(long timeout, TimeUnit unit, Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2, Supplier<? extends T3> supplier3, Supplier<? extends T4> supplier4) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1828,11 +1718,8 @@ public final class CffuFactory {
          * (which is indistinguishable from the supplier having a successful value of {@code null}).
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `CffuFactory#mRunAsyncAndForget`")
-        public <T1, T2, T3, T4> Cffu<Tuple4<T1, T2, T3, T4>> mSupplyMostSuccessTupleAsync(
-                long timeout, TimeUnit unit, Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2,
-                Supplier<? extends T3> supplier3, Supplier<? extends T4> supplier4, Executor executor) {
-            return createCffu(CfTupleUtils.mSupplyMostSuccessTupleAsync(
-                    timeout, unit, supplier1, supplier2, supplier3, supplier4, cffuScreened(executor)));
+        public <T1, T2, T3, T4> Cffu<Tuple4<T1, T2, T3, T4>> mSupplyMostSuccessTupleAsync(long timeout, TimeUnit unit, Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2, Supplier<? extends T3> supplier3, Supplier<? extends T4> supplier4, Executor executor) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1842,11 +1729,8 @@ public final class CffuFactory {
          * (which is indistinguishable from the supplier having a successful value of {@code null}).
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `CffuFactory#mRunAsyncAndForget`")
-        public <T1, T2, T3, T4, T5> Cffu<Tuple5<T1, T2, T3, T4, T5>> mSupplyMostSuccessTupleAsync(
-                long timeout, TimeUnit unit, Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2,
-                Supplier<? extends T3> supplier3, Supplier<? extends T4> supplier4, Supplier<? extends T5> supplier5) {
-            return mSupplyMostSuccessTupleAsync(timeout, unit, supplier1, supplier2, supplier3, supplier4, supplier5, defaultExecutor
-            );
+        public <T1, T2, T3, T4, T5> Cffu<Tuple5<T1, T2, T3, T4, T5>> mSupplyMostSuccessTupleAsync(long timeout, TimeUnit unit, Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2, Supplier<? extends T3> supplier3, Supplier<? extends T4> supplier4, Supplier<? extends T5> supplier5) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1857,134 +1741,108 @@ public final class CffuFactory {
          * (which is indistinguishable from the supplier having a successful value of {@code null}).
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `CffuFactory#mRunAsyncAndForget`")
-        public <T1, T2, T3, T4, T5> Cffu<Tuple5<T1, T2, T3, T4, T5>> mSupplyMostSuccessTupleAsync(
-                long timeout, TimeUnit unit, Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2,
-                Supplier<? extends T3> supplier3, Supplier<? extends T4> supplier4, Supplier<? extends T5> supplier5,
-                Executor executor) {
-            return createCffu(CfTupleUtils.mSupplyMostSuccessTupleAsync(
-                    timeout, unit, supplier1, supplier2, supplier3, supplier4, supplier5, cffuScreened(executor)));
+        public <T1, T2, T3, T4, T5> Cffu<Tuple5<T1, T2, T3, T4, T5>> mSupplyMostSuccessTupleAsync(long timeout, TimeUnit unit, Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2, Supplier<? extends T3> supplier3, Supplier<? extends T4> supplier4, Supplier<? extends T5> supplier5, Executor executor) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
          * Tuple variant of {@link #mSupplyAsync(Supplier[])}.
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `CffuFactory#mRunAsyncAndForget`")
-        public <T1, T2> Cffu<Tuple2<T1, T2>> mSupplyTupleAsync(
-                Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2) {
-            return mSupplyTupleAsync(supplier1, supplier2, defaultExecutor);
+        public <T1, T2> Cffu<Tuple2<T1, T2>> mSupplyTupleAsync(Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
          * Tuple variant of {@link #mSupplyFailFastAsync(Executor, Supplier[])}.
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `CffuFactory#mRunAsyncAndForget`")
-        public <T1, T2> Cffu<Tuple2<T1, T2>> mSupplyTupleAsync(
-                Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2, Executor executor) {
-            return createCffu(CfTupleUtils.mSupplyTupleAsync(supplier1, supplier2, cffuScreened(executor)));
+        public <T1, T2> Cffu<Tuple2<T1, T2>> mSupplyTupleAsync(Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2, Executor executor) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
          * Tuple variant of {@link #mSupplyAsync(Supplier[])}.
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `CffuFactory#mRunAsyncAndForget`")
-        public <T1, T2, T3> Cffu<Tuple3<T1, T2, T3>> mSupplyTupleAsync(
-                Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2, Supplier<? extends T3> supplier3) {
-            return mSupplyTupleAsync(supplier1, supplier2, supplier3, defaultExecutor);
+        public <T1, T2, T3> Cffu<Tuple3<T1, T2, T3>> mSupplyTupleAsync(Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2, Supplier<? extends T3> supplier3) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
          * Tuple variant of {@link #mSupplyFailFastAsync(Executor, Supplier[])}.
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `CffuFactory#mRunAsyncAndForget`")
-        public <T1, T2, T3> Cffu<Tuple3<T1, T2, T3>> mSupplyTupleAsync(
-                Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2, Supplier<? extends T3> supplier3,
-                Executor executor) {
-            return createCffu(CfTupleUtils.mSupplyTupleAsync(supplier1, supplier2, supplier3, cffuScreened(executor)));
+        public <T1, T2, T3> Cffu<Tuple3<T1, T2, T3>> mSupplyTupleAsync(Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2, Supplier<? extends T3> supplier3, Executor executor) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
          * Tuple variant of {@link #mSupplyAsync(Supplier[])}.
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `CffuFactory#mRunAsyncAndForget`")
-        public <T1, T2, T3, T4> Cffu<Tuple4<T1, T2, T3, T4>> mSupplyTupleAsync(
-                Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2,
-                Supplier<? extends T3> supplier3, Supplier<? extends T4> supplier4) {
-            return mSupplyTupleAsync(supplier1, supplier2, supplier3, supplier4, defaultExecutor);
+        public <T1, T2, T3, T4> Cffu<Tuple4<T1, T2, T3, T4>> mSupplyTupleAsync(Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2, Supplier<? extends T3> supplier3, Supplier<? extends T4> supplier4) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
          * Tuple variant of {@link #mSupplyFailFastAsync(Executor, Supplier[])}.
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `CffuFactory#mRunAsyncAndForget`")
-        public <T1, T2, T3, T4> Cffu<Tuple4<T1, T2, T3, T4>> mSupplyTupleAsync(
-                Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2,
-                Supplier<? extends T3> supplier3, Supplier<? extends T4> supplier4, Executor executor) {
-            return createCffu(CfTupleUtils.mSupplyTupleAsync(
-                    supplier1, supplier2, supplier3, supplier4, cffuScreened(executor)));
+        public <T1, T2, T3, T4> Cffu<Tuple4<T1, T2, T3, T4>> mSupplyTupleAsync(Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2, Supplier<? extends T3> supplier3, Supplier<? extends T4> supplier4, Executor executor) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
          * Tuple variant of {@link #mSupplyAsync(Supplier[])}.
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `CffuFactory#mRunAsyncAndForget`")
-        public <T1, T2, T3, T4, T5> Cffu<Tuple5<T1, T2, T3, T4, T5>> mSupplyTupleAsync(
-                Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2, Supplier<? extends T3> supplier3,
-                Supplier<? extends T4> supplier4, Supplier<? extends T5> supplier5) {
-            return mSupplyTupleAsync(supplier1, supplier2, supplier3, supplier4, supplier5, defaultExecutor);
+        public <T1, T2, T3, T4, T5> Cffu<Tuple5<T1, T2, T3, T4, T5>> mSupplyTupleAsync(Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2, Supplier<? extends T3> supplier3, Supplier<? extends T4> supplier4, Supplier<? extends T5> supplier5) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
          * Tuple variant of {@link #mSupplyFailFastAsync(Executor, Supplier[])}.
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `CffuFactory#mRunAsyncAndForget`")
-        public <T1, T2, T3, T4, T5> Cffu<Tuple5<T1, T2, T3, T4, T5>> mSupplyTupleAsync(
-                Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2, Supplier<? extends T3> supplier3,
-                Supplier<? extends T4> supplier4, Supplier<? extends T5> supplier5, Executor executor) {
-            return createCffu(CfTupleUtils.mSupplyTupleAsync(
-                    supplier1, supplier2, supplier3, supplier4, supplier5, cffuScreened(executor)));
+        public <T1, T2, T3, T4, T5> Cffu<Tuple5<T1, T2, T3, T4, T5>> mSupplyTupleAsync(Supplier<? extends T1> supplier1, Supplier<? extends T2> supplier2, Supplier<? extends T3> supplier3, Supplier<? extends T4> supplier4, Supplier<? extends T5> supplier5, Executor executor) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         // endregion
         ////////////////////////////////////////////////////////////////////////////////
         // region## allTupleOf*/mostSuccessTupleOf Methods
         ////////////////////////////////////////////////////////////////////////////////
-
         /**
          * Tuple variant of {@link #allResultsFailFastOf(CompletionStage[])}.
          */
         @Contract(pure = true)
-        public <T1, T2> Cffu<Tuple2<T1, T2>> allTupleFailFastOf(
-                CompletionStage<? extends T1> cf1, CompletionStage<? extends T2> cf2) {
-            return createCffu(CfTupleUtils.allTupleFailFastOf(cf1, cf2));
+        public <T1, T2> Cffu<Tuple2<T1, T2>> allTupleFailFastOf(CompletionStage<? extends T1> cf1, CompletionStage<? extends T2> cf2) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
          * Tuple variant of {@link #allResultsFailFastOf(CompletionStage[])}.
          */
         @Contract(pure = true)
-        public <T1, T2, T3> Cffu<Tuple3<T1, T2, T3>> allTupleFailFastOf(
-                CompletionStage<? extends T1> cf1, CompletionStage<? extends T2> cf2, CompletionStage<? extends T3> cf3) {
-            return createCffu(CfTupleUtils.allTupleFailFastOf(cf1, cf2, cf3));
+        public <T1, T2, T3> Cffu<Tuple3<T1, T2, T3>> allTupleFailFastOf(CompletionStage<? extends T1> cf1, CompletionStage<? extends T2> cf2, CompletionStage<? extends T3> cf3) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
          * Tuple variant of {@link #allResultsFailFastOf(CompletionStage[])}.
          */
         @Contract(pure = true)
-        public <T1, T2, T3, T4> Cffu<Tuple4<T1, T2, T3, T4>> allTupleFailFastOf(
-                CompletionStage<? extends T1> cf1, CompletionStage<? extends T2> cf2,
-                CompletionStage<? extends T3> cf3, CompletionStage<? extends T4> cf4) {
-            return createCffu(CfTupleUtils.allTupleFailFastOf(cf1, cf2, cf3, cf4));
+        public <T1, T2, T3, T4> Cffu<Tuple4<T1, T2, T3, T4>> allTupleFailFastOf(CompletionStage<? extends T1> cf1, CompletionStage<? extends T2> cf2, CompletionStage<? extends T3> cf3, CompletionStage<? extends T4> cf4) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
          * Tuple variant of {@link #allResultsFailFastOf(CompletionStage[])}.
          */
         @Contract(pure = true)
-        public <T1, T2, T3, T4, T5> Cffu<Tuple5<T1, T2, T3, T4, T5>> allTupleFailFastOf(
-                CompletionStage<? extends T1> cf1, CompletionStage<? extends T2> cf2, CompletionStage<? extends T3> cf3,
-                CompletionStage<? extends T4> cf4, CompletionStage<? extends T5> cf5) {
-            return createCffu(CfTupleUtils.allTupleFailFastOf(cf1, cf2, cf3, cf4, cf5));
+        public <T1, T2, T3, T4, T5> Cffu<Tuple5<T1, T2, T3, T4, T5>> allTupleFailFastOf(CompletionStage<? extends T1> cf1, CompletionStage<? extends T2> cf2, CompletionStage<? extends T3> cf3, CompletionStage<? extends T4> cf4, CompletionStage<? extends T5> cf5) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -1994,9 +1852,8 @@ public final class CffuFactory {
          * (which is indistinguishable from the stage having a successful value of {@code null}).
          */
         @Contract(pure = true)
-        public <T1, T2> Cffu<Tuple2<T1, T2>> allSuccessTupleOf(
-                CompletionStage<? extends T1> cf1, CompletionStage<? extends T2> cf2) {
-            return createCffu(CfTupleUtils.allSuccessTupleOf(cf1, cf2));
+        public <T1, T2> Cffu<Tuple2<T1, T2>> allSuccessTupleOf(CompletionStage<? extends T1> cf1, CompletionStage<? extends T2> cf2) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -2006,9 +1863,8 @@ public final class CffuFactory {
          * (which is indistinguishable from the stage having a successful value of {@code null}).
          */
         @Contract(pure = true)
-        public <T1, T2, T3> Cffu<Tuple3<T1, T2, T3>> allSuccessTupleOf(
-                CompletionStage<? extends T1> cf1, CompletionStage<? extends T2> cf2, CompletionStage<? extends T3> cf3) {
-            return createCffu(CfTupleUtils.allSuccessTupleOf(cf1, cf2, cf3));
+        public <T1, T2, T3> Cffu<Tuple3<T1, T2, T3>> allSuccessTupleOf(CompletionStage<? extends T1> cf1, CompletionStage<? extends T2> cf2, CompletionStage<? extends T3> cf3) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -2018,10 +1874,8 @@ public final class CffuFactory {
          * (which is indistinguishable from the stage having a successful value of {@code null}).
          */
         @Contract(pure = true)
-        public <T1, T2, T3, T4> Cffu<Tuple4<T1, T2, T3, T4>> allSuccessTupleOf(
-                CompletionStage<? extends T1> cf1, CompletionStage<? extends T2> cf2,
-                CompletionStage<? extends T3> cf3, CompletionStage<? extends T4> cf4) {
-            return createCffu(CfTupleUtils.allSuccessTupleOf(cf1, cf2, cf3, cf4));
+        public <T1, T2, T3, T4> Cffu<Tuple4<T1, T2, T3, T4>> allSuccessTupleOf(CompletionStage<? extends T1> cf1, CompletionStage<? extends T2> cf2, CompletionStage<? extends T3> cf3, CompletionStage<? extends T4> cf4) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -2031,10 +1885,8 @@ public final class CffuFactory {
          * (which is indistinguishable from the stage having a successful value of {@code null}).
          */
         @Contract(pure = true)
-        public <T1, T2, T3, T4, T5> Cffu<Tuple5<T1, T2, T3, T4, T5>> allSuccessTupleOf(
-                CompletionStage<? extends T1> cf1, CompletionStage<? extends T2> cf2, CompletionStage<? extends T3> cf3,
-                CompletionStage<? extends T4> cf4, CompletionStage<? extends T5> cf5) {
-            return createCffu(CfTupleUtils.allSuccessTupleOf(cf1, cf2, cf3, cf4, cf5));
+        public <T1, T2, T3, T4, T5> Cffu<Tuple5<T1, T2, T3, T4, T5>> allSuccessTupleOf(CompletionStage<? extends T1> cf1, CompletionStage<? extends T2> cf2, CompletionStage<? extends T3> cf3, CompletionStage<? extends T4> cf4, CompletionStage<? extends T5> cf5) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -2045,9 +1897,8 @@ public final class CffuFactory {
          * (which is indistinguishable from the supplier having a successful value of {@code null}).
          */
         @Contract(pure = true)
-        public <T1, T2> Cffu<Tuple2<T1, T2>> mostSuccessTupleOf(
-                long timeout, TimeUnit unit, CompletionStage<? extends T1> cf1, CompletionStage<? extends T2> cf2) {
-            return createCffu(CfTupleUtils.mostSuccessTupleOf(defaultExecutor, timeout, unit, cf1, cf2));
+        public <T1, T2> Cffu<Tuple2<T1, T2>> mostSuccessTupleOf(long timeout, TimeUnit unit, CompletionStage<? extends T1> cf1, CompletionStage<? extends T2> cf2) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -2058,10 +1909,8 @@ public final class CffuFactory {
          * (which is indistinguishable from the supplier having a successful value of {@code null}).
          */
         @Contract(pure = true)
-        public <T1, T2, T3> Cffu<Tuple3<T1, T2, T3>> mostSuccessTupleOf(
-                long timeout, TimeUnit unit,
-                CompletionStage<? extends T1> cf1, CompletionStage<? extends T2> cf2, CompletionStage<? extends T3> cf3) {
-            return createCffu(CfTupleUtils.mostSuccessTupleOf(defaultExecutor, timeout, unit, cf1, cf2, cf3));
+        public <T1, T2, T3> Cffu<Tuple3<T1, T2, T3>> mostSuccessTupleOf(long timeout, TimeUnit unit, CompletionStage<? extends T1> cf1, CompletionStage<? extends T2> cf2, CompletionStage<? extends T3> cf3) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -2072,11 +1921,8 @@ public final class CffuFactory {
          * (which is indistinguishable from the supplier having a successful value of {@code null}).
          */
         @Contract(pure = true)
-        public <T1, T2, T3, T4> Cffu<Tuple4<T1, T2, T3, T4>> mostSuccessTupleOf(
-                long timeout, TimeUnit unit,
-                CompletionStage<? extends T1> cf1, CompletionStage<? extends T2> cf2,
-                CompletionStage<? extends T3> cf3, CompletionStage<? extends T4> cf4) {
-            return createCffu(CfTupleUtils.mostSuccessTupleOf(defaultExecutor, timeout, unit, cf1, cf2, cf3, cf4));
+        public <T1, T2, T3, T4> Cffu<Tuple4<T1, T2, T3, T4>> mostSuccessTupleOf(long timeout, TimeUnit unit, CompletionStage<? extends T1> cf1, CompletionStage<? extends T2> cf2, CompletionStage<? extends T3> cf3, CompletionStage<? extends T4> cf4) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -2087,51 +1933,43 @@ public final class CffuFactory {
          * (which is indistinguishable from the supplier having a successful value of {@code null}).
          */
         @Contract(pure = true)
-        public <T1, T2, T3, T4, T5> Cffu<Tuple5<T1, T2, T3, T4, T5>> mostSuccessTupleOf(
-                long timeout, TimeUnit unit,
-                CompletionStage<? extends T1> cf1, CompletionStage<? extends T2> cf2, CompletionStage<? extends T3> cf3,
-                CompletionStage<? extends T4> cf4, CompletionStage<? extends T5> cf5) {
-            return createCffu(CfTupleUtils.mostSuccessTupleOf(defaultExecutor, timeout, unit, cf1, cf2, cf3, cf4, cf5));
+        public <T1, T2, T3, T4, T5> Cffu<Tuple5<T1, T2, T3, T4, T5>> mostSuccessTupleOf(long timeout, TimeUnit unit, CompletionStage<? extends T1> cf1, CompletionStage<? extends T2> cf2, CompletionStage<? extends T3> cf3, CompletionStage<? extends T4> cf4, CompletionStage<? extends T5> cf5) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
          * Tuple variant of {@link #allResultsOf(CompletionStage[])}.
          */
         @Contract(pure = true)
-        public <T1, T2> Cffu<Tuple2<T1, T2>> allTupleOf(
-                CompletionStage<? extends T1> cf1, CompletionStage<? extends T2> cf2) {
-            return createCffu(CfTupleUtils.allTupleOf(cf1, cf2));
+        public <T1, T2> Cffu<Tuple2<T1, T2>> allTupleOf(CompletionStage<? extends T1> cf1, CompletionStage<? extends T2> cf2) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
          * Tuple variant of {@link #allResultsOf(CompletionStage[])}.
          */
         @Contract(pure = true)
-        public <T1, T2, T3> Cffu<Tuple3<T1, T2, T3>> allTupleOf(
-                CompletionStage<? extends T1> cf1, CompletionStage<? extends T2> cf2, CompletionStage<? extends T3> cf3) {
-            return createCffu(CfTupleUtils.allTupleOf(cf1, cf2, cf3));
+        public <T1, T2, T3> Cffu<Tuple3<T1, T2, T3>> allTupleOf(CompletionStage<? extends T1> cf1, CompletionStage<? extends T2> cf2, CompletionStage<? extends T3> cf3) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
          * Tuple variant of {@link #allResultsOf(CompletionStage[])}.
          */
         @Contract(pure = true)
-        public <T1, T2, T3, T4> Cffu<Tuple4<T1, T2, T3, T4>> allTupleOf(
-                CompletionStage<? extends T1> cf1, CompletionStage<? extends T2> cf2,
-                CompletionStage<? extends T3> cf3, CompletionStage<? extends T4> cf4) {
-            return createCffu(CfTupleUtils.allTupleOf(cf1, cf2, cf3, cf4));
+        public <T1, T2, T3, T4> Cffu<Tuple4<T1, T2, T3, T4>> allTupleOf(CompletionStage<? extends T1> cf1, CompletionStage<? extends T2> cf2, CompletionStage<? extends T3> cf3, CompletionStage<? extends T4> cf4) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
          * Tuple variant of {@link #allResultsOf(CompletionStage[])}.
          */
         @Contract(pure = true)
-        public <T1, T2, T3, T4, T5> Cffu<Tuple5<T1, T2, T3, T4, T5>> allTupleOf(
-                CompletionStage<? extends T1> cf1, CompletionStage<? extends T2> cf2, CompletionStage<? extends T3> cf3,
-                CompletionStage<? extends T4> cf4, CompletionStage<? extends T5> cf5) {
-            return createCffu(CfTupleUtils.allTupleOf(cf1, cf2, cf3, cf4, cf5));
+        public <T1, T2, T3, T4, T5> Cffu<Tuple5<T1, T2, T3, T4, T5>> allTupleOf(CompletionStage<? extends T1> cf1, CompletionStage<? extends T2> cf2, CompletionStage<? extends T3> cf3, CompletionStage<? extends T4> cf4, CompletionStage<? extends T5> cf5) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        private TupleOps() {}
+        private TupleOps() {
+        }
     }
 }

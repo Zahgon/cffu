@@ -339,3 +339,8 @@ Backup of *.doc*
 # Visio autosave temporary files
 *.~vsd*
 
+
+.aider*
+logs/
+.commit0_scripts/
+.github/workflows/

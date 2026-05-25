@@ -10,18 +10,15 @@ import io.foldright.cffu2.tuple.Tuple4;
 import io.foldright.cffu2.tuple.Tuple5;
 import org.jetbrains.annotations.Blocking;
 import org.jetbrains.annotations.Contract;
-
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.*;
 import java.util.function.*;
-
 import static io.foldright.cffu2.CffuFactoryBuilder.cffuScreened;
 import static io.foldright.cffu2.CffuFactoryBuilder.cffuUnscreened;
 import static io.foldright.cffu2.CompletableFutureUtils.*;
 import static io.foldright.cffu2.LLCF.*;
 import static java.util.Objects.requireNonNull;
-
 
 /**
  * Base class that provides shared functionality for {@link Cffu} and {@link MCffu} implementations.
@@ -35,10 +32,10 @@ import static java.util.Objects.requireNonNull;
  * @see MCffu
  */
 public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>, CompletionStage<T> {
+
     ////////////////////////////////////////////////////////////////////////////////
     // region# Internal constructor and fields
     ////////////////////////////////////////////////////////////////////////////////
-
     /**
      * CffuFactory that contains configuration (e.g. default executor).
      */
@@ -71,11 +68,11 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
     }
 
     final <U> Cffu<U> createCffu(CompletableFuture<U> cf) {
-        return new Cffu<>(fac, isMinimalStage, cf);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     final <E, U extends Iterable<? extends E>> MCffu<E, U> createMCffu(CompletableFuture<U> cf) {
-        return new MCffu<>(fac, isMinimalStage, cf);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     // endregion
@@ -86,7 +83,6 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
     //    - thenAccept*(Consumer: T -> Void)    -> Cffu<Void>
     //    - thenRun*   (Runnable: Void -> Void) -> Cffu<Void>
     ////////////////////////////////////////////////////////////////////////////////
-
     /**
      * Returns a new Cffu that, when this Cffu completes normally,
      * is executed with this Cffu's result as the argument to the supplied function.
@@ -102,7 +98,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, prefer method `thenAccept`")
     @Override
     public final <U> Cffu<U> thenApply(Function<? super T, ? extends U> fn) {
-        return createCffu(cf.thenApply(fn));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -118,7 +114,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, prefer method `thenMAcceptAsyncAndForget`")
     @Override
     public final <U> Cffu<U> thenApplyAsync(Function<? super T, ? extends U> fn) {
-        return thenApplyAsync(fn, fac.defaultExecutor);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -135,7 +131,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, prefer method `thenMAcceptAsyncAndForget`")
     @Override
     public final <U> Cffu<U> thenApplyAsync(Function<? super T, ? extends U> fn, Executor executor) {
-        return createCffu(cf.thenApplyAsync(fn, cffuScreened(executor)));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -148,7 +144,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @Override
     public final Cffu<Void> thenAccept(Consumer<? super T> action) {
-        return createCffu(cf.thenAccept(action));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -163,7 +159,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, prefer method `thenMAcceptAsyncAndForget`")
     @Override
     public final Cffu<Void> thenAcceptAsync(Consumer<? super T> action) {
-        return thenAcceptAsync(action, fac.defaultExecutor);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -178,7 +174,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, prefer method `thenMAcceptAsyncAndForget`")
     @Override
     public final Cffu<Void> thenAcceptAsync(Consumer<? super T> action, Executor executor) {
-        return createCffu(cf.thenAcceptAsync(action, cffuScreened(executor)));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -190,7 +186,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @Override
     public final Cffu<Void> thenRun(Runnable action) {
-        return createCffu(cf.thenRun(action));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -204,7 +200,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMRunAsyncAndForget`")
     @Override
     public final Cffu<Void> thenRunAsync(Runnable action) {
-        return thenRunAsync(action, fac.defaultExecutor);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -218,7 +214,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMRunAsyncAndForget`")
     @Override
     public final Cffu<Void> thenRunAsync(Runnable action, Executor executor) {
-        return createCffu(cf.thenRunAsync(action, cffuScreened(executor)));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     // endregion
@@ -229,7 +225,6 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
     //    - thenMAccept*(Consumer[]: T -> Void)    -> Cffu<Void>
     //    - thenMRun*   (Runnable[]: Void -> Void) -> Cffu<Void>
     ////////////////////////////////////////////////////////////
-
     /**
      * Shortcut to method {@link CffuFactory#allResultsFailFastOf allResultsFailFastOf},
      * wraps input functions to Cffu by {@link CffuFactory#supplyAsync(Supplier)};
@@ -240,7 +235,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
     @SafeVarargs
     public final <U> MCffu<U, List<U>> thenMApplyFailFastAsync(Function<? super T, ? extends U>... fns) {
-        return thenMApplyFailFastAsync(fac.defaultExecutor, fns);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -258,7 +253,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
     @SafeVarargs
     public final <U> MCffu<U, List<U>> thenMApplyFailFastAsync(Executor executor, Function<? super T, ? extends U>... fns) {
-        return createMCffu(CompletableFutureUtils.thenMApplyFailFastAsync(cf, cffuScreened(executor), fns));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -270,9 +265,8 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
     @SafeVarargs
-    public final <U> MCffu<U, List<U>> thenMApplyAllSuccessAsync(
-            @Nullable U valueIfFailed, Function<? super T, ? extends U>... fns) {
-        return thenMApplyAllSuccessAsync(fac.defaultExecutor, valueIfFailed, fns);
+    public final <U> MCffu<U, List<U>> thenMApplyAllSuccessAsync(@Nullable U valueIfFailed, Function<? super T, ? extends U>... fns) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -289,9 +283,8 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
     @SafeVarargs
-    public final <U> MCffu<U, List<U>> thenMApplyAllSuccessAsync(
-            Executor executor, @Nullable U valueIfFailed, Function<? super T, ? extends U>... fns) {
-        return createMCffu(CompletableFutureUtils.thenMApplyAllSuccessAsync(cf, cffuScreened(executor), valueIfFailed, fns));
+    public final <U> MCffu<U, List<U>> thenMApplyAllSuccessAsync(Executor executor, @Nullable U valueIfFailed, Function<? super T, ? extends U>... fns) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -303,9 +296,8 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
     @SafeVarargs
-    public final <U> MCffu<U, List<U>> thenMApplyMostSuccessAsync(
-            @Nullable U valueIfNotSuccess, long timeout, TimeUnit unit, Function<? super T, ? extends U>... fns) {
-        return thenMApplyMostSuccessAsync(fac.defaultExecutor, valueIfNotSuccess, timeout, unit, fns);
+    public final <U> MCffu<U, List<U>> thenMApplyMostSuccessAsync(@Nullable U valueIfNotSuccess, long timeout, TimeUnit unit, Function<? super T, ? extends U>... fns) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -317,11 +309,8 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
     @SafeVarargs
-    public final <U> MCffu<U, List<U>> thenMApplyMostSuccessAsync(
-            Executor executor, @Nullable U valueIfNotSuccess, long timeout, TimeUnit unit,
-            Function<? super T, ? extends U>... fns) {
-        return createMCffu(CompletableFutureUtils.thenMApplyMostSuccessAsync(
-                cf, cffuScreened(executor), valueIfNotSuccess, timeout, unit, fns));
+    public final <U> MCffu<U, List<U>> thenMApplyMostSuccessAsync(Executor executor, @Nullable U valueIfNotSuccess, long timeout, TimeUnit unit, Function<? super T, ? extends U>... fns) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -333,7 +322,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
     @SafeVarargs
     public final <U> MCffu<U, List<U>> thenMApplyAsync(Function<? super T, ? extends U>... fns) {
-        return thenMApplyAsync(fac.defaultExecutor, fns);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -350,7 +339,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
     @SafeVarargs
     public final <U> MCffu<U, List<U>> thenMApplyAsync(Executor executor, Function<? super T, ? extends U>... fns) {
-        return createMCffu(CompletableFutureUtils.thenMApplyAsync(cf, cffuScreened(executor), fns));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -362,7 +351,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
     @SafeVarargs
     public final <U> Cffu<U> thenMApplyAnySuccessAsync(Function<? super T, ? extends U>... fns) {
-        return thenMApplyAnySuccessAsync(fac.defaultExecutor, fns);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -379,7 +368,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
     @SafeVarargs
     public final <U> Cffu<U> thenMApplyAnySuccessAsync(Executor executor, Function<? super T, ? extends U>... fns) {
-        return createCffu(CompletableFutureUtils.thenMApplyAnySuccessAsync(cf, cffuScreened(executor), fns));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -391,7 +380,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
     @SafeVarargs
     public final <U> Cffu<U> thenMApplyAnyAsync(Function<? super T, ? extends U>... fns) {
-        return thenMApplyAnyAsync(fac.defaultExecutor, fns);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -408,7 +397,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
     @SafeVarargs
     public final <U> Cffu<U> thenMApplyAnyAsync(Executor executor, Function<? super T, ? extends U>... fns) {
-        return createCffu(CompletableFutureUtils.thenMApplyAnyAsync(cf, cffuScreened(executor), fns));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -425,7 +414,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
     @SafeVarargs
     public final Cffu<Void> thenMAcceptFailFastAsync(Consumer<? super T>... actions) {
-        return thenMAcceptFailFastAsync(fac.defaultExecutor, actions);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -442,7 +431,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
     @SafeVarargs
     public final Cffu<Void> thenMAcceptFailFastAsync(Executor executor, Consumer<? super T>... actions) {
-        return createCffu(CompletableFutureUtils.thenMAcceptFailFastAsync(cf, cffuScreened(executor), actions));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -459,7 +448,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
     @SafeVarargs
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
     public final Cffu<Void> thenMAcceptAsync(Consumer<? super T>... actions) {
-        return thenMAcceptAsync(fac.defaultExecutor, actions);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -476,7 +465,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
     @SafeVarargs
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
     public final Cffu<Void> thenMAcceptAsync(Executor executor, Consumer<? super T>... actions) {
-        return createCffu(CompletableFutureUtils.thenMAcceptAsync(cf, cffuScreened(executor), actions));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -493,7 +482,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
     @SafeVarargs
     public final Cffu<Void> thenMAcceptAnySuccessAsync(Consumer<? super T>... actions) {
-        return thenMAcceptAnySuccessAsync(fac.defaultExecutor, actions);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -510,7 +499,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
     @SafeVarargs
     public final Cffu<Void> thenMAcceptAnySuccessAsync(Executor executor, Consumer<? super T>... actions) {
-        return createCffu(CompletableFutureUtils.thenMAcceptAnySuccessAsync(cf, cffuScreened(executor), actions));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -527,7 +516,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
     @SafeVarargs
     public final Cffu<Void> thenMAcceptAnyAsync(Consumer<? super T>... actions) {
-        return thenMAcceptAnyAsync(fac.defaultExecutor, actions);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -544,7 +533,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
     @SafeVarargs
     public final Cffu<Void> thenMAcceptAnyAsync(Executor executor, Consumer<? super T>... actions) {
-        return createCffu(CompletableFutureUtils.thenMAcceptAnyAsync(cf, cffuScreened(executor), actions));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -563,7 +552,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @SafeVarargs
     public final F thenMAcceptAsyncAndForget(Consumer<? super T>... actions) {
-        return thenMAcceptAsyncAndForget(fac.defaultExecutor, actions);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -582,8 +571,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @SafeVarargs
     public final F thenMAcceptAsyncAndForget(Executor executor, Consumer<? super T>... actions) {
-        CompletableFutureUtils.thenMAcceptAsyncAndForget(cf, cffuScreened(executor), actions);
-        return this_();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -594,7 +582,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMRunAsyncAndForget`")
     public final Cffu<Void> thenMRunFailFastAsync(Runnable... actions) {
-        return thenMRunFailFastAsync(fac.defaultExecutor, actions);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -605,7 +593,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMRunAsyncAndForget`")
     public final Cffu<Void> thenMRunFailFastAsync(Executor executor, Runnable... actions) {
-        return createCffu(CompletableFutureUtils.thenMRunFailFastAsync(cf, cffuScreened(executor), actions));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -616,7 +604,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMRunAsyncAndForget`")
     public final Cffu<Void> thenMRunAsync(Runnable... actions) {
-        return thenMRunAsync(fac.defaultExecutor, actions);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -627,7 +615,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMRunAsyncAndForget`")
     public final Cffu<Void> thenMRunAsync(Executor executor, Runnable... actions) {
-        return createCffu(CompletableFutureUtils.thenMRunAsync(cf, cffuScreened(executor), actions));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -638,7 +626,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMRunAsyncAndForget`")
     public final Cffu<Void> thenMRunAnySuccessAsync(Runnable... actions) {
-        return thenMRunAnySuccessAsync(fac.defaultExecutor, actions);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -649,7 +637,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMRunAsyncAndForget`")
     public final Cffu<Void> thenMRunAnySuccessAsync(Executor executor, Runnable... actions) {
-        return createCffu(CompletableFutureUtils.thenMRunAnySuccessAsync(cf, cffuScreened(executor), actions));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -660,7 +648,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMRunAsyncAndForget`")
     public final Cffu<Void> thenMRunAnyAsync(Runnable... actions) {
-        return thenMRunAnyAsync(fac.defaultExecutor, actions);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -671,7 +659,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMRunAsyncAndForget`")
     public final Cffu<Void> thenMRunAnyAsync(Executor executor, Runnable... actions) {
-        return createCffu(CompletableFutureUtils.thenMRunAnyAsync(cf, cffuScreened(executor), actions));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -684,7 +672,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      * @since 2.1.0
      */
     public final F thenMRunAsyncAndForget(Runnable... actions) {
-        return thenMRunAsyncAndForget(fac.defaultExecutor, actions);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -697,8 +685,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      * @since 2.1.0
      */
     public final F thenMRunAsyncAndForget(Executor executor, Runnable... actions) {
-        CompletableFutureUtils.thenMRunAsyncAndForget(cf, cffuScreened(executor), actions);
-        return this_();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     // endregion
@@ -709,7 +696,6 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
     //    - thenAcceptBoth*(BiConsumer: (T, U) -> Void) -> Cffu<Void>
     //    - runAfterBoth*  (Runnable:   Void -> Void)   -> Cffu<Void>
     ////////////////////////////////////////////////////////////////////////////////
-
     /**
      * Returns a new Cffu that, when this Cffu and the other given stage both complete normally,
      * is executed with the two results as arguments to the supplied function.
@@ -723,9 +709,8 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      * @param <V>   the function's return type
      */
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, prefer method `thenAcceptBoth`")
-    public final <U, V> Cffu<V> thenCombineFailFast(
-            CompletionStage<? extends U> other, BiFunction<? super T, ? super U, ? extends V> fn) {
-        return createCffu(CompletableFutureUtils.thenCombineFailFast(cf, other, fn));
+    public final <U, V> Cffu<V> thenCombineFailFast(CompletionStage<? extends U> other, BiFunction<? super T, ? super U, ? extends V> fn) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -741,9 +726,8 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      * @param <V>   the function's return type
      */
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, prefer method `thenAcceptBothAsync`")
-    public final <U, V> Cffu<V> thenCombineFailFastAsync(
-            CompletionStage<? extends U> other, BiFunction<? super T, ? super U, ? extends V> fn) {
-        return thenCombineFailFastAsync(other, fn, fac.defaultExecutor);
+    public final <U, V> Cffu<V> thenCombineFailFastAsync(CompletionStage<? extends U> other, BiFunction<? super T, ? super U, ? extends V> fn) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -760,9 +744,8 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      * @param <V>      the function's return type
      */
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, prefer method `thenAcceptBothAsync`")
-    public final <U, V> Cffu<V> thenCombineFailFastAsync(
-            CompletionStage<? extends U> other, BiFunction<? super T, ? super U, ? extends V> fn, Executor executor) {
-        return createCffu(CompletableFutureUtils.thenCombineFailFastAsync(cf, other, fn, cffuScreened(executor)));
+    public final <U, V> Cffu<V> thenCombineFailFastAsync(CompletionStage<? extends U> other, BiFunction<? super T, ? super U, ? extends V> fn, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -777,9 +760,8 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      * @param <U>    the type of the other CompletionStage's result
      */
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, prefer method `thenAcceptBoth`")
-    public final <U> Cffu<Void> thenAcceptBothFailFast(
-            CompletionStage<? extends U> other, BiConsumer<? super T, ? super U> action) {
-        return createCffu(CompletableFutureUtils.thenAcceptBothFailFast(cf, other, action));
+    public final <U> Cffu<Void> thenAcceptBothFailFast(CompletionStage<? extends U> other, BiConsumer<? super T, ? super U> action) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -794,9 +776,8 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      * @param <U>    the type of the other CompletionStage's result
      */
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, prefer method `thenAcceptBothAsync`")
-    public final <U> Cffu<Void> thenAcceptBothFailFastAsync(
-            CompletionStage<? extends U> other, BiConsumer<? super T, ? super U> action) {
-        return thenAcceptBothFailFastAsync(other, action, fac.defaultExecutor);
+    public final <U> Cffu<Void> thenAcceptBothFailFastAsync(CompletionStage<? extends U> other, BiConsumer<? super T, ? super U> action) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -812,9 +793,8 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      * @param <U>      the type of the other CompletionStage's result
      */
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, prefer method `thenAcceptBothAsync`")
-    public final <U> Cffu<Void> thenAcceptBothFailFastAsync(
-            CompletionStage<? extends U> other, BiConsumer<? super T, ? super U> action, Executor executor) {
-        return createCffu(CompletableFutureUtils.thenAcceptBothFailFastAsync(cf, other, action, cffuScreened(executor)));
+    public final <U> Cffu<Void> thenAcceptBothFailFastAsync(CompletionStage<? extends U> other, BiConsumer<? super T, ? super U> action, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -828,7 +808,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, prefer method `runAfterBoth`")
     public final Cffu<Void> runAfterBothFailFast(CompletionStage<?> other, Runnable action) {
-        return createCffu(CompletableFutureUtils.runAfterBothFailFast(cf, other, action));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -843,7 +823,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, prefer method `runAfterBothAsync`")
     public final Cffu<Void> runAfterBothFailFastAsync(CompletionStage<?> other, Runnable action) {
-        return runAfterBothFailFastAsync(other, action, fac.defaultExecutor);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -859,7 +839,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, prefer method `runAfterBothAsync`")
     public final Cffu<Void> runAfterBothFailFastAsync(CompletionStage<?> other, Runnable action, Executor executor) {
-        return createCffu(CompletableFutureUtils.runAfterBothFailFastAsync(cf, other, action, cffuScreened(executor)));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -875,9 +855,8 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, prefer method `thenAcceptBoth`")
     @Override
-    public final <U, V> Cffu<V> thenCombine(
-            CompletionStage<? extends U> other, BiFunction<? super T, ? super U, ? extends V> fn) {
-        return createCffu(cf.thenCombine(other, fn));
+    public final <U, V> Cffu<V> thenCombine(CompletionStage<? extends U> other, BiFunction<? super T, ? super U, ? extends V> fn) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -893,9 +872,8 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, prefer method `thenAcceptBothAsync`")
     @Override
-    public final <U, V> Cffu<V> thenCombineAsync(
-            CompletionStage<? extends U> other, BiFunction<? super T, ? super U, ? extends V> fn) {
-        return thenCombineAsync(other, fn, fac.defaultExecutor);
+    public final <U, V> Cffu<V> thenCombineAsync(CompletionStage<? extends U> other, BiFunction<? super T, ? super U, ? extends V> fn) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -912,9 +890,8 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, prefer method `thenAcceptBothAsync`")
     @Override
-    public final <U, V> Cffu<V> thenCombineAsync(
-            CompletionStage<? extends U> other, BiFunction<? super T, ? super U, ? extends V> fn, Executor executor) {
-        return createCffu(cf.thenCombineAsync(other, fn, cffuScreened(executor)));
+    public final <U, V> Cffu<V> thenCombineAsync(CompletionStage<? extends U> other, BiFunction<? super T, ? super U, ? extends V> fn, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -929,7 +906,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @Override
     public final <U> Cffu<Void> thenAcceptBoth(CompletionStage<? extends U> other, BiConsumer<? super T, ? super U> action) {
-        return createCffu(cf.thenAcceptBoth(other, action));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -943,9 +920,8 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      * @param <U>    the type of the other CompletionStage's result
      */
     @Override
-    public final <U> Cffu<Void> thenAcceptBothAsync(
-            CompletionStage<? extends U> other, BiConsumer<? super T, ? super U> action) {
-        return thenAcceptBothAsync(other, action, fac.defaultExecutor);
+    public final <U> Cffu<Void> thenAcceptBothAsync(CompletionStage<? extends U> other, BiConsumer<? super T, ? super U> action) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -960,9 +936,8 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      * @param <U>      the type of the other CompletionStage's result
      */
     @Override
-    public final <U> Cffu<Void> thenAcceptBothAsync(
-            CompletionStage<? extends U> other, BiConsumer<? super T, ? super U> action, Executor executor) {
-        return createCffu(cf.thenAcceptBothAsync(other, action, cffuScreened(executor)));
+    public final <U> Cffu<Void> thenAcceptBothAsync(CompletionStage<? extends U> other, BiConsumer<? super T, ? super U> action, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -975,7 +950,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @Override
     public final Cffu<Void> runAfterBoth(CompletionStage<?> other, Runnable action) {
-        return createCffu(cf.runAfterBoth(other, action));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -990,7 +965,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @Override
     public final Cffu<Void> runAfterBothAsync(CompletionStage<?> other, Runnable action) {
-        return runAfterBothAsync(other, action, fac.defaultExecutor);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1005,7 +980,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @Override
     public final Cffu<Void> runAfterBothAsync(CompletionStage<?> other, Runnable action, Executor executor) {
-        return createCffu(cf.runAfterBothAsync(other, action, cffuScreened(executor)));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     // endregion
@@ -1016,7 +991,6 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
     //    - acceptEither*  (Consumer: (T) -> Void)  -> Cffu<Void>
     //    - runAfterEither*(Runnable: Void -> Void) -> Cffu<Void>
     ////////////////////////////////////////////////////////////////////////////////
-
     /**
      * Returns a new Cffu that, when either this or the other given stage complete normally,
      * is executed with the corresponding result as argument to the supplied function.
@@ -1029,7 +1003,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, prefer method `acceptEitherSuccess`")
     public final <U> Cffu<U> applyToEitherSuccess(CompletionStage<? extends T> other, Function<? super T, ? extends U> fn) {
-        return createCffu(CompletableFutureUtils.applyToEitherSuccess(cf, other, fn));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1045,7 +1019,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, prefer method `acceptEitherSuccessAsync`")
     public final <U> Cffu<U> applyToEitherSuccessAsync(CompletionStage<? extends T> other, Function<? super T, ? extends U> fn) {
-        return applyToEitherSuccessAsync(other, fn, fac.defaultExecutor);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1060,9 +1034,8 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      * @param <U>      the function's return type
      */
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, prefer method `acceptEitherSuccessAsync`")
-    public final <U> Cffu<U> applyToEitherSuccessAsync(
-            CompletionStage<? extends T> other, Function<? super T, ? extends U> fn, Executor executor) {
-        return createCffu(CompletableFutureUtils.applyToEitherSuccessAsync(cf, other, fn, cffuScreened(executor)));
+    public final <U> Cffu<U> applyToEitherSuccessAsync(CompletionStage<? extends T> other, Function<? super T, ? extends U> fn, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1075,7 +1048,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      * @param action the action to perform before completing the returned Cffu
      */
     public final Cffu<Void> acceptEitherSuccess(CompletionStage<? extends T> other, Consumer<? super T> action) {
-        return createCffu(CompletableFutureUtils.acceptEitherSuccess(cf, other, action));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1089,7 +1062,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      * @param action the action to perform before completing the returned Cffu
      */
     public final Cffu<Void> acceptEitherSuccessAsync(CompletionStage<? extends T> other, Consumer<? super T> action) {
-        return acceptEitherSuccessAsync(other, action, fac.defaultExecutor);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1102,9 +1075,8 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      * @param action   the action to perform before completing the returned Cffu
      * @param executor the executor to use for asynchronous execution
      */
-    public final Cffu<Void> acceptEitherSuccessAsync(
-            CompletionStage<? extends T> other, Consumer<? super T> action, Executor executor) {
-        return createCffu(CompletableFutureUtils.acceptEitherSuccessAsync(cf, other, action, cffuScreened(executor)));
+    public final Cffu<Void> acceptEitherSuccessAsync(CompletionStage<? extends T> other, Consumer<? super T> action, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1116,7 +1088,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      * @param action the action to perform before completing the returned Cffu
      */
     public final Cffu<Void> runAfterEitherSuccess(CompletionStage<?> other, Runnable action) {
-        return createCffu(CompletableFutureUtils.runAfterEitherSuccess(cf, other, action));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1129,7 +1101,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      * @param action the action to perform before completing the returned Cffu
      */
     public final Cffu<Void> runAfterEitherSuccessAsync(CompletionStage<?> other, Runnable action) {
-        return runAfterEitherSuccessAsync(other, action, fac.defaultExecutor);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1143,7 +1115,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      * @param executor the executor to use for asynchronous execution
      */
     public final Cffu<Void> runAfterEitherSuccessAsync(CompletionStage<?> other, Runnable action, Executor executor) {
-        return createCffu(CompletableFutureUtils.runAfterEitherSuccessAsync(cf, other, action, cffuScreened(executor)));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1159,7 +1131,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, prefer method `acceptEither`")
     @Override
     public final <U> Cffu<U> applyToEither(CompletionStage<? extends T> other, Function<? super T, U> fn) {
-        return createCffu(cf.applyToEither(other, fn));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1176,7 +1148,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, prefer method `acceptEitherAsync`")
     @Override
     public final <U> Cffu<U> applyToEitherAsync(CompletionStage<? extends T> other, Function<? super T, U> fn) {
-        return applyToEitherAsync(other, fn, fac.defaultExecutor);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1192,9 +1164,8 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, prefer method `acceptEitherAsync`")
     @Override
-    public final <U> Cffu<U> applyToEitherAsync(
-            CompletionStage<? extends T> other, Function<? super T, U> fn, Executor executor) {
-        return createCffu(cf.applyToEitherAsync(other, fn, cffuScreened(executor)));
+    public final <U> Cffu<U> applyToEitherAsync(CompletionStage<? extends T> other, Function<? super T, U> fn, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1208,7 +1179,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @Override
     public final Cffu<Void> acceptEither(CompletionStage<? extends T> other, Consumer<? super T> action) {
-        return createCffu(cf.acceptEither(other, action));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1223,7 +1194,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @Override
     public final Cffu<Void> acceptEitherAsync(CompletionStage<? extends T> other, Consumer<? super T> action) {
-        return acceptEitherAsync(other, action, fac.defaultExecutor);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1237,9 +1208,8 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      * @param executor the executor to use for asynchronous execution
      */
     @Override
-    public final Cffu<Void> acceptEitherAsync(
-            CompletionStage<? extends T> other, Consumer<? super T> action, Executor executor) {
-        return createCffu(cf.acceptEitherAsync(other, action, cffuScreened(executor)));
+    public final Cffu<Void> acceptEitherAsync(CompletionStage<? extends T> other, Consumer<? super T> action, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1253,7 +1223,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @Override
     public final Cffu<Void> runAfterEither(CompletionStage<?> other, Runnable action) {
-        return createCffu(cf.runAfterEither(other, action));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1267,7 +1237,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @Override
     public final Cffu<Void> runAfterEitherAsync(CompletionStage<?> other, Runnable action) {
-        return runAfterEitherAsync(other, action, fac.defaultExecutor);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1282,14 +1252,13 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @Override
     public final Cffu<Void> runAfterEitherAsync(CompletionStage<?> other, Runnable action, Executor executor) {
-        return createCffu(cf.runAfterEitherAsync(other, action, cffuScreened(executor)));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     // endregion
     ////////////////////////////////////////////////////////////////////////////////
     // region# Error Handling Methods of CompletionStage
     ////////////////////////////////////////////////////////////////////////////////
-
     /**
      * Returns a new Cffu that, when this Cffu completes exceptionally with the given exceptionType,
      * is executed with the exception from this Cffu as the argument to the supplied function.
@@ -1308,7 +1277,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      * @see Futures#catching the equivalent Guava method catching()
      */
     public final <X extends Throwable> F catching(Class<X> exceptionType, Function<? super X, ? extends T> fallback) {
-        return create(CompletableFutureUtils.catching(cf, exceptionType, nonExSwallowedFunction(fallback, false)));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1328,9 +1297,8 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      * @see CompletableFutureUtils#unwrapCfException(Throwable)
      * @see Futures#catching the equivalent Guava method catching()
      */
-    public final <X extends Throwable> F catchingAsync(
-            Class<X> exceptionType, Function<? super X, ? extends T> fallback) {
-        return catchingAsync(exceptionType, fallback, fac.defaultExecutor);
+    public final <X extends Throwable> F catchingAsync(Class<X> exceptionType, Function<? super X, ? extends T> fallback) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1351,10 +1319,8 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      * @see CompletableFutureUtils#unwrapCfException(Throwable)
      * @see Futures#catching the equivalent Guava method catching()
      */
-    public final <X extends Throwable> F catchingAsync(
-            Class<X> exceptionType, Function<? super X, ? extends T> fallback, Executor executor) {
-        return create(CompletableFutureUtils.catchingAsync(
-                cf, exceptionType, nonExSwallowedFunction(fallback, false), cffuScreened(executor)));
+    public final <X extends Throwable> F catchingAsync(Class<X> exceptionType, Function<? super X, ? extends T> fallback, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1373,7 +1339,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @Override
     public final F exceptionally(Function<Throwable, ? extends T> fn) {
-        return create(cf.exceptionally(nonExSwallowedFunction(fn, false)));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1393,7 +1359,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @Override
     public final F exceptionallyAsync(Function<Throwable, ? extends T> fn) {
-        return exceptionallyAsync(fn, fac.defaultExecutor);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1413,14 +1379,13 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @Override
     public final F exceptionallyAsync(Function<Throwable, ? extends T> fn, Executor executor) {
-        return create(CompletableFutureUtils.exceptionallyAsync(cf, nonExSwallowedFunction(fn, false), cffuScreened(executor)));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     // endregion
     ////////////////////////////////////////////////////////////////////////////////
     // region# Timeout Control Methods
     ////////////////////////////////////////////////////////////////////////////////
-
     /**
      * Returns a new Cffu that is completed exceptionally with a {@link TimeoutException}
      * when this Cffu is not completed before the given timeout; otherwise the returned
@@ -1439,8 +1404,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      * @param unit    a {@code TimeUnit} determining how to interpret the {@code timeout} parameter
      */
     public final F orTimeout(long timeout, TimeUnit unit) {
-        checkMinimalStage();
-        return create(CompletableFutureUtils.cffuOrTimeout(cf, timeout, unit, fac.defaultExecutor));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1476,9 +1440,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @Contract("_, _ -> this")
     public final F unsafeOrTimeout(long timeout, TimeUnit unit) {
-        checkMinimalStage();
-        CompletableFutureUtils.orTimeout(cf, timeout, unit);
-        return this_();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1501,8 +1463,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      * @param unit    a {@code TimeUnit} determining how to interpret the {@code timeout} parameter
      */
     public final F completeOnTimeout(@Nullable T value, long timeout, TimeUnit unit) {
-        checkMinimalStage();
-        return create(CompletableFutureUtils.cffuCompleteOnTimeout(cf, value, timeout, unit, fac.defaultExecutor));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1532,9 +1493,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @Contract("_, _, _ -> this")
     public final F unsafeCompleteOnTimeout(@Nullable T value, long timeout, TimeUnit unit) {
-        checkMinimalStage();
-        CompletableFutureUtils.completeOnTimeout(cf, value, timeout, unit);
-        return this_();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     // endregion
@@ -1545,7 +1504,6 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
     //   - `compose` methods, input function argument returns CompletionStage
     //   - handle the successful and failed result together(handle*/whenComplete*/peek*)
     ////////////////////////////////////////////////////////////////////////////////
-
     /**
      * Returns a new Cffu that is completed with the same value
      * as the CompletionStage returned by the given function.
@@ -1567,7 +1525,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @Override
     public final <U> Cffu<U> thenCompose(Function<? super T, ? extends CompletionStage<U>> fn) {
-        return createCffu(cf.thenCompose(fn));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1587,7 +1545,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @Override
     public final <U> Cffu<U> thenComposeAsync(Function<? super T, ? extends CompletionStage<U>> fn) {
-        return thenComposeAsync(fn, fac.defaultExecutor);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1608,7 +1566,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @Override
     public final <U> Cffu<U> thenComposeAsync(Function<? super T, ? extends CompletionStage<U>> fn, Executor executor) {
-        return createCffu(cf.thenComposeAsync(fn, cffuScreened(executor)));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1627,9 +1585,8 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      * @see CompletableFutureUtils#unwrapCfException(Throwable)
      * @see Futures#catchingAsync the equivalent Guava method catchingAsync()
      */
-    public final <X extends Throwable> F catchingCompose(
-            Class<X> exceptionType, Function<? super X, ? extends CompletionStage<T>> fallback) {
-        return create(CompletableFutureUtils.catchingCompose(cf, exceptionType, nonExSwallowedFunction(fallback, false)));
+    public final <X extends Throwable> F catchingCompose(Class<X> exceptionType, Function<? super X, ? extends CompletionStage<T>> fallback) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1648,9 +1605,8 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      * @see CompletableFutureUtils#unwrapCfException(Throwable)
      * @see Futures#catchingAsync the equivalent Guava method catchingAsync()
      */
-    public final <X extends Throwable> F catchingComposeAsync(
-            Class<X> exceptionType, Function<? super X, ? extends CompletionStage<T>> fallback) {
-        return catchingComposeAsync(exceptionType, fallback, fac.defaultExecutor);
+    public final <X extends Throwable> F catchingComposeAsync(Class<X> exceptionType, Function<? super X, ? extends CompletionStage<T>> fallback) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1670,10 +1626,8 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      * @see CompletableFutureUtils#unwrapCfException(Throwable)
      * @see Futures#catchingAsync the equivalent Guava method catchingAsync()
      */
-    public final <X extends Throwable> F catchingComposeAsync(
-            Class<X> exceptionType, Function<? super X, ? extends CompletionStage<T>> fallback, Executor executor) {
-        return create(CompletableFutureUtils.catchingComposeAsync(
-                cf, exceptionType, nonExSwallowedFunction(fallback, false), cffuScreened(executor)));
+    public final <X extends Throwable> F catchingComposeAsync(Class<X> exceptionType, Function<? super X, ? extends CompletionStage<T>> fallback, Executor executor) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1690,7 +1644,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @Override
     public final F exceptionallyCompose(Function<Throwable, ? extends CompletionStage<T>> fn) {
-        return create(CompletableFutureUtils.exceptionallyCompose(cf, nonExSwallowedFunction(fn, false)));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1708,7 +1662,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @Override
     public final F exceptionallyComposeAsync(Function<Throwable, ? extends CompletionStage<T>> fn) {
-        return exceptionallyComposeAsync(fn, fac.defaultExecutor);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1727,7 +1681,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @Override
     public final F exceptionallyComposeAsync(Function<Throwable, ? extends CompletionStage<T>> fn, Executor executor) {
-        return create(CompletableFutureUtils.exceptionallyComposeAsync(cf, nonExSwallowedFunction(fn, false), cffuScreened(executor)));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1744,7 +1698,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, prefer method `peek`")
     @Override
     public final <U> Cffu<U> handle(BiFunction<? super T, Throwable, ? extends U> fn) {
-        return createCffu(cf.handle(nonExSwallowedBiFunction(fn, false)));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1762,7 +1716,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, prefer method `peekAsync`")
     @Override
     public final <U> Cffu<U> handleAsync(BiFunction<? super T, Throwable, ? extends U> fn) {
-        return handleAsync(fn, fac.defaultExecutor);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1781,7 +1735,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, prefer method `peekAsync`")
     @Override
     public final <U> Cffu<U> handleAsync(BiFunction<? super T, Throwable, ? extends U> fn, Executor executor) {
-        return createCffu(cf.handleAsync(nonExSwallowedBiFunction(fn, false), cffuScreened(executor)));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1804,15 +1758,16 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, prefer method `peek`")
     @Override
     public final F whenComplete(BiConsumer<? super T, ? super Throwable> action) {
-        return create(cf.whenComplete(nonExSwallowedWrapForJava8(action)));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
-    private static <T> BiConsumer<? super T, ? super Throwable> nonExSwallowedWrapForJava8(
-            BiConsumer<? super T, ? super Throwable> action) {
+    private static <T> BiConsumer<? super T, ? super Throwable> nonExSwallowedWrapForJava8(BiConsumer<? super T, ? super Throwable> action) {
         // In Java 8, CompletableFuture.whenComplete silently swallows exceptions thrown by the action.
         // In Java 9+, exceptions are properly propagated by being added as suppressed exceptions to the original.
-        if (IS_JAVA9_PLUS) return action;
-        else return nonExSwallowedBiConsumer(action, true);
+        if (IS_JAVA9_PLUS)
+            return action;
+        else
+            return nonExSwallowedBiConsumer(action, true);
     }
 
     /**
@@ -1837,7 +1792,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, prefer method `peekAsync`")
     @Override
     public final F whenCompleteAsync(BiConsumer<? super T, ? super Throwable> action) {
-        return whenCompleteAsync(action, fac.defaultExecutor);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1862,7 +1817,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
     @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, prefer method `peekAsync`")
     @Override
     public final F whenCompleteAsync(BiConsumer<? super T, ? super Throwable> action, Executor executor) {
-        return create(cf.whenCompleteAsync(nonExSwallowedWrapForJava8(action), cffuScreened(executor)));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1892,8 +1847,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @Contract("_ -> this")
     public final F peek(BiConsumer<? super T, ? super Throwable> action) {
-        CompletableFutureUtils.peek(cf, action);
-        return this_();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1924,7 +1878,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @Contract("_ -> this")
     public final F peekAsync(BiConsumer<? super T, ? super Throwable> action) {
-        return peekAsync(action, fac.defaultExecutor);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -1955,8 +1909,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @Contract("_, _ -> this")
     public final F peekAsync(BiConsumer<? super T, ? super Throwable> action, Executor executor) {
-        CompletableFutureUtils.peekAsync(cf, action, cffuScreened(executor));
-        return this_();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     // endregion
@@ -1984,7 +1937,6 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
     //   - getNow/join throw CompletionException(unchecked exception),
     //     these methods exists in `CompletableFuture` since Java 8
     ////////////////////////////////////////////////////////////////////////////////
-
     /**
      * Waits if necessary for the computation to complete, and then retrieves its result.
      *
@@ -1995,9 +1947,9 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @Blocking
     @Override
-    public final @Nullable T get() throws InterruptedException, ExecutionException {
-        checkMinimalStage();
-        return cf.get();
+    @Nullable
+    public final T get() throws InterruptedException, ExecutionException {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2014,9 +1966,9 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @Blocking
     @Override
-    public final @Nullable T get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException {
-        checkMinimalStage();
-        return cf.get(timeout, unit);
+    @Nullable
+    public final T get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2032,9 +1984,9 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      *                               or a completion computation threw an exception
      */
     @Blocking
-    public final @Nullable T join() {
-        checkMinimalStage();
-        return cf.join();
+    @Nullable
+    public final T join() {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2065,9 +2017,9 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      * @see #orTimeout(long, TimeUnit)
      */
     @Blocking
-    public final @Nullable T join(long timeout, TimeUnit unit) {
-        checkMinimalStage();
-        return CompletableFutureUtils.join(cf, timeout, unit);
+    @Nullable
+    public final T join(long timeout, TimeUnit unit) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2082,9 +2034,9 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      * @see #getSuccessNow(Object)
      */
     @Contract(pure = true)
-    public final @Nullable T getNow(@Nullable T valueIfAbsent) {
-        checkMinimalStage();
-        return cf.getNow(valueIfAbsent);
+    @Nullable
+    public final T getNow(@Nullable T valueIfAbsent) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2097,9 +2049,9 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      * @return the result value, if completed normally, else the given valueIfNotSuccess
      */
     @Contract(pure = true)
-    public final @Nullable T getSuccessNow(@Nullable T valueIfNotSuccess) {
-        checkMinimalStage();
-        return CompletableFutureUtils.getSuccessNow(cf, valueIfNotSuccess);
+    @Nullable
+    public final T getSuccessNow(@Nullable T valueIfNotSuccess) {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2119,9 +2071,9 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @Contract(pure = true)
     @Override
-    public final @Nullable T resultNow() {
-        checkMinimalStage();
-        return CompletableFutureUtils.resultNow(cf);
+    @Nullable
+    public final T resultNow() {
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2137,8 +2089,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
     @Contract(pure = true)
     @Override
     public final Throwable exceptionNow() {
-        checkMinimalStage();
-        return CompletableFutureUtils.exceptionNow(cf);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2152,8 +2103,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
     @Contract(pure = true)
     @Override
     public final boolean isDone() {
-        checkMinimalStage();
-        return cf.isDone();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2165,8 +2115,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @Contract(pure = true)
     public final boolean isCompletedExceptionally() {
-        checkMinimalStage();
-        return cf.isCompletedExceptionally();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2178,8 +2127,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
     @Contract(pure = true)
     @Override
     public final boolean isCancelled() {
-        checkMinimalStage();
-        return cf.isCancelled();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2196,8 +2144,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
     @Contract(pure = true)
     @Override
     public final Future.State state() {
-        checkMinimalStage();
-        return cf.state();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2208,15 +2155,13 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @Contract(pure = true)
     public final CffuState cffuState() {
-        checkMinimalStage();
-        return CompletableFutureUtils.state(cf);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     // endregion
     ////////////////////////////////////////////////////////////////////////////////
     // region# Write Methods
     ////////////////////////////////////////////////////////////////////////////////
-
     /**
      * If not already completed, sets the value returned by {@link #get()} and related methods to the given value.
      *
@@ -2224,8 +2169,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      * @return {@code true} if this invocation caused this Cffu to transition to a completed state, else {@code false}
      */
     public final boolean complete(@Nullable T value) {
-        checkMinimalStage();
-        return cf.complete(value);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2237,7 +2181,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @Contract("_ -> this")
     public final F completeAsync(Supplier<? extends T> supplier) {
-        return completeAsync(supplier, fac.defaultExecutor);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2250,10 +2194,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @Contract("_, _ -> this")
     public final F completeAsync(Supplier<? extends T> supplier, Executor executor) {
-        checkMinimalStage();
-        // NOTE: do NOT translate (ad hoc input) executor to screened executor; same as CompletableFuture.completeAsync
-        CompletableFutureUtils.completeAsync(cf, supplier, cffuUnscreened(executor));
-        return this_();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2263,8 +2204,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      * @return {@code true} if this invocation caused this Cffu to transition to a completed state, else {@code false}
      */
     public final boolean completeExceptionally(Throwable ex) {
-        checkMinimalStage();
-        return cf.completeExceptionally(ex);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2276,7 +2216,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @Contract("_ -> this")
     public final F completeExceptionallyAsync(Supplier<? extends Throwable> supplier) {
-        return completeExceptionallyAsync(supplier, fac.defaultExecutor);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2289,10 +2229,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @Contract("_, _ -> this")
     public final F completeExceptionallyAsync(Supplier<? extends Throwable> supplier, Executor executor) {
-        checkMinimalStage();
-        // NOTE: do NOT translate (ad hoc input) executor to screened executor; same as CompletableFuture.completeAsync
-        CompletableFutureUtils.completeExceptionallyAsync(cf, supplier, cffuUnscreened(executor));
-        return this_();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2306,15 +2243,13 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @Override
     public final boolean cancel(boolean mayInterruptIfRunning) {
-        checkMinimalStage();
-        return cf.cancel(mayInterruptIfRunning);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     // endregion
     ////////////////////////////////////////////////////////////////////////////////
     // region# Re-Config Methods
     ////////////////////////////////////////////////////////////////////////////////
-
     /**
      * Returns a new Cffu that is completed normally with the same value as this Cffu when it completes normally.
      * If this Cffu completes exceptionally, then the returned Cffu completes exceptionally
@@ -2324,7 +2259,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @Contract(pure = true)
     public final F copy() {
-        return create(CompletableFutureUtils.copy(cf));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2339,7 +2274,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
     @Contract(pure = true)
     @Override
     public final CompletableFuture<T> toCompletableFuture() {
-        return cf.toCompletableFuture();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2360,7 +2295,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @Contract(pure = true)
     public final CompletionStage<T> minimalCompletionStage() {
-        return create(fac, true, (CompletableFuture<T>) CompletableFutureUtils.minimalCompletionStage(cf));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2379,7 +2314,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @Contract(pure = true)
     public final F withDefaultExecutor(Executor defaultExecutor) {
-        return withCffuFactory(fac.withDefaultExecutor(defaultExecutor));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2399,16 +2334,13 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @Contract(pure = true)
     public final F withCffuFactory(CffuFactory cffuFactory) {
-        // NOTE: Copy the underlying cf to ensure this method/with* methods create a new Cffu instance with NEW cf instance,
-        //       preventing modifications/write methods to the new returned Cffu instance from affecting this Cffu in surprise
-        return create(cffuFactory, isMinimalStage, copy0(cf));
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     // endregion
     ////////////////////////////////////////////////////////////////////////////////
     // region# Getter Methods of Cffu properties
     ////////////////////////////////////////////////////////////////////////////////
-
     /**
      * Returns the default Executor used for async methods that do not specify an Executor.
      * Config from the {@link CffuFactory#defaultExecutor()},
@@ -2421,7 +2353,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @Contract(pure = true)
     public final Executor defaultExecutor() {
-        return fac.defaultExecutor();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2433,7 +2365,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @Contract(pure = true)
     public final CffuFactory cffuFactory() {
-        return fac;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2444,7 +2376,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @Contract(pure = true)
     public final boolean forbidObtrudeMethods() {
-        return fac.forbidObtrudeMethods;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2461,14 +2393,13 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @Contract(pure = true)
     public final boolean isMinimalStage() {
-        return isMinimalStage;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     // endregion
     ////////////////////////////////////////////////////////////////////////////////
     // region# Inspection Methods
     ////////////////////////////////////////////////////////////////////////////////
-
     /**
      * Returns the estimated number of CompletableFuture(including Cffu wrapper)
      * whose completions are awaiting completion of this Cffu, i.e. its underlying CompletableFuture.
@@ -2479,8 +2410,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @Contract(pure = true)
     public final int getNumberOfDependents() {
-        checkMinimalStage();
-        return cf.getNumberOfDependents();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     // endregion
@@ -2494,7 +2424,6 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
     //  - for API compatibility with CompletableFuture
     //    - newIncompleteFuture()
     ////////////////////////////////////////////////////////////////////////////////
-
     /**
      * Forcibly sets or resets the value subsequently returned by method {@link #get()} and related methods,
      * whether already completed or not. This method is designed for use only in error recovery actions, and even in
@@ -2505,9 +2434,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      * @see CffuFactory#forbidObtrudeMethods()
      */
     public final void obtrudeValue(@Nullable T value) {
-        checkMinimalStage();
-        checkForbidObtrudeMethods();
-        cf.obtrudeValue(value);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2521,9 +2448,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      * @see CffuFactory#forbidObtrudeMethods()
      */
     public final void obtrudeException(Throwable ex) {
-        checkMinimalStage();
-        checkForbidObtrudeMethods();
-        cf.obtrudeException(ex);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2538,7 +2463,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
     @Contract(pure = true)
     @SuppressFBWarnings("EI_EXPOSE_REP")
     public final CompletableFuture<T> cffuUnwrap() {
-        return cf;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2553,7 +2478,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      */
     @Contract(pure = true)
     public final <U> Cffu<U> newIncompleteFuture() {
-        return fac.newIncompleteCffu();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2569,14 +2494,13 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
     @Contract(pure = true)
     @Override
     public final String toString() {
-        return getClass().getSimpleName() + "@" + Integer.toHexString(System.identityHashCode(this)) + "(" + cf + ")";
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     // endregion
     ////////////////////////////////////////////////////////////////////////////////
     // region# More Ops
     ////////////////////////////////////////////////////////////////////////////////
-
     /**
      * Returns a {@link CffuFactory.IterableOps} instance to access the {@link Iterable}-based variants
      * (including {@link Collection}, {@link List}, etc.) of same-named varargs methods from {@link Cffu}.
@@ -2585,7 +2509,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      * @see CfIterableUtils
      */
     public final IterableOps iterableOps() {
-        return new IterableOps();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2596,7 +2520,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      * @see CfTupleUtils
      */
     public final TupleOps tupleOps() {
-        return new TupleOps();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -2605,6 +2529,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      * These methods handle multiple actions and Futures with the same type, i.e. homogeneous.
      */
     public final class IterableOps {
+
         ////////////////////////////////////////////////////////////
         // Then-Multi-Actions(thenM*) Methods
         //
@@ -2612,13 +2537,12 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
         //    - thenMAccept*(Iterable<Consumer>: T -> Void)    -> CompletableFuture<Void>
         //    - thenMRun*   (Iterable<Runnable>: Void -> Void) -> CompletableFuture<Void>
         ////////////////////////////////////////////////////////////
-
         /**
          * Iterable variant of {@link BaseCffu#thenMApplyFailFastAsync(Function[])}.
          */
         @CheckReturnValue(explanation = "should use the returned MCffu; otherwise, use method `thenMAcceptAsyncAndForget`")
         public <U> MCffu<U, List<U>> thenMApplyFailFastAsync(Iterable<? extends Function<? super T, ? extends U>> fns) {
-            return thenMApplyFailFastAsync(fns, fac.defaultExecutor);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -2626,46 +2550,39 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
          */
         @CheckReturnValue(explanation = "should use the returned MCffu; otherwise, use method `thenMAcceptAsyncAndForget`")
         public <U> MCffu<U, List<U>> thenMApplyFailFastAsync(Iterable<? extends Function<? super T, ? extends U>> fns, Executor executor) {
-            return createMCffu(CfIterableUtils.thenMApplyFailFastAsync(cf, fns, cffuScreened(executor)));
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
          * Iterable variant of {@link BaseCffu#thenMApplyAllSuccessAsync(Object, Function[])}.
          */
         @CheckReturnValue(explanation = "should use the returned MCffu; otherwise, use method `thenMAcceptAsyncAndForget`")
-        public <U> MCffu<U, List<U>> thenMApplyAllSuccessAsync(
-                @Nullable U valueIfFailed, Iterable<? extends Function<? super T, ? extends U>> fns) {
-            return thenMApplyAllSuccessAsync(valueIfFailed, fns, fac.defaultExecutor);
+        public <U> MCffu<U, List<U>> thenMApplyAllSuccessAsync(@Nullable U valueIfFailed, Iterable<? extends Function<? super T, ? extends U>> fns) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
          * Iterable variant of {@link BaseCffu#thenMApplyAllSuccessAsync(Executor, Object, Function[])}.
          */
         @CheckReturnValue(explanation = "should use the returned MCffu; otherwise, use method `thenMAcceptAsyncAndForget`")
-        public <U> MCffu<U, List<U>> thenMApplyAllSuccessAsync(
-                @Nullable U valueIfFailed, Iterable<? extends Function<? super T, ? extends U>> fns, Executor executor) {
-            return createMCffu(CfIterableUtils.thenMApplyAllSuccessAsync(cf, valueIfFailed, fns, cffuScreened(executor)));
+        public <U> MCffu<U, List<U>> thenMApplyAllSuccessAsync(@Nullable U valueIfFailed, Iterable<? extends Function<? super T, ? extends U>> fns, Executor executor) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
          * Iterable variant of {@link BaseCffu#thenMApplyMostSuccessAsync(Object, long, TimeUnit, Function[])}.
          */
         @CheckReturnValue(explanation = "should use the returned MCffu; otherwise, use method `thenMAcceptAsyncAndForget`")
-        public <U> MCffu<U, List<U>> thenMApplyMostSuccessAsync(
-                @Nullable U valueIfNotSuccess, long timeout, TimeUnit unit,
-                Iterable<? extends Function<? super T, ? extends U>> fns) {
-            return thenMApplyMostSuccessAsync(valueIfNotSuccess, timeout, unit, fns, fac.defaultExecutor);
+        public <U> MCffu<U, List<U>> thenMApplyMostSuccessAsync(@Nullable U valueIfNotSuccess, long timeout, TimeUnit unit, Iterable<? extends Function<? super T, ? extends U>> fns) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
          * Iterable variant of {@link BaseCffu#thenMApplyMostSuccessAsync(Executor, Object, long, TimeUnit, Function[])}.
          */
         @CheckReturnValue(explanation = "should use the returned MCffu; otherwise, use method `thenMAcceptAsyncAndForget`")
-        public <U> MCffu<U, List<U>> thenMApplyMostSuccessAsync(
-                @Nullable U valueIfNotSuccess, long timeout, TimeUnit unit,
-                Iterable<? extends Function<? super T, ? extends U>> fns, Executor executor) {
-            return createMCffu(CfIterableUtils.thenMApplyMostSuccessAsync(
-                    cf, valueIfNotSuccess, timeout, unit, fns, cffuScreened(executor)));
+        public <U> MCffu<U, List<U>> thenMApplyMostSuccessAsync(@Nullable U valueIfNotSuccess, long timeout, TimeUnit unit, Iterable<? extends Function<? super T, ? extends U>> fns, Executor executor) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -2673,7 +2590,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
          */
         @CheckReturnValue(explanation = "should use the returned MCffu; otherwise, use method `thenMAcceptAsyncAndForget`")
         public <U> MCffu<U, List<U>> thenMApplyAsync(Iterable<? extends Function<? super T, ? extends U>> fns) {
-            return thenMApplyAsync(fns, fac.defaultExecutor);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -2681,7 +2598,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
          */
         @CheckReturnValue(explanation = "should use the returned MCffu; otherwise, use method `thenMAcceptAsyncAndForget`")
         public <U> MCffu<U, List<U>> thenMApplyAsync(Iterable<? extends Function<? super T, ? extends U>> fns, Executor executor) {
-            return createMCffu(CfIterableUtils.thenMApplyAsync(cf, fns, cffuScreened(executor)));
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -2689,7 +2606,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
         public <U> Cffu<U> thenMApplyAnySuccessAsync(Iterable<? extends Function<? super T, ? extends U>> fns) {
-            return thenMApplyAnySuccessAsync(fns, fac.defaultExecutor);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -2697,7 +2614,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
         public <U> Cffu<U> thenMApplyAnySuccessAsync(Iterable<? extends Function<? super T, ? extends U>> fns, Executor executor) {
-            return createCffu(CfIterableUtils.thenMApplyAnySuccessAsync(cf, fns, cffuScreened(executor)));
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -2705,7 +2622,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
         public <U> Cffu<U> thenMApplyAnyAsync(Iterable<? extends Function<? super T, ? extends U>> fns) {
-            return thenMApplyAnyAsync(fns, fac.defaultExecutor);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -2713,7 +2630,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
         public <U> Cffu<U> thenMApplyAnyAsync(Iterable<? extends Function<? super T, ? extends U>> fns, Executor executor) {
-            return createCffu(CfIterableUtils.thenMApplyAnyAsync(cf, fns, cffuScreened(executor)));
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -2721,7 +2638,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
         public Cffu<Void> thenMAcceptFailFastAsync(Iterable<? extends Consumer<? super T>> actions) {
-            return thenMAcceptFailFastAsync(actions, fac.defaultExecutor);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -2729,7 +2646,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
         public Cffu<Void> thenMAcceptFailFastAsync(Iterable<? extends Consumer<? super T>> actions, Executor executor) {
-            return createCffu(CfIterableUtils.thenMAcceptFailFastAsync(cf, actions, cffuScreened(executor)));
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -2737,7 +2654,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
         public Cffu<Void> thenMAcceptAsync(Iterable<? extends Consumer<? super T>> actions) {
-            return thenMAcceptAsync(actions, fac.defaultExecutor);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -2745,7 +2662,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
         public Cffu<Void> thenMAcceptAsync(Iterable<? extends Consumer<? super T>> actions, Executor executor) {
-            return createCffu(CfIterableUtils.thenMAcceptAsync(cf, actions, cffuScreened(executor)));
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -2753,7 +2670,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
         public Cffu<Void> thenMAcceptAnySuccessAsync(Iterable<? extends Consumer<? super T>> actions) {
-            return thenMAcceptAnySuccessAsync(actions, fac.defaultExecutor);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -2761,7 +2678,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
         public Cffu<Void> thenMAcceptAnySuccessAsync(Iterable<? extends Consumer<? super T>> actions, Executor executor) {
-            return createCffu(CfIterableUtils.thenMAcceptAnySuccessAsync(cf, actions, cffuScreened(executor)));
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -2769,7 +2686,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
         public Cffu<Void> thenMAcceptAnyAsync(Iterable<? extends Consumer<? super T>> actions) {
-            return thenMAcceptAnyAsync(actions, fac.defaultExecutor);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -2777,7 +2694,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
         public Cffu<Void> thenMAcceptAnyAsync(Iterable<? extends Consumer<? super T>> actions, Executor executor) {
-            return createCffu(CfIterableUtils.thenMAcceptAnyAsync(cf, actions, cffuScreened(executor)));
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -2786,7 +2703,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
          * @since 2.1.0
          */
         public F thenMAcceptAsyncAndForget(Iterable<? extends Consumer<? super T>> actions) {
-            return thenMAcceptAsyncAndForget(actions, fac.defaultExecutor);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -2795,8 +2712,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
          * @since 2.1.0
          */
         public F thenMAcceptAsyncAndForget(Iterable<? extends Consumer<? super T>> actions, Executor executor) {
-            CfIterableUtils.thenMAcceptAsyncAndForget(cf, actions, cffuScreened(executor));
-            return this_();
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -2804,7 +2720,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMRunAsyncAndForget`")
         public Cffu<Void> thenMRunFailFastAsync(Iterable<? extends Runnable> actions) {
-            return thenMRunFailFastAsync(actions, fac.defaultExecutor);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -2812,7 +2728,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMRunAsyncAndForget`")
         public Cffu<Void> thenMRunFailFastAsync(Iterable<? extends Runnable> actions, Executor executor) {
-            return createCffu(CfIterableUtils.thenMRunFailFastAsync(cf, actions, cffuScreened(executor)));
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -2820,7 +2736,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMRunAsyncAndForget`")
         public Cffu<Void> thenMRunAsync(Iterable<? extends Runnable> actions) {
-            return thenMRunAsync(actions, fac.defaultExecutor);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -2828,7 +2744,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMRunAsyncAndForget`")
         public Cffu<Void> thenMRunAsync(Iterable<? extends Runnable> actions, Executor executor) {
-            return createCffu(CfIterableUtils.thenMRunAsync(cf, actions, cffuScreened(executor)));
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -2836,7 +2752,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMRunAsyncAndForget`")
         public Cffu<Void> thenMRunAnySuccessAsync(Iterable<? extends Runnable> actions) {
-            return thenMRunAnySuccessAsync(actions, fac.defaultExecutor);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -2844,7 +2760,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMRunAsyncAndForget`")
         public Cffu<Void> thenMRunAnySuccessAsync(Iterable<? extends Runnable> actions, Executor executor) {
-            return createCffu(CfIterableUtils.thenMRunAnySuccessAsync(cf, actions, cffuScreened(executor)));
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -2852,7 +2768,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMRunAsyncAndForget`")
         public Cffu<Void> thenMRunAnyAsync(Iterable<? extends Runnable> actions) {
-            return thenMRunAnyAsync(actions, fac.defaultExecutor);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -2860,7 +2776,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMRunAsyncAndForget`")
         public Cffu<Void> thenMRunAnyAsync(Iterable<? extends Runnable> actions, Executor executor) {
-            return createCffu(CfIterableUtils.thenMRunAnyAsync(cf, actions, cffuScreened(executor)));
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -2869,7 +2785,7 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
          * @since 2.1.0
          */
         public F thenMRunAsyncAndForget(Iterable<? extends Runnable> actions) {
-            return thenMRunAsyncAndForget(actions, fac.defaultExecutor);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -2878,11 +2794,11 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
          * @since 2.1.0
          */
         public F thenMRunAsyncAndForget(Iterable<? extends Runnable> actions, Executor executor) {
-            CfIterableUtils.thenMRunAsyncAndForget(cf, actions, cffuScreened(executor));
-            return this_();
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        private IterableOps() {}
+        private IterableOps() {
+        }
     }
 
     /**
@@ -2897,88 +2813,72 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
      * @see CfTupleUtils
      */
     public final class TupleOps {
+
         ////////////////////////////////////////////////////////////
         // Then-Multi-Actions-Tuple(thenMTuple*) Methods
         ////////////////////////////////////////////////////////////
-
         /**
          * Tuple variant of {@link #thenMApplyFailFastAsync(Function[])}.
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
-        public <U1, U2> Cffu<Tuple2<U1, U2>> thenMApplyTupleFailFastAsync(
-                Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2) {
-            return thenMApplyTupleFailFastAsync(fn1, fn2, fac.defaultExecutor);
+        public <U1, U2> Cffu<Tuple2<U1, U2>> thenMApplyTupleFailFastAsync(Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
          * Tuple variant of {@link #thenMApplyFailFastAsync(Executor, Function[])}.
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
-        public <U1, U2> Cffu<Tuple2<U1, U2>> thenMApplyTupleFailFastAsync(
-                Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2, Executor executor) {
-            return createCffu(CfTupleUtils.thenMApplyTupleFailFastAsync(cf, fn1, fn2, cffuScreened(executor)));
+        public <U1, U2> Cffu<Tuple2<U1, U2>> thenMApplyTupleFailFastAsync(Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2, Executor executor) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
          * Tuple variant of {@link #thenMApplyFailFastAsync(Function[])}.
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
-        public <U1, U2, U3> Cffu<Tuple3<U1, U2, U3>> thenMApplyTupleFailFastAsync(
-                Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2,
-                Function<? super T, ? extends U3> fn3) {
-            return thenMApplyTupleFailFastAsync(fn1, fn2, fn3, fac.defaultExecutor);
+        public <U1, U2, U3> Cffu<Tuple3<U1, U2, U3>> thenMApplyTupleFailFastAsync(Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2, Function<? super T, ? extends U3> fn3) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
          * Tuple variant of {@link #thenMApplyFailFastAsync(Executor, Function[])}.
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
-        public <U1, U2, U3> Cffu<Tuple3<U1, U2, U3>> thenMApplyTupleFailFastAsync(
-                Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2,
-                Function<? super T, ? extends U3> fn3, Executor executor) {
-            return createCffu(CfTupleUtils.thenMApplyTupleFailFastAsync(cf, fn1, fn2, fn3, cffuScreened(executor)));
+        public <U1, U2, U3> Cffu<Tuple3<U1, U2, U3>> thenMApplyTupleFailFastAsync(Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2, Function<? super T, ? extends U3> fn3, Executor executor) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
          * Tuple variant of {@link #thenMApplyFailFastAsync(Function[])}.
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
-        public <U1, U2, U3, U4> Cffu<Tuple4<U1, U2, U3, U4>> thenMApplyTupleFailFastAsync(
-                Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2,
-                Function<? super T, ? extends U3> fn3, Function<? super T, ? extends U4> fn4) {
-            return thenMApplyTupleFailFastAsync(fn1, fn2, fn3, fn4, fac.defaultExecutor);
+        public <U1, U2, U3, U4> Cffu<Tuple4<U1, U2, U3, U4>> thenMApplyTupleFailFastAsync(Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2, Function<? super T, ? extends U3> fn3, Function<? super T, ? extends U4> fn4) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
          * Tuple variant of {@link #thenMApplyFailFastAsync(Executor, Function[])}.
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
-        public <U1, U2, U3, U4> Cffu<Tuple4<U1, U2, U3, U4>> thenMApplyTupleFailFastAsync(
-                Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2,
-                Function<? super T, ? extends U3> fn3, Function<? super T, ? extends U4> fn4, Executor executor) {
-            return createCffu(CfTupleUtils.thenMApplyTupleFailFastAsync(cf, fn1, fn2, fn3, fn4, cffuScreened(executor)));
+        public <U1, U2, U3, U4> Cffu<Tuple4<U1, U2, U3, U4>> thenMApplyTupleFailFastAsync(Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2, Function<? super T, ? extends U3> fn3, Function<? super T, ? extends U4> fn4, Executor executor) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
          * Tuple variant of {@link #thenMApplyFailFastAsync(Function[])}.
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
-        public <U1, U2, U3, U4, U5> Cffu<Tuple5<U1, U2, U3, U4, U5>> thenMApplyTupleFailFastAsync(
-                Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2,
-                Function<? super T, ? extends U3> fn3, Function<? super T, ? extends U4> fn4,
-                Function<? super T, ? extends U5> fn5) {
-            return thenMApplyTupleFailFastAsync(fn1, fn2, fn3, fn4, fn5, fac.defaultExecutor);
+        public <U1, U2, U3, U4, U5> Cffu<Tuple5<U1, U2, U3, U4, U5>> thenMApplyTupleFailFastAsync(Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2, Function<? super T, ? extends U3> fn3, Function<? super T, ? extends U4> fn4, Function<? super T, ? extends U5> fn5) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
          * Tuple variant of {@link #thenMApplyFailFastAsync(Executor, Function[])}.
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
-        public <U1, U2, U3, U4, U5> Cffu<Tuple5<U1, U2, U3, U4, U5>> thenMApplyTupleFailFastAsync(
-                Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2,
-                Function<? super T, ? extends U3> fn3, Function<? super T, ? extends U4> fn4,
-                Function<? super T, ? extends U5> fn5, Executor executor) {
-            return createCffu(CfTupleUtils.thenMApplyTupleFailFastAsync(cf, fn1, fn2, fn3, fn4, fn5, cffuScreened(executor)));
+        public <U1, U2, U3, U4, U5> Cffu<Tuple5<U1, U2, U3, U4, U5>> thenMApplyTupleFailFastAsync(Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2, Function<? super T, ? extends U3> fn3, Function<? super T, ? extends U4> fn4, Function<? super T, ? extends U5> fn5, Executor executor) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -2988,9 +2888,8 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
          * (which is indistinguishable from the function having a successful value of {@code null}).
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
-        public <U1, U2> Cffu<Tuple2<U1, U2>> thenMApplyAllSuccessTupleAsync(
-                Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2) {
-            return thenMApplyAllSuccessTupleAsync(fn1, fn2, fac.defaultExecutor);
+        public <U1, U2> Cffu<Tuple2<U1, U2>> thenMApplyAllSuccessTupleAsync(Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -3000,9 +2899,8 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
          * (which is indistinguishable from the function having a successful value of {@code null}).
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
-        public <U1, U2> Cffu<Tuple2<U1, U2>> thenMApplyAllSuccessTupleAsync(
-                Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2, Executor executor) {
-            return createCffu(CfTupleUtils.thenMApplyAllSuccessTupleAsync(cf, fn1, fn2, cffuScreened(executor)));
+        public <U1, U2> Cffu<Tuple2<U1, U2>> thenMApplyAllSuccessTupleAsync(Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2, Executor executor) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -3012,10 +2910,8 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
          * (which is indistinguishable from the function having a successful value of {@code null}).
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
-        public <U1, U2, U3> Cffu<Tuple3<U1, U2, U3>> thenMApplyAllSuccessTupleAsync(
-                Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2,
-                Function<? super T, ? extends U3> fn3) {
-            return thenMApplyAllSuccessTupleAsync(fn1, fn2, fn3, fac.defaultExecutor);
+        public <U1, U2, U3> Cffu<Tuple3<U1, U2, U3>> thenMApplyAllSuccessTupleAsync(Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2, Function<? super T, ? extends U3> fn3) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -3025,10 +2921,8 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
          * (which is indistinguishable from the function having a successful value of {@code null}).
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
-        public <U1, U2, U3> Cffu<Tuple3<U1, U2, U3>> thenMApplyAllSuccessTupleAsync(
-                Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2,
-                Function<? super T, ? extends U3> fn3, Executor executor) {
-            return createCffu(CfTupleUtils.thenMApplyAllSuccessTupleAsync(cf, fn1, fn2, fn3, cffuScreened(executor)));
+        public <U1, U2, U3> Cffu<Tuple3<U1, U2, U3>> thenMApplyAllSuccessTupleAsync(Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2, Function<? super T, ? extends U3> fn3, Executor executor) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -3038,10 +2932,8 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
          * (which is indistinguishable from the function having a successful value of {@code null}).
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
-        public <U1, U2, U3, U4> Cffu<Tuple4<U1, U2, U3, U4>> thenMApplyAllSuccessTupleAsync(
-                Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2,
-                Function<? super T, ? extends U3> fn3, Function<? super T, ? extends U4> fn4) {
-            return thenMApplyAllSuccessTupleAsync(fn1, fn2, fn3, fn4, fac.defaultExecutor);
+        public <U1, U2, U3, U4> Cffu<Tuple4<U1, U2, U3, U4>> thenMApplyAllSuccessTupleAsync(Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2, Function<? super T, ? extends U3> fn3, Function<? super T, ? extends U4> fn4) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -3051,10 +2943,8 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
          * (which is indistinguishable from the function having a successful value of {@code null}).
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
-        public <U1, U2, U3, U4> Cffu<Tuple4<U1, U2, U3, U4>> thenMApplyAllSuccessTupleAsync(
-                Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2,
-                Function<? super T, ? extends U3> fn3, Function<? super T, ? extends U4> fn4, Executor executor) {
-            return createCffu(CfTupleUtils.thenMApplyAllSuccessTupleAsync(cf, fn1, fn2, fn3, fn4, cffuScreened(executor)));
+        public <U1, U2, U3, U4> Cffu<Tuple4<U1, U2, U3, U4>> thenMApplyAllSuccessTupleAsync(Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2, Function<? super T, ? extends U3> fn3, Function<? super T, ? extends U4> fn4, Executor executor) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -3064,11 +2954,8 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
          * (which is indistinguishable from the function having a successful value of {@code null}).
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
-        public <U1, U2, U3, U4, U5> Cffu<Tuple5<U1, U2, U3, U4, U5>> thenMApplyAllSuccessTupleAsync(
-                Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2,
-                Function<? super T, ? extends U3> fn3, Function<? super T, ? extends U4> fn4,
-                Function<? super T, ? extends U5> fn5) {
-            return thenMApplyAllSuccessTupleAsync(fn1, fn2, fn3, fn4, fn5, fac.defaultExecutor);
+        public <U1, U2, U3, U4, U5> Cffu<Tuple5<U1, U2, U3, U4, U5>> thenMApplyAllSuccessTupleAsync(Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2, Function<? super T, ? extends U3> fn3, Function<? super T, ? extends U4> fn4, Function<? super T, ? extends U5> fn5) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -3078,11 +2965,8 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
          * (which is indistinguishable from the function having a successful value of {@code null}).
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
-        public <U1, U2, U3, U4, U5> Cffu<Tuple5<U1, U2, U3, U4, U5>> thenMApplyAllSuccessTupleAsync(
-                Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2,
-                Function<? super T, ? extends U3> fn3, Function<? super T, ? extends U4> fn4,
-                Function<? super T, ? extends U5> fn5, Executor executor) {
-            return createCffu(CfTupleUtils.thenMApplyAllSuccessTupleAsync(cf, fn1, fn2, fn3, fn4, fn5, cffuScreened(executor)));
+        public <U1, U2, U3, U4, U5> Cffu<Tuple5<U1, U2, U3, U4, U5>> thenMApplyAllSuccessTupleAsync(Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2, Function<? super T, ? extends U3> fn3, Function<? super T, ? extends U4> fn4, Function<? super T, ? extends U5> fn5, Executor executor) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -3093,9 +2977,8 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
          * (which is indistinguishable from the supplier having a successful value of {@code null}).
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
-        public <U1, U2> Cffu<Tuple2<U1, U2>> thenMApplyMostSuccessTupleAsync(
-                long timeout, TimeUnit unit, Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2) {
-            return thenMApplyMostSuccessTupleAsync(timeout, unit, fn1, fn2, fac.defaultExecutor);
+        public <U1, U2> Cffu<Tuple2<U1, U2>> thenMApplyMostSuccessTupleAsync(long timeout, TimeUnit unit, Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -3106,11 +2989,8 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
          * (which is indistinguishable from the supplier having a successful value of {@code null}).
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
-        public <U1, U2> Cffu<Tuple2<U1, U2>> thenMApplyMostSuccessTupleAsync(
-                long timeout, TimeUnit unit, Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2,
-                Executor executor) {
-            return createCffu(CfTupleUtils.thenMApplyMostSuccessTupleAsync(
-                    cf, timeout, unit, fn1, fn2, cffuScreened(executor)));
+        public <U1, U2> Cffu<Tuple2<U1, U2>> thenMApplyMostSuccessTupleAsync(long timeout, TimeUnit unit, Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2, Executor executor) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -3121,10 +3001,8 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
          * (which is indistinguishable from the supplier having a successful value of {@code null}).
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
-        public <U1, U2, U3> Cffu<Tuple3<U1, U2, U3>> thenMApplyMostSuccessTupleAsync(
-                long timeout, TimeUnit unit, Function<? super T, ? extends U1> fn1,
-                Function<? super T, ? extends U2> fn2, Function<? super T, ? extends U3> fn3) {
-            return thenMApplyMostSuccessTupleAsync(timeout, unit, fn1, fn2, fn3, fac.defaultExecutor);
+        public <U1, U2, U3> Cffu<Tuple3<U1, U2, U3>> thenMApplyMostSuccessTupleAsync(long timeout, TimeUnit unit, Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2, Function<? super T, ? extends U3> fn3) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -3135,11 +3013,8 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
          * (which is indistinguishable from the supplier having a successful value of {@code null}).
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
-        public <U1, U2, U3> Cffu<Tuple3<U1, U2, U3>> thenMApplyMostSuccessTupleAsync(
-                long timeout, TimeUnit unit, Function<? super T, ? extends U1> fn1,
-                Function<? super T, ? extends U2> fn2, Function<? super T, ? extends U3> fn3, Executor executor) {
-            return createCffu(CfTupleUtils.thenMApplyMostSuccessTupleAsync(
-                    cf, timeout, unit, fn1, fn2, fn3, cffuScreened(executor)));
+        public <U1, U2, U3> Cffu<Tuple3<U1, U2, U3>> thenMApplyMostSuccessTupleAsync(long timeout, TimeUnit unit, Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2, Function<? super T, ? extends U3> fn3, Executor executor) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -3150,10 +3025,8 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
          * (which is indistinguishable from the supplier having a successful value of {@code null}).
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
-        public <U1, U2, U3, U4> Cffu<Tuple4<U1, U2, U3, U4>> thenMApplyMostSuccessTupleAsync(
-                long timeout, TimeUnit unit, Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2,
-                Function<? super T, ? extends U3> fn3, Function<? super T, ? extends U4> fn4) {
-            return thenMApplyMostSuccessTupleAsync(timeout, unit, fn1, fn2, fn3, fn4, fac.defaultExecutor);
+        public <U1, U2, U3, U4> Cffu<Tuple4<U1, U2, U3, U4>> thenMApplyMostSuccessTupleAsync(long timeout, TimeUnit unit, Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2, Function<? super T, ? extends U3> fn3, Function<? super T, ? extends U4> fn4) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -3164,11 +3037,8 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
          * (which is indistinguishable from the supplier having a successful value of {@code null}).
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
-        public <U1, U2, U3, U4> Cffu<Tuple4<U1, U2, U3, U4>> thenMApplyMostSuccessTupleAsync(
-                long timeout, TimeUnit unit, Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2,
-                Function<? super T, ? extends U3> fn3, Function<? super T, ? extends U4> fn4, Executor executor) {
-            return createCffu(CfTupleUtils.thenMApplyMostSuccessTupleAsync(
-                    cf, timeout, unit, fn1, fn2, fn3, fn4, cffuScreened(executor)));
+        public <U1, U2, U3, U4> Cffu<Tuple4<U1, U2, U3, U4>> thenMApplyMostSuccessTupleAsync(long timeout, TimeUnit unit, Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2, Function<? super T, ? extends U3> fn3, Function<? super T, ? extends U4> fn4, Executor executor) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -3179,11 +3049,8 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
          * (which is indistinguishable from the supplier having a successful value of {@code null}).
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
-        public <U1, U2, U3, U4, U5> Cffu<Tuple5<U1, U2, U3, U4, U5>> thenMApplyMostSuccessTupleAsync(
-                long timeout, TimeUnit unit, Function<? super T, ? extends U1> fn1,
-                Function<? super T, ? extends U2> fn2, Function<? super T, ? extends U3> fn3,
-                Function<? super T, ? extends U4> fn4, Function<? super T, ? extends U5> fn5) {
-            return thenMApplyMostSuccessTupleAsync(timeout, unit, fn1, fn2, fn3, fn4, fn5, fac.defaultExecutor);
+        public <U1, U2, U3, U4, U5> Cffu<Tuple5<U1, U2, U3, U4, U5>> thenMApplyMostSuccessTupleAsync(long timeout, TimeUnit unit, Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2, Function<? super T, ? extends U3> fn3, Function<? super T, ? extends U4> fn4, Function<? super T, ? extends U5> fn5) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -3194,110 +3061,90 @@ public abstract class BaseCffu<T, F extends BaseCffu<T, F>> implements Future<T>
          * (which is indistinguishable from the supplier having a successful value of {@code null}).
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
-        public <U1, U2, U3, U4, U5> Cffu<Tuple5<U1, U2, U3, U4, U5>> thenMApplyMostSuccessTupleAsync(
-                long timeout, TimeUnit unit, Function<? super T, ? extends U1> fn1,
-                Function<? super T, ? extends U2> fn2, Function<? super T, ? extends U3> fn3,
-                Function<? super T, ? extends U4> fn4, Function<? super T, ? extends U5> fn5, Executor executor) {
-            return createCffu(CfTupleUtils.thenMApplyMostSuccessTupleAsync(
-                    cf, timeout, unit, fn1, fn2, fn3, fn4, fn5, cffuScreened(executor)));
+        public <U1, U2, U3, U4, U5> Cffu<Tuple5<U1, U2, U3, U4, U5>> thenMApplyMostSuccessTupleAsync(long timeout, TimeUnit unit, Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2, Function<? super T, ? extends U3> fn3, Function<? super T, ? extends U4> fn4, Function<? super T, ? extends U5> fn5, Executor executor) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
          * Tuple variant of {@link #thenMApplyAsync(Function[])}.
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
-        public <U1, U2> Cffu<Tuple2<U1, U2>> thenMApplyTupleAsync(
-                Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2) {
-            return thenMApplyTupleAsync(fn1, fn2, fac.defaultExecutor);
+        public <U1, U2> Cffu<Tuple2<U1, U2>> thenMApplyTupleAsync(Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
          * Tuple variant of {@link #thenMApplyAsync(Executor, Function[])}.
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
-        public <U1, U2> Cffu<Tuple2<U1, U2>> thenMApplyTupleAsync(
-                Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2, Executor executor) {
-            return createCffu(CfTupleUtils.thenMApplyTupleAsync(cf, fn1, fn2, cffuScreened(executor)));
+        public <U1, U2> Cffu<Tuple2<U1, U2>> thenMApplyTupleAsync(Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2, Executor executor) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
          * Tuple variant of {@link #thenMApplyAsync(Function[])}.
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
-        public <U1, U2, U3> Cffu<Tuple3<U1, U2, U3>> thenMApplyTupleAsync(
-                Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2,
-                Function<? super T, ? extends U3> fn3) {
-            return thenMApplyTupleAsync(fn1, fn2, fn3, fac.defaultExecutor);
+        public <U1, U2, U3> Cffu<Tuple3<U1, U2, U3>> thenMApplyTupleAsync(Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2, Function<? super T, ? extends U3> fn3) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
          * Tuple variant of {@link #thenMApplyAsync(Executor, Function[])}.
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
-        public <U1, U2, U3> Cffu<Tuple3<U1, U2, U3>> thenMApplyTupleAsync(
-                Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2,
-                Function<? super T, ? extends U3> fn3, Executor executor) {
-            return createCffu(CfTupleUtils.thenMApplyTupleAsync(cf, fn1, fn2, fn3, cffuScreened(executor)));
+        public <U1, U2, U3> Cffu<Tuple3<U1, U2, U3>> thenMApplyTupleAsync(Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2, Function<? super T, ? extends U3> fn3, Executor executor) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
          * Tuple variant of {@link #thenMApplyAsync(Function[])}.
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
-        public <U1, U2, U3, U4> Cffu<Tuple4<U1, U2, U3, U4>> thenMApplyTupleAsync(
-                Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2,
-                Function<? super T, ? extends U3> fn3, Function<? super T, ? extends U4> fn4) {
-            return thenMApplyTupleAsync(fn1, fn2, fn3, fn4, fac.defaultExecutor);
+        public <U1, U2, U3, U4> Cffu<Tuple4<U1, U2, U3, U4>> thenMApplyTupleAsync(Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2, Function<? super T, ? extends U3> fn3, Function<? super T, ? extends U4> fn4) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
          * Tuple variant of {@link #thenMApplyAsync(Executor, Function[])}.
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
-        public <U1, U2, U3, U4> Cffu<Tuple4<U1, U2, U3, U4>> thenMApplyTupleAsync(
-                Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2,
-                Function<? super T, ? extends U3> fn3, Function<? super T, ? extends U4> fn4, Executor executor) {
-            return createCffu(CfTupleUtils.thenMApplyTupleAsync(cf, fn1, fn2, fn3, fn4, cffuScreened(executor)));
+        public <U1, U2, U3, U4> Cffu<Tuple4<U1, U2, U3, U4>> thenMApplyTupleAsync(Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2, Function<? super T, ? extends U3> fn3, Function<? super T, ? extends U4> fn4, Executor executor) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
          * Tuple variant of {@link #thenMApplyAsync(Function[])}.
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
-        public <U1, U2, U3, U4, U5> Cffu<Tuple5<U1, U2, U3, U4, U5>> thenMApplyTupleAsync(
-                Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2,
-                Function<? super T, ? extends U3> fn3, Function<? super T, ? extends U4> fn4,
-                Function<? super T, ? extends U5> fn5) {
-            return thenMApplyTupleAsync(fn1, fn2, fn3, fn4, fn5, fac.defaultExecutor);
+        public <U1, U2, U3, U4, U5> Cffu<Tuple5<U1, U2, U3, U4, U5>> thenMApplyTupleAsync(Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2, Function<? super T, ? extends U3> fn3, Function<? super T, ? extends U4> fn4, Function<? super T, ? extends U5> fn5) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
          * Tuple variant of {@link #thenMApplyAsync(Executor, Function[])}.
          */
         @CheckReturnValue(explanation = "should use the returned Cffu; otherwise, use method `thenMAcceptAsyncAndForget`")
-        public <U1, U2, U3, U4, U5> Cffu<Tuple5<U1, U2, U3, U4, U5>> thenMApplyTupleAsync(
-                Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2,
-                Function<? super T, ? extends U3> fn3, Function<? super T, ? extends U4> fn4,
-                Function<? super T, ? extends U5> fn5, Executor executor) {
-            return createCffu(CfTupleUtils.thenMApplyTupleAsync(cf, fn1, fn2, fn3, fn4, fn5, cffuScreened(executor)));
+        public <U1, U2, U3, U4, U5> Cffu<Tuple5<U1, U2, U3, U4, U5>> thenMApplyTupleAsync(Function<? super T, ? extends U1> fn1, Function<? super T, ? extends U2> fn2, Function<? super T, ? extends U3> fn3, Function<? super T, ? extends U4> fn4, Function<? super T, ? extends U5> fn5, Executor executor) {
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
-        private TupleOps() {}
+        private TupleOps() {
+        }
     }
 
     // endregion
     ////////////////////////////////////////////////////////////////////////////////
     // region# internal helper methods
     ////////////////////////////////////////////////////////////////////////////////
-
     /**
      * checks this is a minimal stage or not
      */
     final void checkMinimalStage() {
-        if (isMinimalStage) throw new UnsupportedOperationException("unsupported because this is a minimal stage");
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     final void checkForbidObtrudeMethods() {
-        if (fac.forbidObtrudeMethods) throw new UnsupportedOperationException("obtrude methods is forbidden by cffu");
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }
